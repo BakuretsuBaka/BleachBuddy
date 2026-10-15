@@ -357,6 +357,7 @@ function syncControls() {
   $("#deepTags").checked = settings.deepTags;
   $("#redditNsfwOnly").checked = settings.redditNsfwOnly;
   $("#nativeBlacklist").checked = settings.nativeBlacklist;
+  { const n = kwfBooruTags(settings).length; $("#nativeCount").textContent = `${n} tags from your enabled lists. Rule34 and similar sites accept at most 100 in a blacklist; the rest is only filtered by BleachBuddy itself.` + (n > 100 ? " Some tags will not fit." : ""); }
   $("#extraSites").value = settings.extraSites.join("\n");
   $("#siteBlocking").checked = settings.siteBlocking;
   $("#holdUntilChecked").checked = settings.holdUntilChecked;

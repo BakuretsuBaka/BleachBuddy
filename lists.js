@@ -20,7 +20,7 @@ const KWF_CATALOG = [
         id: "ib-interracial",
         name: "Interracial: terms & acronyms",
         kind: "keywords",
-        boorus: ["interracial"],
+        boorus: ["interracial", "interracial_sex", "interracial_yuri", "interracial_couple", "interracial_fellatio", "interracial_yaoi", "interracial_anal"],
         description: "The word 'interracial' in many languages plus common pairing acronyms.",
         items: [
           // English and shared acronyms
@@ -52,8 +52,7 @@ const KWF_CATALOG = [
         id: "ib-black",
         name: "Black / Ebony: keywords",
         kind: "keywords",
-        // Exact tags for image-board sites: hidden by tag match and added to the site's own blacklist
-        boorus: ["dark_skin", "dark-skinned_male", "dark-skinned_female", "dark-skinned_futa", "dark_penis", "black_body"],
+        boorus: ["dark_skin", "dark-skinned_male", "dark-skinned_female", "dark-skinned_futa", "dark_penis", "black_body", "ebony", "black_skin", "black_cock"],
         description: "Black, Ebony, African and equivalents in many languages. Broad: 'Black' alone also hits non-adult uses.",
         items: [
           // en
@@ -131,6 +130,7 @@ const KWF_CATALOG = [
         id: "as-terms",
         name: "Asian: keywords",
         kind: "keywords",
+        boorus: ["asian", "asian_female", "asian_male", "asian_futa"],
         description: "'Asian' and related words in many languages, plus JAV.",
         items: [
           // en
@@ -170,6 +170,7 @@ const KWF_CATALOG = [
         id: "as-nationalities",
         name: "Asian: nationalities (broad)",
         kind: "keywords",
+        boorus: ["japanese_female", "japanese_male", "chinese_female", "chinese_male", "korean_female", "korean_male", "thai", "vietnamese", "filipina", "taiwanese", "indonesian"],
         description: "East and Southeast Asian nationality words in many languages. Off by default because it is broad.",
         default: false,
         items: [
@@ -208,6 +209,7 @@ const KWF_CATALOG = [
         id: "as-southasian",
         name: "South Asian: keywords",
         kind: "keywords",
+        boorus: ["indian", "desi", "south_asian"],
         description: "Desi, Indian and related regional words. Off by default because it is broad.",
         default: false,
         items: [
@@ -258,6 +260,7 @@ const KWF_CATALOG = [
         id: "tr-terms",
         name: "Trans: neutral terms",
         kind: "keywords",
+        boorus: ["transgender", "transgender_woman", "transgender_male", "trans_woman", "trans_man", "trans_girl", "transfem"],
         description: "Trans, transgender, transsexual and equivalents in many languages.",
         items: [
           // en
@@ -299,6 +302,7 @@ const KWF_CATALOG = [
         id: "tr-slang",
         name: "Trans: slang & slurs",
         kind: "keywords",
+        boorus: ["shemale", "newhalf"],
         description: "Slang and derogatory terms commonly used as site tags. Kept separate so you can pick.",
         items: [
           // en
@@ -382,6 +386,7 @@ const KWF_CATALOG = [
         id: "gy-terms",
         name: "Gay: keywords",
         kind: "keywords",
+        boorus: ["gay", "gay_sex", "yaoi", "male/male", "homosexual"],
         description: "Gay, homosexual and equivalents in many languages.",
         items: [
           // en
@@ -420,6 +425,7 @@ const KWF_CATALOG = [
         id: "gy-slang",
         name: "Gay: slang & scene terms",
         kind: "keywords",
+        boorus: ["twink"],
         description: "Twink and similar scene vocabulary.",
         items: ["Twink", "Twinks", "Twunk", "Twunks", "Gay for pay", "Gay-for-pay", "M2M", "Man on man"]
       },
@@ -479,6 +485,7 @@ const KWF_CATALOG = [
         id: "fb-terms",
         name: "Femboy & crossdressing: keywords",
         kind: "keywords",
+        boorus: ["femboy", "trap", "otoko_no_ko", "sissy", "crossdressing", "feminine_male"],
         description: "Femboy, crossdresser and equivalents in many languages.",
         items: [
           // en
@@ -511,6 +518,7 @@ const KWF_CATALOG = [
         id: "sf-parents",
         name: "Step-parents",
         kind: "keywords",
+        boorus: ["stepmother", "stepmom", "stepfather", "stepdad", "stepmother_and_stepson", "stepmother_and_stepdaughter", "stepfather_and_stepdaughter", "stepfather_and_stepson"],
         description: "Step-mom, step-dad and equivalents. 'Step mom', 'step-mom' and 'stepmom' all match.",
         items: [
           // en
@@ -556,6 +564,7 @@ const KWF_CATALOG = [
         id: "sf-siblings",
         name: "Step-siblings",
         kind: "keywords",
+        boorus: ["stepsibling", "stepsiblings", "stepsister", "stepbrother"],
         description: "Step-sister, step-brother and equivalents.",
         items: [
           // en
@@ -597,6 +606,7 @@ const KWF_CATALOG = [
         id: "sf-children",
         name: "Step-children",
         kind: "keywords",
+        boorus: ["stepson", "stepdaughter"],
         description: "Step-son, step-daughter and equivalents.",
         items: [
           // en
@@ -637,6 +647,7 @@ const KWF_CATALOG = [
         id: "sf-general",
         name: "Step-family: general terms",
         kind: "keywords",
+        boorus: ["step-incest", "stepcest"],
         description: "Family-level words such as step-family and step fantasy.",
         items: [
           "Step family", "Step fam", "Step fantasy", "Step incest",
@@ -672,6 +683,7 @@ KWF_CATALOG.push(
         id: "an-terms",
         name: "Anal: keywords",
         kind: "keywords",
+        boorus: ["anal", "anal_sex", "anal_penetration", "anal_insertion", "anal_fingering", "anal_beads", "anal_masturbation", "anal_fisting", "anal_creampie", "anal_plug", "rimjob"],
         description: "Anal and related terms in many languages. Terms starting with = are case-sensitive.",
         items: [
           // en
@@ -733,6 +745,7 @@ KWF_CATALOG.push(
         id: "gr-terms",
         name: "Gangbang, orgy, bukkake: keywords",
         kind: "keywords",
+        boorus: ["group_sex", "gangbang", "orgy", "double_penetration", "spitroast", "bukkake", "reverse_gangbang", "daisy_chain"],
         description: "Group-sex terms in many languages.",
         items: [
           // en
@@ -771,6 +784,7 @@ KWF_CATALOG.push(
         id: "gr-threesome",
         name: "Threesomes & foursomes: keywords",
         kind: "keywords",
+        boorus: ["threesome", "foursome", "mmf_threesome", "ffm_threesome", "mmf", "ffm"],
         description: "Threesome vocabulary. Off by default because it is far more common. Terms starting with = are case-sensitive.",
         default: false,
         items: [
@@ -815,6 +829,7 @@ KWF_CATALOG.push(
         id: "la-terms",
         name: "Latina / Latino: keywords",
         kind: "keywords",
+        boorus: ["latina", "latino", "hispanic"],
         description: "Latina, Latino and equivalents in many languages.",
         items: [
           // en
@@ -841,6 +856,7 @@ KWF_CATALOG.push(
         id: "la-nationalities",
         name: "Latin American nationalities (broad)",
         kind: "keywords",
+        boorus: ["mexican", "brazilian", "colombian", "cuban", "puerto_rican", "venezuelan", "argentinian"],
         description: "Mexican, Colombian, Brazilian and similar words in many languages. Off by default because it is broad.",
         default: false,
         items: [
@@ -909,6 +925,7 @@ KWF_CATALOG.push(
         id: "ai-terms",
         name: "AI & deepfake: keywords",
         kind: "keywords",
+        boorus: ["ai_generated", "ai_assisted", "stable_diffusion", "novelai", "midjourney"],
         description: "AI and deepfake terms in many languages. Terms starting with = are case-sensitive, so '=AI' does not hit names like Ai.",
         default: false,
         items: [
@@ -1011,6 +1028,8 @@ KWF_CATALOG.push(
 // Items are domains (the domain and all its subdomains) or *word* patterns (any site whose
 // address contains the word). They are blocked entirely when their list is switched on.
 
+// "boorus": exact tags used by image-board sites (Rule34, Gelbooru, ...), matched exactly there and added to the
+// site's own blacklist where that is possible. They are not translations of the keywords; booru tag names differ.
 const KWF_SITE_LISTS = {
   "interracial-black": {
     id: "ib-sites",
@@ -1088,6 +1107,7 @@ KWF_CATALOG.push({
       id: "fu-terms",
       name: "Furry / anthro: keywords",
       kind: "keywords",
+      boorus: ["furry", "anthro", "anthropomorphic", "feral", "furry_only", "furry_female", "furry_male", "anthro_on_anthro", "anthro_on_feral", "scalie", "canine", "canid", "felid", "equine", "lagomorph", "kemono", "protogen", "fursuit", "yiff"],
       description: "Furry and anthropomorphic-animal terms in many languages (booru-style tags included).",
       items: [
         // en

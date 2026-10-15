@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BleachBuddy",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Hides videos on adult sites when their title, tags, channel or performer match filter lists you choose. Multilingual lists, fully customizable.",
   "permissions": [
     "storage",

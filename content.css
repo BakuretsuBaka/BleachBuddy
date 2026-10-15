@@ -1,0 +1,19 @@
+.kwf-hide {
+  display: none !important;
+}
+
+.kwf-blur {
+  filter: blur(18px) grayscale(0.6) !important;
+  opacity: 0.5 !important;
+  transition: filter 0.15s ease, opacity 0.15s ease;
+}
+
+/* Thumbnails whose tags are still being looked up (only with "hide until checked") */
+.kwf-pending {
+  visibility: hidden !important;
+}
+
+.kwf-blur:hover {
+  filter: none !important;
+  opacity: 1 !important;
+}

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BleachBuddy: Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <div>
+        <h1><img src="icons/icon-32.png" width="22" height="22" alt="" style="vertical-align:-4px;margin-right:6px">BleachBuddy</h1>
+        <p class="sub"><span id="summary">0 terms active</span> · hides videos whose title, tags, channel or performer match your lists</p>
+      </div>
+      <label class="switch big" title="Master switch">
+        <input type="checkbox" id="enabled">
+        <span class="slider"></span>
+        <span class="switch-label">Filter on</span>
+      </label>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button data-tab="lists" class="active">Filter lists</button>
+      <button data-tab="custom">My lists</button>
+      <button data-tab="sites">Sites</button>
+      <button data-tab="matching">Matching</button>
+      <button data-tab="backup">Backup</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Filter lists -->
+    <section id="tab-lists" class="tab active">
+      <div class="toolbar">
+        <input type="search" id="search" placeholder="Search all lists (any language)…" autocomplete="off">
+        <button id="enableAll">Enable all lists</button>
+        <button id="disableAll">Disable all lists</button>
+      </div>
+      <p class="hint">Switch a list on or off, or open it and click single items to exclude them. Terms are matched in every language at once, ignoring case and accents.</p>
+      <div id="catalog"></div>
+    </section>
+
+    <!-- Custom lists -->
+    <section id="tab-custom" class="tab">
+      <div class="toolbar">
+        <button id="newList" class="primary">New list</button>
+        <button id="importList">Import list from text file…</button>
+        <input type="file" id="importListFile" accept=".txt,.csv" hidden>
+      </div>
+      <p class="hint">Write your own lists. One term per line (commas also work). Studios, performers, keywords in any language.</p>
+      <div id="customLists"></div>
+    </section>
+
+    <!-- Sites -->
+    <section id="tab-sites" class="tab">
+      <div class="card pad">
+        <h2>Reddit</h2>
+        <label class="check"><input type="checkbox" id="redditNsfwOnly"> <span><b>Only filter NSFW posts on Reddit</b><br><small>Reddit is full of ordinary posts that contain words like "black" or "asian". With this on, only posts marked NSFW are checked against your lists. Posts are matched on title, flair and subreddit name.</small></span></label>
+      </div>
+      <div class="card pad">
+        <h2>Add more sites</h2>
+        <p class="hint">BleachBuddy filters thumbnails on all the sites below. For any other site, add its domain here (one per line, for example <code>example.com</code>). Your browser will ask for permission for exactly those sites. Thumbnails are detected automatically, so layouts it has never seen usually still work.</p>
+        <textarea id="extraSites" placeholder="example.com&#10;another-site.net" spellcheck="false"></textarea>
+        <div class="toolbar"><button id="saveExtra" class="primary">Save and allow these sites</button><span id="extraStatus" class="hint"></span></div>
+        <p class="hint">Pages that are already open need a reload.</p>
+      </div>
+      <div class="card pad">
+        <h2>Supported sites <span class="count" id="siteCount"></span></h2>
+        <div class="chips" id="builtinSites" style="max-height:none"></div>
+      </div>
+    </section>
+
+    <!-- Matching -->
+    <section id="tab-matching" class="tab">
+      <div class="card pad">
+        <h2>What to check</h2>
+        <label class="check"><input type="checkbox" id="matchTitle"> <span><b>Titles</b><br><small>Video titles, image alt text and title attributes</small></span></label>
+        <label class="check"><input type="checkbox" id="matchTags"> <span><b>Tags, categories, channels and performers</b><br><small>Anything the thumbnail card links to or labels</small></span></label>
+        <label class="check"><input type="checkbox" id="deepTags"> <span><b>Look up tags on each video's page</b><br><small>Thumbnails on most sites (XVideos included) do not show tags, so the extension opens each video's page in the background, reads its tags and keeps them for 30 days. It only loads thumbnails near your screen, at a few requests per second, and pauses if the site pushes back. Needs "Tags, categories, channels and performers" above.</small></span></label>
+        <label class="check"><input type="checkbox" id="holdUntilChecked"> <span><b>Hide thumbnails until their tags are checked</b><br><small>Stops matching videos from flashing up before they disappear, but pages look emptier while tags load.</small></span></label>
+        <div class="toolbar"><button id="clearCache">Clear cached tags</button></div>
+        <label class="check"><input type="checkbox" id="wholeWord"> <span><b>Whole words only</b><br><small>"Black" will not match "Blackpool". Terms starting with = are case-sensitive (=AI matches "AI", not "Ai"). A plural "s" still counts. Chinese, Japanese, Korean and Thai terms always match as parts of text because those scripts have no word gaps.</small></span></label>
+      </div>
+
+      <div class="card pad">
+        <h2>Whole-site blocking</h2>
+        <label class="check"><input type="checkbox" id="siteBlocking"> <span><b>Block entire sites that belong to an enabled list</b><br><small>Lists marked "Whole sites" (for example Hentai: whole sites) block those websites completely, on every page, in all tabs. Switch the list or a single site off to open it again. Entries like *word* block every site whose address contains that word.</small></span></label>
+        <label class="check"><input type="checkbox" id="siteRedirect" disabled> <span><b>Show a "Site blocked" page</b><br><small id="siteRedirectInfo">Without this the browser shows its own generic "blocked by an extension" error. The friendlier page needs permission to redirect requests, which the browser words as "access your data on all websites". BleachBuddy does not read or send any page data.</small></span></label>
+        <div class="toolbar"><button id="grantRedirect">Allow "Site blocked" page…</button></div>
+      </div>
+
+      <div class="card pad">
+        <h2>When something matches</h2>
+        <label class="check"><input type="radio" name="mode" value="hide"> <span><b>Hide it</b><br><small>The item disappears from the page</small></span></label>
+        <label class="check"><input type="radio" name="mode" value="blur"> <span><b>Blur it</b><br><small>Heavily blurred; hover to reveal</small></span></label>
+      </div>
+
+      <div class="card pad">
+        <h2>Try it</h2>
+        <input type="text" id="tester" placeholder="Type a title or tag to see whether your lists catch it…" autocomplete="off">
+        <p id="testerResult" class="tester-result muted">Nothing entered yet.</p>
+      </div>
+    </section>
+
+    <!-- Backup -->
+    <section id="tab-backup" class="tab">
+      <div class="card pad">
+        <h2>Export / import</h2>
+        <p class="hint">Settings include list switches, excluded items and your own lists.</p>
+        <div class="toolbar">
+          <button id="export" class="primary">Export settings</button>
+          <button id="import">Import settings…</button>
+          <input type="file" id="importFile" accept=".json" hidden>
+        </div>
+      </div>
+      <div class="card pad">
+        <h2>Reset</h2>
+        <p class="hint">Restores the default list selection and deletes your own lists.</p>
+        <button id="reset" class="danger">Reset everything</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="lists.js"></script>
+  <script src="shared.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

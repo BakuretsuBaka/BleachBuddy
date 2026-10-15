@@ -1,0 +1,112 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #15181d;
+  --muted: #6b7280;
+  --line: #e3e6ea;
+  --accent: #2f6fed;
+  --accent-soft: #2f6fed1a;
+  --danger: #d33f3f;
+  --chip: #eef0f3;
+  --chip-off: #8a90991a;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121418;
+    --card: #1a1d23;
+    --text: #e7e9ee;
+    --muted: #9aa1ad;
+    --line: #2a2e36;
+    --accent: #6c9bff;
+    --accent-soft: #6c9bff22;
+    --danger: #ff6b6b;
+    --chip: #262a32;
+    --chip-off: #ffffff0d;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+h1 { margin: 0; font-size: 20px; }
+h2 { margin: 0 0 8px; font-size: 15px; }
+small, .muted { color: var(--muted); }
+.hint { color: var(--muted); font-size: 13px; margin: 8px 0 14px; }
+
+.top { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top-inner { max-width: 860px; margin: 0 auto; padding: 16px 20px 8px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.sub { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+.tabs { max-width: 860px; margin: 0 auto; padding: 0 20px; display: flex; gap: 4px; }
+.tabs button { border: 0; background: none; color: var(--muted); padding: 8px 12px; font: inherit; cursor: pointer; border-bottom: 2px solid transparent; }
+.tabs button.active { color: var(--text); border-color: var(--accent); font-weight: 600; }
+
+main { max-width: 860px; margin: 0 auto; padding: 16px 20px 60px; }
+.tab { display: none; }
+.tab.active { display: block; }
+
+button { font: inherit; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button.danger { color: var(--danger); }
+button.danger:hover { border-color: var(--danger); }
+input[type=text], input[type=search], textarea { width: 100%; font: inherit; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+input:focus, textarea:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+textarea { min-height: 120px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.toolbar input[type=search] { flex: 1; min-width: 220px; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 14px; overflow: hidden; }
+.card.pad { padding: 16px; }
+.card-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+.card-head .grow { flex: 1; min-width: 0; }
+.card-head h2 { margin: 0; }
+.card-head p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+
+.list-row { border-top: 1px solid var(--line); }
+.list-row.off .row-name { color: var(--muted); }
+.row-head { display: flex; align-items: center; gap: 12px; padding: 10px 16px; }
+.row-toggle { flex: 1; display: flex; align-items: center; gap: 8px; min-width: 0; text-align: left; border: 0; background: none; padding: 4px 0; }
+.row-toggle:hover { border: 0; }
+.row-name { font-weight: 600; }
+.badge { font-size: 11px; padding: 1px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+.count { color: var(--muted); font-size: 12px; white-space: nowrap; }
+.chev { color: var(--muted); transition: transform .15s; }
+.open .chev { transform: rotate(90deg); }
+.row-body { padding: 0 16px 14px; display: none; }
+.open .row-body { display: block; }
+.row-desc { margin: 0 0 10px; color: var(--muted); font-size: 13px; }
+.row-actions { display: flex; gap: 8px; margin-bottom: 10px; }
+.row-actions button { padding: 3px 10px; font-size: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; max-height: 260px; overflow: auto; }
+.chip { border: 1px solid transparent; background: var(--chip); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; cursor: pointer; }
+.chip:hover { border-color: var(--accent); }
+.chip.off { background: var(--chip-off); color: var(--muted); text-decoration: line-through; }
+.chip mark { background: #ffd54a66; color: inherit; border-radius: 2px; }
+
+/* switches */
+.switch { position: relative; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.slider { width: 36px; height: 20px; border-radius: 999px; background: #9ca3af88; position: relative; transition: background .15s; flex: none; }
+.slider::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform .15s; box-shadow: 0 1px 2px #0004; }
+.switch input:checked + .slider { background: var(--accent); }
+.switch input:checked + .slider::after { transform: translateX(16px); }
+.switch input:focus-visible + .slider { outline: 2px solid var(--accent); outline-offset: 2px; }
+.switch.big .switch-label { font-weight: 600; }
+
+.check { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; cursor: pointer; }
+.check input { margin-top: 4px; }
+
+.custom-head { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+.custom-head input[type=text] { flex: 1; font-weight: 600; }
+.custom-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+
+.tester-result { margin: 10px 0 0; }
+.tester-result.hit { color: var(--danger); font-weight: 600; }
+.tester-result.ok { color: #2e9e5b; font-weight: 600; }
+.empty { padding: 24px; text-align: center; color: var(--muted); }
+
+.chip sup { font-size: 9px; opacity: .6; }
+.custom-head select { font: inherit; color: inherit; background: transparent; border: 1px solid var(--border, #8884); border-radius: 8px; padding: 4px 6px; }
+
+#extraSites { width: 100%; min-height: 90px; box-sizing: border-box; font: inherit; color: inherit; background: transparent; border: 1px solid #8884; border-radius: 8px; padding: 8px; }
+code { background: var(--chip); padding: 1px 5px; border-radius: 4px; }

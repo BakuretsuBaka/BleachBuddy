@@ -1,0 +1,155 @@
+{
+  "manifest_version": 3,
+  "name": "BleachBuddy",
+  "version": "2.5.0",
+  "description": "Hides videos on adult sites when their title, tags, channel or performer match filter lists you choose. Multilingual lists, fully customizable.",
+  "permissions": [
+    "storage",
+    "declarativeNetRequest",
+    "scripting"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.pornhub.com/*",
+        "*://*.pornhub.org/*",
+        "*://*.xvideos.com/*",
+        "*://*.xnxx.com/*",
+        "*://*.xhamster.com/*",
+        "*://*.xhamster.desi/*",
+        "*://*.xhamster2.com/*",
+        "*://*.xhamster3.com/*",
+        "*://*.redtube.com/*",
+        "*://*.youporn.com/*",
+        "*://*.spankbang.com/*",
+        "*://*.eporner.com/*",
+        "*://*.tube8.com/*",
+        "*://*.tnaflix.com/*",
+        "*://*.empflix.com/*",
+        "*://*.drtuber.com/*",
+        "*://*.txxx.com/*",
+        "*://*.hclips.com/*",
+        "*://*.hotmovs.com/*",
+        "*://*.upornia.com/*",
+        "*://*.vjav.com/*",
+        "*://*.voyeurhit.com/*",
+        "*://*.beeg.com/*",
+        "*://*.sunporno.com/*",
+        "*://*.nuvid.com/*",
+        "*://*.porntrex.com/*",
+        "*://*.thumbzilla.com/*",
+        "*://*.motherless.com/*",
+        "*://*.daftsex.com/*",
+        "*://*.hqporner.com/*",
+        "*://*.pornone.com/*",
+        "*://*.4tube.com/*",
+        "*://*.fux.com/*",
+        "*://*.porntube.com/*",
+        "*://*.pornoxo.com/*",
+        "*://*.analdin.com/*",
+        "*://*.hdzog.com/*",
+        "*://*.fuq.com/*",
+        "*://*.porndig.com/*",
+        "*://*.pornktube.com/*",
+        "*://*.watchporn.to/*",
+        "*://*.sexvid.xxx/*",
+        "*://*.3movs.com/*",
+        "*://*.crocotube.com/*",
+        "*://*.xxxbunker.com/*",
+        "*://*.gotporn.com/*",
+        "*://*.pornzog.com/*",
+        "*://*.porn.com/*",
+        "*://*.pornpics.com/*",
+        "*://*.erome.com/*",
+        "*://*.redgifs.com/*",
+        "*://*.fapello.com/*",
+        "*://*.ixxx.com/*",
+        "*://*.pornhat.com/*",
+        "*://*.xfreehd.com/*",
+        "*://*.whoreshub.com/*",
+        "*://*.nudevista.com/*",
+        "*://*.ok.xxx/*",
+        "*://*.thisvid.com/*",
+        "*://*.vxxx.com/*",
+        "*://*.sxyprn.com/*",
+        "*://*.noodlemagazine.com/*",
+        "*://*.cumlouder.com/*",
+        "*://*.hanime.tv/*",
+        "*://*.nhentai.net/*",
+        "*://*.rule34.xxx/*",
+        "*://*.e-hentai.org/*",
+        "*://*.jav.guru/*",
+        "*://*.missav.com/*",
+        "*://*.missav.ws/*",
+        "*://*.jable.tv/*",
+        "*://*.supjav.com/*",
+        "*://*.brazzers.com/*",
+        "*://*.realitykings.com/*",
+        "*://*.bangbros.com/*",
+        "*://*.naughtyamerica.com/*",
+        "*://*.mofos.com/*",
+        "*://*.digitalplayground.com/*",
+        "*://*.teamskeet.com/*",
+        "*://*.reddit.com/*"
+      ],
+      "js": [
+        "lists.js",
+        "shared.js",
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "action": {
+    "default_title": "BleachBuddy",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "keyword-filter@local",
+      "strict_min_version": "109.0"
+    }
+  },
+  "optional_host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": [
+      "lists.js",
+      "shared.js",
+      "background.js"
+    ]
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "blocked.html",
+        "blocked.css",
+        "blocked.js",
+        "icons/icon-48.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

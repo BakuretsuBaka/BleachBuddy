@@ -20,6 +20,7 @@ const KWF_CATALOG = [
         id: "ib-interracial",
         name: "Interracial: terms & acronyms",
         kind: "keywords",
+        boorus: ["interracial"],
         description: "The word 'interracial' in many languages plus common pairing acronyms.",
         items: [
           // English and shared acronyms
@@ -51,6 +52,8 @@ const KWF_CATALOG = [
         id: "ib-black",
         name: "Black / Ebony: keywords",
         kind: "keywords",
+        // Exact tags for image-board sites: hidden by tag match and added to the site's own blacklist
+        boorus: ["dark_skin", "dark-skinned_male", "dark-skinned_female", "dark-skinned_futa", "dark_penis", "black_body"],
         description: "Black, Ebony, African and equivalents in many languages. Broad: 'Black' alone also hits non-adult uses.",
         items: [
           // en

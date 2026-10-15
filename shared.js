@@ -13,6 +13,7 @@ const KWF_DEFAULTS = {
   redditNsfwOnly: true,    // on Reddit, only filter posts marked NSFW
   extraSites: [],          // extra domains the user added (content script registered by background.js)
   siteBlocking: true,      // block entire sites that belong to an enabled "sites" list
+  nativeBlacklist: true,   // on Rule34 & co: also add the active image-board tags to the site's own blacklist
   lists: {},          // listId -> true/false (missing = list default)
   disabledItems: {},  // listId -> [items the user switched off]
   customLists: []     // [{ id, name, enabled, items: [] }]
@@ -70,6 +71,17 @@ function kwfActiveTerms(s) {
   return out
     .map((t) => String(t).trim())
     .filter((t) => t && !seen.has(kwfLower(t)) && seen.add(kwfLower(t)));
+}
+
+// Exact image-board tags (e.g. "dark-skinned_male") of enabled lists, minus lists switched off
+function kwfBooruTags(s) {
+  const seen = new Set();
+  const out = [];
+  for (const list of kwfCatalogLists()) {
+    if (!list.boorus || !kwfListEnabled(s, list)) continue;
+    for (const t of list.boorus) if (!seen.has(t)) (seen.add(t), out.push(t));
+  }
+  return out;
 }
 
 // ── Whole-site blocking ─────────────────────────────────────────────────────

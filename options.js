@@ -356,6 +356,7 @@ function syncControls() {
   $("#wholeWord").checked = settings.wholeWord;
   $("#deepTags").checked = settings.deepTags;
   $("#redditNsfwOnly").checked = settings.redditNsfwOnly;
+  $("#nativeBlacklist").checked = settings.nativeBlacklist;
   $("#extraSites").value = settings.extraSites.join("\n");
   $("#siteBlocking").checked = settings.siteBlocking;
   $("#holdUntilChecked").checked = settings.holdUntilChecked;
@@ -409,7 +410,7 @@ $("#clearCache").addEventListener("click", () => {
     setTimeout(() => ($("#clearCache").textContent = "Clear cached tags"), 1500);
   });
 });
-["matchTitle", "matchTags", "wholeWord", "deepTags", "holdUntilChecked", "siteBlocking", "redditNsfwOnly"].forEach((id) =>
+["matchTitle", "matchTags", "wholeWord", "deepTags", "holdUntilChecked", "siteBlocking", "redditNsfwOnly", "nativeBlacklist"].forEach((id) =>
   $("#" + id).addEventListener("change", (e) => {
     settings[id] = e.target.checked;
     save();
@@ -500,7 +501,7 @@ refreshRedirectState();
 
 // Booru-style tag export
 function boorusTags() {
-  const seen = new Set();
+  const seen = new Set(kwfBooruTags(settings));
   for (const raw of kwfActiveTerms(settings)) {
     if (raw.startsWith("=") || KWF_SUBSTRING_SCRIPTS.test(raw)) continue;
     const t = kwfFold(raw).toLowerCase().trim().replace(/[\s]+/g, "_");

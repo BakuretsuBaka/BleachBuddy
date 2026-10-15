@@ -99,6 +99,47 @@
       else tagSet.add(t);
     }
     tagMulti = multi.length ? new RegExp(`(?:^|_)(?:${multi.join("|")})s?(?:_|$)`) : null;
+    for (const t of kwfBooruTags(settings)) tagSet.add(tagNorm(t)); // exact tags, e.g. dark-skinned_male
+  }
+
+  // Sites on the Gelbooru 0.2 engine keep a guest's blacklist in the "tag_blacklist" cookie
+  // (space-separated, URL-encoded; 100 tags max). Rule34.xxx verified, the others run the same engine.
+  const NATIVE_BLACKLIST = /(^|\.)(rule34\.xxx|safebooru\.org|tbib\.org|xbooru\.com|hypnohub\.net|realbooru\.com)$/.test(HOST);
+
+  function syncNativeBlacklist() {
+    if (!NATIVE_BLACKLIST) return;
+    try {
+      const m = document.cookie.match(/(?:^|;\s*)tag_blacklist=([^;]*)/);
+      let current = [];
+      if (m) {
+        let raw = m[1];
+        try { raw = decodeURIComponent(decodeURI(raw)); } catch {}
+        current = raw.split(" ").filter(Boolean);
+      }
+      api.storage.local.get("kwfNativeAdded", (res) => {
+        const added = (res && res.kwfNativeAdded && res.kwfNativeAdded[HOST]) || [];
+        const want = settings.enabled && settings.nativeBlacklist ? kwfBooruTags(settings) : [];
+        const wantLower = new Set(want.map((t) => t.toLowerCase()));
+        // Drop tags we added earlier that are no longer wanted; keep everything the user put there
+        const addedLower = new Set(added.map((t) => t.toLowerCase()));
+        let next = current.filter((t) => !addedLower.has(t.toLowerCase()) || wantLower.has(t.toLowerCase()));
+        const have = new Set(next.map((t) => t.toLowerCase()));
+        const ours = [];
+        for (const t of want) {
+          if (have.has(t.toLowerCase())) { if (addedLower.has(t.toLowerCase())) ours.push(t); continue; }
+          if (next.length >= 100) break;
+          next.push(t);
+          ours.push(t);
+        }
+        if (next.join(" ") !== current.join(" ")) {
+          document.cookie = `tag_blacklist=${encodeURIComponent(next.join(" "))}; path=/; max-age=31536000; SameSite=Lax`;
+        }
+        if (ours.join(" ") !== added.join(" ")) {
+          const all = { ...((res && res.kwfNativeAdded) || {}), [HOST]: ours };
+          api.storage.local.set({ kwfNativeAdded: all });
+        }
+      });
+    } catch {}
   }
 
   function boorusHit(card) {
@@ -524,6 +565,7 @@
   async function init() {
     await Promise.all([loadSettings(), loadCache()]);
     rebuild();
+    syncNativeBlacklist();
     scan();
 
     new MutationObserver(scheduleScan).observe(document.documentElement, {
@@ -534,12 +576,13 @@
     api.storage.onChanged.addListener((changes, area) => {
       if (area !== "local") return;
       // The tag cache is rewritten constantly; only real settings changes need a rescan
-      if (Object.keys(changes).every((k) => k === "kwfTagCache")) {
-        if (!changes.kwfTagCache.newValue) tagCache.clear(); // cache cleared from the settings page
+      if (Object.keys(changes).every((k) => k === "kwfTagCache" || k === "kwfNativeAdded")) {
+        if (changes.kwfTagCache && !changes.kwfTagCache.newValue) tagCache.clear(); // cache cleared from the settings page
         return;
       }
       loadSettings().then(() => {
         rebuild();
+        syncNativeBlacklist();
         scan();
       });
     });

@@ -103,8 +103,9 @@
   }
 
   // Sites on the Gelbooru 0.2 engine keep a guest's blacklist in the "tag_blacklist" cookie
-  // (space-separated, URL-encoded; 100 tags max). Rule34.xxx verified, the others run the same engine.
-  const NATIVE_BLACKLIST = /(^|\.)(rule34\.xxx|safebooru\.org|tbib\.org|xbooru\.com|hypnohub\.net|realbooru\.com)$/.test(HOST);
+  // (space-separated, URL-encoded; 100 tags max). Rule34.xxx and Gelbooru verified in their own scripts, the others run the same engine.
+  const NATIVE_BLACKLIST = /(^|\.)(rule34\.xxx|gelbooru\.com|safebooru\.org|tbib\.org|xbooru\.com|hypnohub\.net|realbooru\.com)$/.test(HOST);
+  const SKIP = new Set(((typeof KWF_BOORU_SKIP !== "undefined" && KWF_BOORU_SKIP[HOST.replace(/^www\./, "")]) || []).map((t) => t.toLowerCase()));
 
   function syncNativeBlacklist() {
     if (!NATIVE_BLACKLIST) return;
@@ -118,7 +119,7 @@
       }
       api.storage.local.get("kwfNativeAdded", (res) => {
         const added = (res && res.kwfNativeAdded && res.kwfNativeAdded[HOST]) || [];
-        const want = settings.enabled && settings.nativeBlacklist ? kwfBooruTags(settings) : [];
+        const want = settings.enabled && settings.nativeBlacklist ? kwfBooruTags(settings).filter((t) => !SKIP.has(t.toLowerCase())) : [];
         const wantLower = new Set(want.map((t) => t.toLowerCase()));
         // Drop tags we added earlier that are no longer wanted; keep everything the user put there
         const addedLower = new Set(added.map((t) => t.toLowerCase()));

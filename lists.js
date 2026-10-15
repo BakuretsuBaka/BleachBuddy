@@ -1148,3 +1148,8 @@ KWF_CATALOG.push({
     }
   ]
 });
+
+// Tags that do not exist on a given site (checked against its own tag search); skipped when writing that site's blacklist.
+const KWF_BOORU_SKIP = {
+  "gelbooru.com": ["interracial_yuri", "interracial_couple", "interracial_fellatio", "interracial_yaoi", "interracial_anal", "black_body", "ebony", "asian_male", "asian_futa", "chinese_female", "chinese_male", "korean_female", "korean_male", "filipina", "taiwanese", "indonesian", "indian", "transgender_woman", "transgender_male", "trans_man", "trans_girl", "transfem", "shemale", "gay", "homosexual", "twink", "sissy", "stepmom", "stepdad", "stepfather_and_stepson", "stepsibling", "stepbrother", "stepson", "stepdaughter", "stepcest", "anal_masturbation", "daisy_chain", "mmf", "latina", "latino", "hispanic", "cuban", "venezuelan", "novelai", "feral", "anthro_on_feral", "scalie", "canine", "canid", "felid", "equine", "lagomorph", "kemono", "yiff"]
+};

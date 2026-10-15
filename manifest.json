@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BleachBuddy",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "Hides videos on adult sites when their title, tags, channel or performer match filter lists you choose. Multilingual lists, fully customizable.",
   "permissions": [
     "storage",
@@ -125,6 +125,9 @@
           "none"
         ]
       }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
     }
   },
   "optional_host_permissions": [

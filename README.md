@@ -11,8 +11,10 @@ A browser extension (Chrome and Firefox, Manifest V3) that hides videos on adult
 - **Whole-site blocking.** Lists of kind "Whole sites" block entire domains (and subdomains) or any address containing `*word*`, using declarativeNetRequest. An optional permission enables a friendly "Site blocked" page; without it the browser shows its own error page.
 - **Image-board sites.** On Rule34 and similar sites posts are matched by exact tag, and on Rule34.xxx, Gelbooru, Safebooru, TBIB, Xbooru, Hypnohub and Realbooru the tags of your enabled lists (such as `dark_skin`, `dark-skinned_male`, `interracial`) are added to the site's own blacklist cookie.
 - **Your own lists**, import/export of settings, and a "Try it" tester.
+- **See what was filtered.** The popup lists the hidden items with the term that matched, can outline them instead of hiding them, and shows a counter on the toolbar icon.
+- **Pause per site.** One switch in the popup turns the filter off for the current site only.
 
-Supported sites: Pornhub, XVideos, XNXX, xHamster, RedTube, YouPorn, SpankBang, EPORNER.
+Built-in support for about 90 adult sites (the full list is on the settings page), image boards and Reddit. Pages of other sites can be added there too.
 
 ## Install
 
@@ -27,4 +29,4 @@ Supported sites: Pornhub, XVideos, XNXX, xHamster, RedTube, YouPorn, SpankBang, 
 
 ## Development
 
-No build step. `lists.js` holds the catalog, `shared.js` the matcher and site-rule logic, `content.js` the page filter, `background.js` the site-blocking rules, `options.*` the settings page.
+No build step. `npm test` runs the unit tests for the matcher and the site rules. `lists.js` holds the catalog, `shared.js` the matcher and site-rule logic, `content.js` the page filter, `background.js` the site-blocking rules, `options.*` the settings page.

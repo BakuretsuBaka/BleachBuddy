@@ -17,3 +17,9 @@
   filter: none !important;
   opacity: 1 !important;
 }
+
+/* "Show hidden items" in the popup: matches are outlined instead of hidden */
+.kwf-revealed {
+  outline: 3px solid #e5484d !important;
+  outline-offset: -3px !important;
+}

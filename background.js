@@ -64,6 +64,19 @@ async function syncExtraSites() {
   } catch (e) { /* best effort */ }
 }
 
+// Toolbar badge: how many items the content script hid in that tab
+api.runtime.onMessage.addListener((msg, sender) => {
+  if (!msg || msg.type !== "kwf-badge" || !sender.tab || sender.tab.id == null) return;
+  const tabId = sender.tab.id;
+  const action = api.action;
+  if (!action || !action.setBadgeText) return;
+  const text = msg.count > 0 ? (msg.count > 999 ? "999+" : String(msg.count)) : "";
+  try {
+    action.setBadgeText({ tabId, text }, () => void api.runtime.lastError);
+    if (text) action.setBadgeBackgroundColor({ tabId, color: "#2f6fed" }, () => void api.runtime.lastError);
+  } catch (e) { /* tab already closed */ }
+});
+
 function syncAll() { sync(); syncExtraSites(); }
 
 api.runtime.onInstalled.addListener(syncAll);

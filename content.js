@@ -67,6 +67,8 @@
   const MAX_CONCURRENT = 2;
   const GAP_MS = 400;
   const THROTTLE_PAUSE_MS = 60 * 1000;
+  const MAX_THROTTLE_RETRIES = 3;
+  const MAX_STORED_TEXT = 2000; // per video; keeps the stored cache well inside the extension's storage quota
 
   const tagCache = new Map(); // url -> { ts, text }
   const waiting = new Map();  // url -> Set(cards) waiting for tags
@@ -79,7 +81,17 @@
   let pumpTimer = null;
   let saveTimer = null;
   let io = null;
-  const stats = { fetched: 0, failed: 0, throttled: 0 };
+  const stats = { fetched: 0, failed: 0, throttled: 0, gaveUp: 0 };
+  const retries = new Map(); // url -> how often the site pushed back on this lookup
+
+  const SITE = HOST.replace(/^www\./, "");
+  let paused = false;   // switched off for this site from the popup
+  let revealed = false; // popup's "Show hidden items": outline instead of hiding
+  let applied = new WeakSet(); // cards already judged under the current settings
+  const dirty = new Set();     // cards whose content changed since they were judged
+  let cardSet = new Set();
+  const cardWhy = new WeakMap(); // card -> the term that matched
+  let lastBadge = -1;
 
   // Booru sites list tags as "word_word" tokens, so words are matched as whole tags, not as parts of them
   let tagSet = new Set();
@@ -119,7 +131,7 @@
       }
       api.storage.local.get("kwfNativeAdded", (res) => {
         const added = (res && res.kwfNativeAdded && res.kwfNativeAdded[HOST]) || [];
-        const want = settings.enabled && settings.nativeBlacklist ? kwfBooruTags(settings).filter((t) => !SKIP.has(t.toLowerCase())) : [];
+        const want = settings.enabled && !paused && settings.nativeBlacklist ? kwfBooruTags(settings).filter((t) => !SKIP.has(t.toLowerCase())) : [];
         const wantLower = new Set(want.map((t) => t.toLowerCase()));
         // Drop tags we added earlier that are no longer wanted; keep everything the user put there
         const addedLower = new Set(added.map((t) => t.toLowerCase()));
@@ -151,10 +163,10 @@
     for (const raw of chunks.join(" ").split(/\s+/)) {
       if (!raw || raw.includes(":")) continue; // score:12, rating:explicit
       const t = raw.toLowerCase().replace(/-/g, "_");
-      if (tagSet.has(t) || (t.endsWith("s") && tagSet.has(t.slice(0, -1)))) return true;
-      if (tagMulti && tagMulti.test(kwfFold(t))) return true;
+      if (tagSet.has(t) || (t.endsWith("s") && tagSet.has(t.slice(0, -1)))) return t;
+      if (tagMulti && tagMulti.test(kwfFold(t))) return t;
     }
-    return false;
+    return null;
   }
 
   // ───────────── Text on the card itself
@@ -223,7 +235,7 @@
   function storeTags(url, text, failed) {
     // A failed lookup is remembered for ten minutes only
     const ts = failed ? Date.now() - TTL_MS + 10 * 60 * 1000 : Date.now();
-    tagCache.set(url, { ts, text });
+    tagCache.set(url, { ts, text: text.slice(0, MAX_STORED_TEXT) });
     scheduleCacheSave();
   }
 
@@ -279,16 +291,25 @@
       if (res.status === 429 || res.status === 403 || res.status === 503) {
         // The site is pushing back: pause all lookups and try this one again later
         stats.throttled++;
-        pausedUntil = Date.now() + THROTTLE_PAUSE_MS;
-        queued.delete(url);
-        enqueue(url);
-        return;
-      }
-      if (!res.ok) {
+        const tries = (retries.get(url) || 0) + 1;
+        retries.set(url, tries);
+        if (tries <= MAX_THROTTLE_RETRIES) {
+          // Back off a little longer each time (1, 2, 4 minutes)
+          pausedUntil = Date.now() + THROTTLE_PAUSE_MS * 2 ** (tries - 1);
+          queued.delete(url);
+          enqueue(url);
+          return;
+        }
+        // The page keeps answering with an error (a login wall or bot check, say): stop asking and judge by what the thumbnail shows
+        retries.delete(url);
+        stats.gaveUp++;
+        storeTags(url, "", true);
+      } else if (!res.ok) {
         stats.failed++;
         storeTags(url, "", true);
       } else {
         stats.fetched++;
+        retries.delete(url);
         storeTags(url, extractTags(await res.text()), false);
       }
     } catch {
@@ -299,6 +320,7 @@
     const cards = waiting.get(url);
     waiting.delete(url);
     if (cards) cards.forEach((card) => applyCard(card));
+    reportBadge();
   }
 
   function enqueue(url) {
@@ -367,18 +389,34 @@
   function scheduleCacheSave() {
     clearTimeout(saveTimer);
     saveTimer = setTimeout(() => {
-      // Keep the newest entries only
-      let entries = [...tagCache.entries()];
-      if (entries.length > MAX_CACHE) {
-        entries.sort((a, b) => b[1].ts - a[1].ts);
-        entries = entries.slice(0, MAX_CACHE - 1000);
-        tagCache.clear();
-        for (const [k, v] of entries) tagCache.set(k, v);
-      }
-      const out = {};
-      for (const [url, v] of entries) out[url] = [v.ts, v.text];
       try {
-        api.storage.local.set({ kwfTagCache: out });
+        // Other tabs write to the same cache: merge instead of overwriting their entries
+        api.storage.local.get("kwfTagCache", (res) => {
+          void api.runtime.lastError;
+          const now = Date.now();
+          const merged = new Map();
+          for (const [url, v] of Object.entries((res && res.kwfTagCache) || {})) {
+            if (Array.isArray(v) && now - v[0] < TTL_MS) merged.set(url, { ts: v[0], text: String(v[1] || "") });
+          }
+          for (const [url, v] of tagCache) {
+            const old = merged.get(url);
+            if (!old || old.ts < v.ts) merged.set(url, v);
+          }
+          let entries = [...merged.entries()].sort((x, y) => y[1].ts - x[1].ts);
+          if (entries.length > MAX_CACHE) entries = entries.slice(0, MAX_CACHE - 1000); // keep the newest
+          tagCache.clear();
+          for (const [k, v] of entries) tagCache.set(k, v);
+
+          const write = (list, retry) => {
+            const out = {};
+            for (const [url, v] of list) out[url] = [v.ts, v.text];
+            api.storage.local.set({ kwfTagCache: out }, () => {
+              // Over quota: keep the newest half and try once more
+              if (api.runtime.lastError && retry) write(list.slice(0, Math.ceil(list.length / 2)), false);
+            });
+          };
+          write(entries, true);
+        });
       } catch {
         /* storage may be unavailable while the extension reloads */
       }
@@ -388,8 +426,9 @@
   // ───────────── Applying the filter
 
   function setState(card, hit, pending) {
-    card.classList.toggle("kwf-hide", hit && settings.mode === "hide");
-    card.classList.toggle("kwf-blur", hit && settings.mode === "blur");
+    card.classList.toggle("kwf-hide", hit && !revealed && settings.mode === "hide");
+    card.classList.toggle("kwf-blur", hit && !revealed && settings.mode === "blur");
+    card.classList.toggle("kwf-revealed", hit && revealed);
     card.classList.toggle("kwf-pending", !hit && pending && settings.holdUntilChecked);
     if (hit) card.setAttribute("data-kwf", "1");
     else card.removeAttribute("data-kwf");
@@ -410,27 +449,28 @@
       setState(card, false, false);
       return;
     }
-    if (!matcher || !matcher.size || !settings.enabled) {
-      card.classList.remove("kwf-hide", "kwf-blur", "kwf-pending");
+    if (!matcher || !matcher.size || !settings.enabled || paused) {
+      card.classList.remove("kwf-hide", "kwf-blur", "kwf-pending", "kwf-revealed");
       card.removeAttribute("data-kwf");
       return;
     }
 
-    let hit = IS_BOORU ? boorusHit(card) : matcher.match(collectText(card)) !== null;
+    let why = IS_BOORU ? boorusHit(card) : matcher.match(collectText(card));
     let pending = false;
 
-    if (!hit && settings.deepTags && settings.matchTags && !IS_REDDIT && !IS_BOORU) {
+    if (!why && settings.deepTags && settings.matchTags && !IS_REDDIT && !IS_BOORU) {
       const url = videoUrl(card);
       if (url) {
         const text = cachedTags(url);
-        if (text !== null) hit = matcher.match(text) !== null;
+        if (text !== null) why = matcher.match(text);
         else {
           pending = true;
           watchCard(card, url);
         }
       }
     }
-    setState(card, hit, pending);
+    if (why) cardWhy.set(card, why);
+    setState(card, !!why, pending);
   }
 
   // ───────────── Automatic thumbnail detection (sites without hand-written selectors)
@@ -467,7 +507,7 @@
     const hit = cardOfAnchor.get(a);
     // A card found while it was the only one on the page may have grown into a container since
     if (hit && thumbLinkCount(hit, 2) <= 1) return hit;
-    if (hit) hit.classList.remove("kwf-hide", "kwf-blur", "kwf-pending");
+    if (hit) hit.classList.remove("kwf-hide", "kwf-blur", "kwf-pending", "kwf-revealed");
 
     let card = null;
     const href = a.getAttribute("href") || "";
@@ -506,14 +546,35 @@
     const kept = [];
     for (const g of groups.values()) if (g.length >= 3) kept.push(...g);
     const keptSet = new Set(kept);
-    for (const c of found) if (!keptSet.has(c)) c.classList.remove("kwf-hide", "kwf-blur", "kwf-pending");
+    for (const c of found) if (!keptSet.has(c)) c.classList.remove("kwf-hide", "kwf-blur", "kwf-pending", "kwf-revealed");
     kept.forEach((c) => fullText.add(c));
     return kept;
   }
 
-  function scan() {
+  // Only cards that are new, or whose content changed, are judged again; `all` re-judges everything (settings changed)
+  function scan(all) {
+    if (all) applied = new WeakSet();
     lastCards = currentCards();
-    lastCards.forEach(applyCard);
+    cardSet = new Set(lastCards);
+    for (const card of lastCards) {
+      if (applied.has(card) && !dirty.has(card)) continue;
+      applied.add(card);
+      applyCard(card);
+    }
+    dirty.clear();
+    reportBadge();
+  }
+
+  // Number of hidden items for the toolbar badge
+  function reportBadge() {
+    const count = settings.enabled && !paused && settings.badge ? document.querySelectorAll("[data-kwf]").length : 0;
+    if (count === lastBadge) return;
+    lastBadge = count;
+    try {
+      api.runtime.sendMessage({ type: "kwf-badge", count }, () => void api.runtime.lastError);
+    } catch {
+      /* extension reloaded */
+    }
   }
 
   function scheduleScan() {
@@ -530,6 +591,7 @@
       try {
         api.storage.local.get(Object.keys(KWF_DEFAULTS), (res) => {
           settings = kwfResolve(res);
+          paused = settings.pausedSites.some((p) => SITE === p || SITE.endsWith("." + p));
           resolve();
         });
       } catch {
@@ -544,7 +606,7 @@
     return {
       url: location.href,
       mode: IS_REDDIT ? "reddit" : document.querySelector(CARD_SELECTORS) ? "selectors" : "auto-detect",
-      settings: { enabled: settings.enabled, deepTags: settings.deepTags, matchTags: settings.matchTags, mode: settings.mode },
+      settings: { enabled: settings.enabled, paused, deepTags: settings.deepTags, matchTags: settings.matchTags, mode: settings.mode },
       terms: matcher ? matcher.size : 0,
       cardsFound: cards.length,
       hidden: document.querySelectorAll("[data-kwf]").length,
@@ -563,15 +625,44 @@
     };
   }
 
+  // What was filtered on this page and which term matched, for the popup
+  function hitList() {
+    const out = [];
+    for (const el of document.querySelectorAll("[data-kwf]")) {
+      if (out.length >= 60) break;
+      let text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (!text) {
+        const img = el.querySelector("img[alt], img[title], a[title]");
+        text = img ? img.getAttribute("alt") || img.getAttribute("title") || "" : "";
+      }
+      out.push({ why: cardWhy.get(el) || "", text: text.slice(0, 90) });
+    }
+    return out;
+  }
+
   async function init() {
     await Promise.all([loadSettings(), loadCache()]);
     rebuild();
     syncNativeBlacklist();
     scan();
 
-    new MutationObserver(scheduleScan).observe(document.documentElement, {
+    new MutationObserver((records) => {
+      // Remember which known cards changed, so the next scan judges only those (and new ones)
+      for (const r of records) {
+        let n = r.target.nodeType === 1 ? r.target : r.target.parentElement;
+        for (let i = 0; n && i < 12; i++, n = n.parentElement) {
+          if (cardSet.has(n)) {
+            dirty.add(n);
+            break;
+          }
+        }
+      }
+      scheduleScan();
+    }).observe(document.documentElement, {
       childList: true,
-      subtree: true
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["alt", "title", "data-tags", "data-tag", "href"]
     });
 
     api.storage.onChanged.addListener((changes, area) => {
@@ -584,14 +675,21 @@
       loadSettings().then(() => {
         rebuild();
         syncNativeBlacklist();
-        scan();
+        lastBadge = -1;
+        scan(true);
       });
     });
 
     api.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
       if (!msg) return;
-      if (msg.type === "kwf-count") sendResponse({ count: document.querySelectorAll("[data-kwf]").length });
+      if (msg.type === "kwf-count") sendResponse({ count: document.querySelectorAll("[data-kwf]").length, host: SITE, paused, revealed });
       if (msg.type === "kwf-debug") sendResponse(debugInfo());
+      if (msg.type === "kwf-hits") sendResponse(hitList());
+      if (msg.type === "kwf-reveal") {
+        revealed = !!msg.on;
+        scan(true);
+        sendResponse({ revealed });
+      }
     });
   }
 

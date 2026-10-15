@@ -361,6 +361,7 @@ function syncControls() {
   $("#extraSites").value = settings.extraSites.join("\n");
   $("#siteBlocking").checked = settings.siteBlocking;
   $("#holdUntilChecked").checked = settings.holdUntilChecked;
+  $("#badge").checked = settings.badge;
   $$("input[name=mode]").forEach((r) => (r.checked = r.value === settings.mode));
   updateSummary();
 }
@@ -411,7 +412,7 @@ $("#clearCache").addEventListener("click", () => {
     setTimeout(() => ($("#clearCache").textContent = "Clear cached tags"), 1500);
   });
 });
-["matchTitle", "matchTags", "wholeWord", "deepTags", "holdUntilChecked", "siteBlocking", "redditNsfwOnly", "nativeBlacklist"].forEach((id) =>
+["matchTitle", "matchTags", "wholeWord", "deepTags", "holdUntilChecked", "siteBlocking", "redditNsfwOnly", "nativeBlacklist", "badge"].forEach((id) =>
   $("#" + id).addEventListener("change", (e) => {
     settings[id] = e.target.checked;
     save();
@@ -560,7 +561,7 @@ $("#saveExtra").addEventListener("click", () => {
 // The popup can change the master switch and mode; keep the page in sync
 api.storage.onChanged.addListener((changes, area) => {
   if (area !== "local") return;
-  for (const key of ["enabled", "mode"]) if (changes[key]) settings[key] = changes[key].newValue;
+  for (const key of ["enabled", "mode", "pausedSites"]) if (changes[key]) settings[key] = changes[key].newValue;
   syncControls();
 });
 

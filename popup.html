@@ -12,6 +12,13 @@
     select, button { font: inherit; color: inherit; background: transparent; border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; cursor: pointer; }
     button { width: 100%; margin-top: 10px; }
     button:hover, select:hover { border-color: var(--accent); }
+    [hidden] { display: none !important; }
+    details { margin-top: 10px; font-size: 12.5px; }
+    summary { cursor: pointer; opacity: .8; }
+    #hits { list-style: none; margin: 6px 0 0; padding: 0; max-height: 170px; overflow: auto; }
+    #hits li { padding: 4px 0; border-top: 1px solid var(--line); word-break: break-word; }
+    #hits b { color: #e5484d; }
+    #hits span { opacity: .65; display: block; }
     .switch { position: relative; display: inline-flex; cursor: pointer; }
     .switch input { position: absolute; opacity: 0; width: 0; height: 0; }
     .slider { width: 36px; height: 20px; border-radius: 999px; background: #9ca3af88; position: relative; transition: background .15s; }
@@ -27,6 +34,11 @@
     <select id="mode"><option value="hide">Hide</option><option value="blur">Blur</option></select>
   </div>
   <div class="row muted"><span id="count">Hidden on this page: –</span></div>
+  <div class="row" id="pauseRow" hidden><span id="pauseLabel">Pause on this site</span><label class="switch"><input type="checkbox" id="pause"><span class="slider"></span></label></div>
+  <div id="hitTools" hidden>
+    <button id="reveal" class="secondary">Show hidden items (outlined)</button>
+    <details id="why"><summary>Why were they hidden?</summary><ul id="hits"></ul></details>
+  </div>
   <button id="open">Filter lists &amp; settings</button>
   <button id="debug" class="secondary">Copy debug info for this page</button>
   <script src="lists.js"></script>

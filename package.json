@@ -1,0 +1,10 @@
+{
+  "name": "bleachbuddy",
+  "version": "2.9.0",
+  "description": "Hides videos on adult sites when their title, tags, channel or performer match filter lists you choose",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/shared.test.js"
+  }
+}

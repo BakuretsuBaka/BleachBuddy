@@ -14,6 +14,8 @@ const KWF_DEFAULTS = {
   extraSites: [],          // extra domains the user added (content script registered by background.js)
   siteBlocking: true,      // block entire sites that belong to an enabled "sites" list
   nativeBlacklist: true,   // on Rule34 & co: also add the active image-board tags to the site's own blacklist
+  badge: true,             // show how many items were hidden on the toolbar icon
+  pausedSites: [],         // hostnames the filter is switched off for (popup toggle)
   lists: {},          // listId -> true/false (missing = list default)
   disabledItems: {},  // listId -> [items the user switched off]
   customLists: []     // [{ id, name, enabled, items: [] }]
@@ -40,6 +42,7 @@ function kwfResolve(stored) {
   s.disabledItems = src.disabledItems && typeof src.disabledItems === "object" ? { ...src.disabledItems } : {};
   s.customLists = Array.isArray(src.customLists) ? src.customLists : [];
   s.extraSites = Array.isArray(src.extraSites) ? src.extraSites : [];
+  s.pausedSites = Array.isArray(src.pausedSites) ? src.pausedSites.map((d) => String(d).toLowerCase()) : [];
   return s;
 }
 

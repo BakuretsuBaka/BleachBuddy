@@ -65,6 +65,11 @@
         <p class="hint">Pages that are already open need a reload.</p>
       </div>
       <div class="card pad">
+        <h2>Tag blacklist for image-board sites</h2>
+        <p class="hint">Rule34, Gelbooru, Danbooru, e621 and similar sites have their own tag blacklist in your account settings. BleachBuddy already hides matching thumbnails there by comparing your lists with each post's tags. To also let the site itself filter (search results, counts, pagination), copy your active keywords as tags and paste them into the site's blacklist field. Sites cap the length of that field, so you may need to paste only part of it.</p>
+        <div class="toolbar"><button id="copyTags">Copy as tag blacklist (one per line)</button><button id="copyTagsSpace">Copy space-separated</button><span id="tagStatus" class="hint"></span></div>
+      </div>
+      <div class="card pad">
         <h2>Supported sites <span class="count" id="siteCount"></span></h2>
         <div class="chips" id="builtinSites" style="max-height:none"></div>
       </div>

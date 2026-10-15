@@ -20,13 +20,17 @@
     // Motherless, PornPics, Erome
     ".thumb-container", "li.thumbwook", "div.album",
     // Reddit (new and old)
-    "shreddit-post", "div.thing.link"
+    "shreddit-post", "div.thing.link",
+    // Booru image boards (Rule34, Gelbooru, Danbooru, e621, Moebooru sites, Shimmie)
+    "span.thumb", "article.thumbnail-preview", "article.post-preview", "article.thumbnail", ".shm-thumb",
+    "ul#post-list-posts > li"
   ].join(",");
 
   // Sites above with hand-written selectors. Everywhere else (and here, when the selectors find nothing)
   // thumbnails are detected automatically.
   const HOST = location.hostname;
   const PRIMARY = /(^|\.)(pornhub\.com|xvideos\.com|xnxx\.com|xhamster\.(com|desi)|redtube\.com|youporn\.com|spankbang\.com|eporner\.com)$/.test(HOST);
+  const IS_BOORU = /(^|\.)(rule34\.xxx|gelbooru\.com|danbooru\.donmai\.us|safebooru\.org|realbooru\.com|rule34\.paheal\.net|e621\.net|e926\.net|yande\.re|konachan\.(com|net)|hypnohub\.net|tbib\.org|xbooru\.com)$/.test(HOST);
   const IS_REDDIT = /(^|\.)reddit\.com$/.test(HOST);
 
   const TITLE_SELECTORS = [
@@ -77,8 +81,38 @@
   let io = null;
   const stats = { fetched: 0, failed: 0, throttled: 0 };
 
+  // Booru sites list tags as "word_word" tokens, so words are matched as whole tags, not as parts of them
+  let tagSet = new Set();
+  let tagMulti = null;
+  const tagNorm = (t) => kwfFold(t).toLowerCase().trim().replace(/[\s\-_.]+/g, "_");
+
   function rebuild() {
-    matcher = kwfBuildMatcher(kwfActiveTerms(settings), settings.wholeWord);
+    const terms = kwfActiveTerms(settings);
+    matcher = kwfBuildMatcher(terms, settings.wholeWord);
+    tagSet = new Set();
+    const multi = [];
+    for (const raw of terms) {
+      if (raw.startsWith("=") || KWF_SUBSTRING_SCRIPTS.test(raw)) continue;
+      const t = tagNorm(raw);
+      if (!t) continue;
+      if (t.includes("_")) multi.push(t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+      else tagSet.add(t);
+    }
+    tagMulti = multi.length ? new RegExp(`(?:^|_)(?:${multi.join("|")})s?(?:_|$)`) : null;
+  }
+
+  function boorusHit(card) {
+    const chunks = [card.getAttribute("data-tags") || ""];
+    card.querySelectorAll("img[title], img[alt], a[title], [data-tags]").forEach((el) => {
+      chunks.push(el.getAttribute("title") || "", el.getAttribute("alt") || "", el.getAttribute("data-tags") || "");
+    });
+    for (const raw of chunks.join(" ").split(/\s+/)) {
+      if (!raw || raw.includes(":")) continue; // score:12, rating:explicit
+      const t = raw.toLowerCase().replace(/-/g, "_");
+      if (tagSet.has(t) || (t.endsWith("s") && tagSet.has(t.slice(0, -1)))) return true;
+      if (tagMulti && tagMulti.test(kwfFold(t))) return true;
+    }
+    return false;
   }
 
   // ───────────── Text on the card itself
@@ -340,10 +374,10 @@
       return;
     }
 
-    let hit = matcher.match(collectText(card)) !== null;
+    let hit = IS_BOORU ? boorusHit(card) : matcher.match(collectText(card)) !== null;
     let pending = false;
 
-    if (!hit && settings.deepTags && settings.matchTags && !IS_REDDIT) {
+    if (!hit && settings.deepTags && settings.matchTags && !IS_REDDIT && !IS_BOORU) {
       const url = videoUrl(card);
       if (url) {
         const text = cachedTags(url);
@@ -421,8 +455,18 @@
       const card = autoCardFor(img);
       if (card) found.add(card);
     }
-    found.forEach((c) => fullText.add(c));
-    return [...found];
+    // Real thumbnail grids repeat: ignore lone logos and banners (groups of fewer than 3 similar elements)
+    const groups = new Map();
+    for (const c of found) {
+      const key = c.tagName + "." + [...c.classList].filter((x) => !x.startsWith("kwf-")).slice(0, 2).join(".");
+      (groups.get(key) || groups.set(key, []).get(key)).push(c);
+    }
+    const kept = [];
+    for (const g of groups.values()) if (g.length >= 3) kept.push(...g);
+    const keptSet = new Set(kept);
+    for (const c of found) if (!keptSet.has(c)) c.classList.remove("kwf-hide", "kwf-blur", "kwf-pending");
+    kept.forEach((c) => fullText.add(c));
+    return kept;
   }
 
   function scan() {

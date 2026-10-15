@@ -498,6 +498,26 @@ $("#grantRedirect").addEventListener("click", () => {
 });
 refreshRedirectState();
 
+// Booru-style tag export
+function boorusTags() {
+  const seen = new Set();
+  for (const raw of kwfActiveTerms(settings)) {
+    if (raw.startsWith("=") || KWF_SUBSTRING_SCRIPTS.test(raw)) continue;
+    const t = kwfFold(raw).toLowerCase().trim().replace(/[\s]+/g, "_");
+    if (/^[a-z0-9_()'.!\-]+$/.test(t)) seen.add(t);
+  }
+  return [...seen];
+}
+const copyTags = (sep) => () => {
+  const tags = boorusTags();
+  navigator.clipboard.writeText(tags.join(sep)).then(
+    () => ($("#tagStatus").textContent = `Copied ${tags.length} tags.`),
+    () => ($("#tagStatus").textContent = "Copy failed.")
+  );
+};
+$("#copyTags").addEventListener("click", copyTags("\n"));
+$("#copyTagsSpace").addEventListener("click", copyTags(" "));
+
 // Supported sites
 const manifestSites = (api.runtime.getManifest().content_scripts || []).flatMap((c) => c.matches || []);
 const siteNames = [...new Set(manifestSites.map((m) => m.replace(/^\*:\/\/\*\./, "").replace(/\/\*$/, "")))].sort();

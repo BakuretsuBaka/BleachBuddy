@@ -1074,3 +1074,54 @@ const KWF_SITE_LISTS = {
 for (const [topicId, list] of Object.entries(KWF_SITE_LISTS)) {
   KWF_CATALOG.find((topic) => topic.id === topicId).lists.push(list);
 }
+
+// ───────────────────────────────────────────────────────────── Furry / anthro
+KWF_CATALOG.push({
+  id: "furry",
+  name: "Furry / anthro",
+  description: "Furry, anthro and related vocabulary in many languages, plus furry-focused sites.",
+  lists: [
+    {
+      id: "fu-terms",
+      name: "Furry / anthro: keywords",
+      kind: "keywords",
+      description: "Furry and anthropomorphic-animal terms in many languages (booru-style tags included).",
+      items: [
+        // en
+        "Furry", "Furries", "Fursona", "Fursuit", "Fursuiter", "Fursuits", "Yiff", "Yiffy", "Anthro", "Anthros",
+        "Anthropomorphic", "Anthropomorphism", "Anthropomorph", "Feral", "Scalie", "Scalies", "Protogen", "Sergal",
+        "Kemono", "Anthro male", "Anthro female", "Furry porn", "Furry yiff", "Furry art", "Furry hentai",
+        "Furry fandom", "Furry gay", "Furry feral",
+        "Zootopia", "Nick Wilde", "Judy Hopps", "Avali", "Digitigrade",
+        // booru-style tags
+        "Canine", "Canid", "Felid", "Equine", "Lagomorph",
+        // de
+        "Furrys", "Fursuiten",
+        // es / pt / fr / it
+        "Antropomórfico", "Antropomórfica", "Antropomorfo", "Antropomorfa", "Antropomorphe",
+        // ru
+        "Фурри", "Фури", "Йифф", "Антро", "Антропоморфный", "Антропоморфная", "Фурсьют", "Фурсона",
+        // pl / tr / nl
+        "Antropomorficzny", "Antropomorfik",
+        // ja
+        "ケモノ", "ケモナー", "獣人", "ファーリー", "ケモショタ",
+        // zh
+        "兽人", "獸人", "福瑞", "兽控", "獸控", "兽圈", "獸圈",
+        // ko
+        "퍼리", "수인", "수인물",
+        // th / ar
+        "เฟอร์รี่", "فيري", "كائن بشري الحيوان"
+      ]
+    },
+    {
+      id: "fu-sites",
+      name: "Furry: whole sites",
+      kind: "sites",
+      description: "Sites dedicated to furry content. *word* blocks every site whose address contains that word.",
+      items: [
+        "e621.net", "e926.net", "furaffinity.net", "inkbunny.net", "furrynetwork.com", "sofurry.com", "weasyl.com",
+        "*furry*", "*yiff*", "*e621*", "*fursuit*"
+      ]
+    }
+  ]
+});

@@ -30,3 +30,7 @@ Built-in support for about 90 adult sites (the full list is on the settings page
 ## Development
 
 No build step. `npm test` runs the unit tests for the matcher and the site rules. `lists.js` holds the catalog, `shared.js` the matcher and site-rule logic, `content.js` the page filter, `background.js` the site-blocking rules, `options.*` the settings page.
+
+## License
+
+GPL-3.0-only, see [LICENSE](LICENSE).

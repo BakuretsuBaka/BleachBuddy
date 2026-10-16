@@ -124,18 +124,32 @@ function kwfActiveSites(s) {
 
 const kwfReEscape = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-// Regex strings (RE2-compatible, matching the whole URL) for declarativeNetRequest; chunked to stay small.
-function kwfSiteRegexes(sites, chunk = 40) {
-  const out = [];
+// declarativeNetRequest conditions for whole-site blocking. One big regex alternation exceeds Chrome's regex
+// memory limit (then not a single rule is installed), so every site gets its own small regex. Chrome allows
+// about 1000 regex rules; sites beyond 900 fall back to requestDomains rules (they cannot show the address on
+// the "site blocked" page).
+function kwfSiteConditions(sites, maxRegex = 900) {
   const tail = "(?::[0-9]+)?(?:[/?#].*)?$";
-  for (let i = 0; i < sites.domains.length; i += chunk) {
-    const alt = sites.domains.slice(i, i + chunk).map(kwfReEscape).join("|");
-    out.push(`^https?://(?:[^/?#]*\\.)?(?:${alt})${tail}`);
+  const items = [];
+  for (const d of sites.domains) {
+    let h = "";
+    try { h = new URL("http://" + d).hostname; } catch (e) { continue; }
+    if (h && /^[a-z0-9.-]+$/.test(h) && !h.startsWith(".") && !h.endsWith(".")) items.push({ host: h });
   }
-  for (let i = 0; i < sites.words.length; i += chunk) {
-    const alt = sites.words.slice(i, i + chunk).map(kwfReEscape).join("|");
-    out.push(`^https?://[^/?#]*(?:${alt})[^/?#]*${tail}`);
+  for (const w of sites.words) items.push({ word: w });
+  const out = [];
+  const overflow = [];
+  for (const it of items) {
+    if (out.length >= maxRegex) {
+      if (it.host) overflow.push(it.host);
+      continue;
+    }
+    const regex = it.host
+      ? `^https?://(?:[^/?#]*\\.)?${kwfReEscape(it.host)}${tail}`
+      : `^https?://[^/?#]*${kwfReEscape(it.word)}[^/?#]*${tail}`;
+    out.push({ regexFilter: regex, isUrlFilterCaseSensitive: false });
   }
+  for (let i = 0; i < overflow.length; i += 500) out.push({ requestDomains: overflow.slice(i, i + 500) });
   return out;
 }
 

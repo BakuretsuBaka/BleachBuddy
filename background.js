@@ -23,17 +23,19 @@ async function sync() {
     const addRules = [];
     if (s.enabled && s.siteBlocking) {
       const canRedirect = !!(await call(api.permissions.contains.bind(api.permissions), { origins: ["<all_urls>"] }));
-      const action = canRedirect
+      const regexAction = canRedirect
         ? { type: "redirect", redirect: { regexSubstitution: api.runtime.getURL("blocked.html") + "?u=\\0" } }
         : { type: "block" };
-      kwfSiteRegexes(kwfActiveSites(s)).forEach((regexFilter, i) => {
-        addRules.push({
-          id: i + 1,
-          priority: 1,
-          action,
-          condition: { regexFilter, isUrlFilterCaseSensitive: false, resourceTypes: ["main_frame"] }
-        });
-      });
+      const domainAction = canRedirect ? { type: "redirect", redirect: { extensionPath: "/blocked.html" } } : { type: "block" };
+      let id = 1;
+      for (const cond of kwfSiteConditions(kwfActiveSites(s))) {
+        if (cond.regexFilter) {
+          // one rule the browser cannot compile must not take the others down with it
+          const ok = await call(dnr.isRegexSupported.bind(dnr), { regex: cond.regexFilter, isCaseSensitive: false });
+          if (!ok || !ok.isSupported) continue;
+        }
+        addRules.push({ id: id++, priority: 1, action: cond.regexFilter ? regexAction : domainAction, condition: { ...cond, resourceTypes: ["main_frame"] } });
+      }
     }
     await call(dnr.updateDynamicRules.bind(dnr), { removeRuleIds, addRules });
   } finally {

@@ -5,16 +5,16 @@ const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
 
-const ctx = vm.createContext({ console });
+const ctx = vm.createContext({ console, URL });
 for (const file of ["lists.js", "shared.js"]) {
   vm.runInContext(fs.readFileSync(path.join(__dirname, "..", file), "utf8"), ctx, { filename: file });
 }
 // `const` declarations are not properties of the context: read them out explicitly
 const g = vm.runInContext(
-  `({ KWF_CATALOG, KWF_DEFAULTS, kwfFold, kwfResolve, kwfActiveTerms, kwfActiveSites, kwfBuildMatcher, kwfParseSite, kwfSiteRegexes, kwfBooruTags, kwfCatalogLists, kwfListEnabled })`,
+  `({ KWF_CATALOG, KWF_DEFAULTS, kwfFold, kwfResolve, kwfActiveTerms, kwfActiveSites, kwfBuildMatcher, kwfParseSite, kwfSiteConditions, kwfBooruTags, kwfCatalogLists, kwfListEnabled })`,
   ctx
 );
-const { kwfFold, kwfResolve, kwfActiveTerms, kwfActiveSites, kwfBuildMatcher, kwfParseSite, kwfSiteRegexes } = g;
+const { kwfFold, kwfResolve, kwfActiveTerms, kwfActiveSites, kwfBuildMatcher, kwfParseSite, kwfSiteConditions } = g;
 
 // Objects from the vm context have another prototype: compare plain copies
 const plain = (x) => JSON.parse(JSON.stringify(x));
@@ -103,7 +103,7 @@ test("site entries are parsed", () => {
 });
 
 test("site regexes match the domain and its subdomains only", () => {
-  const [re] = kwfSiteRegexes({ domains: ["blacked.com"], words: [] }).map((r) => new RegExp(r, "i"));
+  const [re] = kwfSiteConditions({ domains: ["blacked.com"], words: [] }).map((c) => new RegExp(c.regexFilter, "i"));
   assert.ok(re.test("https://blacked.com/"));
   assert.ok(re.test("https://www.blacked.com/x?y=1#z"));
   assert.ok(re.test("http://a.b.blacked.com:8080/"));
@@ -113,12 +113,20 @@ test("site regexes match the domain and its subdomains only", () => {
 });
 
 test("word patterns match inside the host only", () => {
-  const re = new RegExp(kwfSiteRegexes({ domains: [], words: ["interracial"] })[0], "i");
+  const re = new RegExp(kwfSiteConditions({ domains: [], words: ["interracial"] })[0].regexFilter, "i");
   assert.ok(re.test("https://best-interracial-tube.net/"));
   assert.equal(re.test("https://example.org/interracial"), false);
 });
 
 test("site rules stay small enough for the browser's regex limit", () => {
   const sites = kwfActiveSites(kwfResolve(null));
-  for (const r of kwfSiteRegexes(sites)) assert.ok(r.length < 1500, `regex of ${r.length} chars`);
+  // every regex stays tiny (the browser rejects a whole rule set if one regex exceeds its memory limit)
+  for (const c of kwfSiteConditions(sites)) assert.ok(!c.regexFilter || c.regexFilter.length < 200, `regex of ${c.regexFilter.length} chars`);
+});
+
+test("sites beyond the regex limit fall back to requestDomains rules", () => {
+  const conds = kwfSiteConditions({ domains: ["a.com", "b.com", "c.com"], words: [] }, 1);
+  assert.equal(conds.length, 2);
+  assert.ok(conds[0].regexFilter);
+  assert.deepEqual(plain(conds[1].requestDomains), ["b.com", "c.com"]);
 });

@@ -22,11 +22,9 @@ async function sync() {
 
     const addRules = [];
     if (s.enabled && s.siteBlocking) {
-      const canRedirect = !!(await call(api.permissions.contains.bind(api.permissions), { origins: ["<all_urls>"] }));
-      const regexAction = canRedirect
-        ? { type: "redirect", redirect: { regexSubstitution: api.runtime.getURL("blocked.html") + "?u=\\0" } }
-        : { type: "block" };
-      const domainAction = canRedirect ? { type: "redirect", redirect: { extensionPath: "/blocked.html" } } : { type: "block" };
+      // Always a plain block. The "Site blocked" page is shown by swapping the tab (see below), because some
+      // browsers (Brave) refuse a redirect from a web address to an extension page.
+      const action = { type: "block" };
       let id = 1;
       for (const cond of kwfSiteConditions(kwfActiveSites(s))) {
         if (cond.regexFilter) {
@@ -34,7 +32,7 @@ async function sync() {
           const ok = await call(dnr.isRegexSupported.bind(dnr), { regex: cond.regexFilter, isCaseSensitive: false });
           if (!ok || !ok.isSupported) continue;
         }
-        addRules.push({ id: id++, priority: 1, action: cond.regexFilter ? regexAction : domainAction, condition: { ...cond, resourceTypes: ["main_frame"] } });
+        addRules.push({ id: id++, priority: 1, action, condition: { ...cond, resourceTypes: ["main_frame"] } });
       }
     }
     await call(dnr.updateDynamicRules.bind(dnr), { removeRuleIds, addRules });
@@ -43,6 +41,29 @@ async function sync() {
     if (again) { again = false; sync(); }
   }
 }
+
+// "Site blocked" page: with the optional permission, a tab whose address matches a blocked site is switched to
+// our own page by the extension itself (an extension may open its own pages in any browser).
+let matcher = null;
+async function loadMatcher() {
+  const s = kwfResolve(await call(api.storage.local.get.bind(api.storage.local), null));
+  if (!s.enabled || !s.siteBlocking) return (matcher = []);
+  const hasPerm = !!(await call(api.permissions.contains.bind(api.permissions), { origins: ["<all_urls>"] }));
+  if (!hasPerm) return (matcher = []);
+  const list = [];
+  for (const c of kwfSiteConditions(kwfActiveSites(s))) {
+    if (c.regexFilter) list.push(new RegExp(c.regexFilter, "i"));
+    else for (const d of c.requestDomains) list.push(new RegExp(`^https?://(?:[^/?#]*\\.)?${kwfReEscape(d)}(?::[0-9]+)?(?:[/?#]|$)`, "i"));
+  }
+  matcher = list;
+}
+api.tabs.onUpdated.addListener(async (tabId, change, tab) => {
+  const url = change.url || (change.status ? tab.url : "");
+  if (!url || !/^https?:/i.test(url)) return;
+  if (!matcher) await loadMatcher();
+  if (!matcher.length || !matcher.some((re) => re.test(url))) return;
+  api.tabs.update(tabId, { url: api.runtime.getURL("blocked.html") + "?u=" + url }, () => void api.runtime.lastError);
+});
 
 // Extra sites the user added: register the content script for the ones whose permission was granted
 async function syncExtraSites() {
@@ -79,7 +100,7 @@ api.runtime.onMessage.addListener((msg, sender) => {
   } catch (e) { /* tab already closed */ }
 });
 
-function syncAll() { sync(); syncExtraSites(); }
+function syncAll() { matcher = null; sync(); syncExtraSites(); }
 
 api.runtime.onInstalled.addListener(syncAll);
 api.runtime.onStartup.addListener(syncAll);

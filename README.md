@@ -24,7 +24,7 @@ Built-in support for about 90 adult sites (the full list is on the settings page
 
 ## Notes
 
-- Whole-site blocking's "Site blocked" page needs the optional "all websites" permission, only to redirect blocked requests. The extension reads and sends no page data. Firefox older than 128 cannot grant it and shows the browser's plain error page instead.
+- Whole-site blocking's "Site blocked" page needs the optional "all websites" permission, only to see which address a tab is opening and swap in the page. The extension reads and sends no page data. Firefox older than 128 cannot grant it and shows the browser's plain error page instead.
 - The lists are partial and partly compiled from memory; translations are best-effort and not native-reviewed. Pull requests with corrections are welcome.
 
 ## Development

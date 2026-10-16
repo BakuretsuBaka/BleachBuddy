@@ -1038,7 +1038,7 @@ KWF_CATALOG.push({
       name: "Bondage & BDSM: keywords",
       kind: "keywords",
       boorus: ["bondage", "bdsm", "shibari", "rope_bondage", "bound", "bound_wrists", "bound_arms", "bound_legs", "bound_ankles", "tied_up", "restrained", "gagged", "ball_gag", "bit_gag", "ring_gag", "cleave_gag", "tape_gag", "hogtie", "spreader_bar", "armbinder", "handcuffs", "bondage_gear"],
-      description: "Bondage, BDSM, shibari and gags in many languages. Broad: 'tied up' and 'handcuffed' also hit non-adult uses.",
+      description: "Bondage, BDSM, shibari and gags in many languages. 'Tied up' and 'handcuffed' are broad.",
       default: false,
       items: [
         // en
@@ -1104,7 +1104,7 @@ KWF_CATALOG.push({
       name: "Humiliation: keywords",
       kind: "keywords",
       boorus: ["humiliation", "public_humiliation", "small_penis_humiliation", "sph", "degradation", "verbal_abuse", "forced_humiliation"],
-      description: "Humiliation, degradation and SPH in many languages. Broad: 'humiliation' also appears in sports and news headlines.",
+      description: "Humiliation, degradation and SPH in many languages.",
       default: false,
       items: [
         // en
@@ -1135,21 +1135,21 @@ KWF_CATALOG.push({
       id: "ft-feet",
       name: "Feet: keywords",
       kind: "keywords",
-      boorus: ["foot_focus", "footjob", "foot_worship", "foot_lick", "toe_sucking", "foot_fetish", "soles", "sole_focus", "foot_licking", "foot_sniffing", "foot_play"],
-      description: "Foot fetish, foot worship and footjob in many languages. Plain 'feet' is left out, it would hide every shoe shop and hiking blog. On image boards the sole and foot-focus tags do the work.",
+      boorus: ["feet", "foot_focus", "footjob", "foot_worship", "foot_lick", "toe_sucking", "foot_fetish", "soles", "toes", "sole_focus", "foot_licking", "foot_sniffing", "foot_play"],
+      description: "Feet, foot fetish, foot worship and footjob in many languages. Plain 'feet' is included, which is fine on adult sites but would also hit ordinary feet talk on Reddit.",
       default: false,
       items: [
         // en
-        "Foot fetish", "Feet fetish", "Foot worship", "Feet worship", "Footjob", "Foot job", "Feet pics",
+        "Feet", "Foot", "Toes", "Soles", "Foot fetish", "Feet fetish", "Foot worship", "Feet worship", "Footjob", "Foot job", "Feet pics",
         "Foot pics", "Sole fetish", "Toe sucking", "Foot licking", "Foot play", "Footfetish", "Feetfetish",
         // de
-        "Fußfetisch", "Fußjob", "Fußanbetung", "Fußerotik", "Fuß Fetisch",
+        "Füße", "Fuß", "Fußfetisch", "Fußjob", "Fußanbetung", "Fußerotik", "Fuß Fetisch",
         // es / fr / it / pt / nl
-        "Fetichismo de pies", "Fetiche de pies", "Adoración de pies", "Fétichisme des pieds", "Fétiche pieds",
+        "Pieds", "Piedi", "Voeten", "Fetichismo de pies", "Fetiche de pies", "Adoración de pies", "Fétichisme des pieds", "Fétiche pieds",
         "Adoration des pieds", "Feticismo dei piedi", "Fetiche de pés", "Fetiche por pés", "Adoração de pés",
         "Voetfetisj", "Voeten fetisj",
         // ru / pl / tr
-        "Фетиш ног", "Футфетиш", "Фут фетиш", "Поклонение ногам", "Fetysz stóp", "Fetysz stopy", "Ayak fetişi",
+        "Ступни", "Ножки", "Фетиш ног", "Футфетиш", "Фут фетиш", "Поклонение ногам", "Fetysz stóp", "Fetysz stopy", "Ayak fetişi",
         // ja
         "足フェチ", "足コキ", "足舐め", "足の指舐め",
         // zh
@@ -1165,7 +1165,7 @@ KWF_CATALOG.push({
       name: "Pregnancy: keywords",
       kind: "keywords",
       boorus: ["pregnant", "pregnant_female", "pregnant_belly", "pregnancy", "impregnation", "impregnation_fetish", "pregnant_sex", "preggo"],
-      description: "Pregnancy and impregnation in many languages. Broad: it also hides ordinary pregnancy news, advice and photos.",
+      description: "Pregnancy and impregnation in many languages.",
       default: false,
       items: [
         // en
@@ -1194,7 +1194,7 @@ KWF_CATALOG.push({
       name: "Lactation: keywords",
       kind: "keywords",
       boorus: ["lactation", "lactating", "breast_milk", "lactation_through_clothes", "hucow", "milking_machine", "breast_pump", "nursing_handjob", "adult_nursing"],
-      description: "Lactation, breast milk and hucow in many languages. Broad: 'breast milk' and 'breastfeeding' also appear in baby and health content.",
+      description: "Lactation, breast milk and hucow in many languages.",
       default: false,
       items: [
         // en
@@ -1223,7 +1223,7 @@ KWF_CATALOG.push({
       name: "Hypno & mind control: keywords",
       kind: "keywords",
       boorus: ["hypnosis", "hypnotized", "mind_control", "brainwashing", "hypnotic_eyes", "hypnofetish", "hypno"],
-      description: "Hypnosis, mind control and brainwashing in many languages. Broad: 'hypnosis' also appears in therapy content and 'brainwashing' in political rhetoric.",
+      description: "Hypnosis, mind control and brainwashing in many languages.",
       default: false,
       items: [
         // en
@@ -1282,11 +1282,11 @@ KWF_CATALOG.push({
       name: "Inflation & expansion: keywords",
       kind: "keywords",
       boorus: ["inflation", "belly_inflation", "body_inflation", "cum_inflation", "air_inflation", "breast_expansion", "belly_expansion", "inflation_fetish", "blueberry_inflation", "bloated"],
-      description: "Body and belly inflation, cum inflation and expansion. Only the specific phrases are listed, plain 'inflation' would hide all economy news. On image boards the inflation tags do the work.",
+      description: "Inflation, body and belly inflation, cum inflation and expansion. Plain 'inflation' is included, which is fine on adult sites but would also hit economy posts on Reddit.",
       default: false,
       items: [
         // en
-        "Body inflation", "Belly inflation", "Cum inflation", "Air inflation", "Breast expansion",
+        "Inflation", "Inflated", "Inflate", "Body inflation", "Belly inflation", "Cum inflation", "Air inflation", "Breast expansion",
         "Belly expansion", "Inflation fetish", "Blueberry inflation", "Inflated belly",
         // de
         "Körperaufblähung", "Bauchaufblähung", "Aufblasfetisch",

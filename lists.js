@@ -526,6 +526,7 @@ const KWF_CATALOG = [
         kind: "keywords",
         boorus: ["stepmother", "stepmom", "stepfather", "stepdad", "stepmother_and_stepson", "stepmother_and_stepdaughter", "stepfather_and_stepdaughter", "stepfather_and_stepson"],
         description: "Step-mom, step-dad and equivalents. 'Step mom', 'step-mom' and 'stepmom' all match.",
+        default: false,
         items: [
           // en
           "Step mom", "Step mother", "Step mommy", "Step mum", "Step dad", "Step father", "Step daddy",
@@ -572,6 +573,7 @@ const KWF_CATALOG = [
         kind: "keywords",
         boorus: ["stepsibling", "stepsiblings", "stepsister", "stepbrother"],
         description: "Step-sister, step-brother and equivalents.",
+        default: false,
         items: [
           // en
           "Step sister", "Step sis", "Step brother", "Step bro", "Step sibling", "Step siblings",
@@ -614,6 +616,7 @@ const KWF_CATALOG = [
         kind: "keywords",
         boorus: ["stepson", "stepdaughter"],
         description: "Step-son, step-daughter and equivalents.",
+        default: false,
         items: [
           // en
           "Step son", "Step daughter", "Step child", "Step kid", "Step children",
@@ -655,6 +658,7 @@ const KWF_CATALOG = [
         kind: "keywords",
         boorus: ["step-incest", "stepcest"],
         description: "Family-level words such as step-family and step fantasy.",
+        default: false,
         items: [
           "Step family", "Step fam", "Step fantasy", "Step incest",
           "Stieffamilie", "Familia por afinidad", "Famille recomposée", "Famiglia allargata",
@@ -666,6 +670,7 @@ const KWF_CATALOG = [
         name: "Step-family: series & studios (partial)",
         kind: "studios",
         description: "A few well-known sites and series built around step-family roleplay. Incomplete; most of the category shows up through the keyword lists.",
+        default: false,
         items: [
           "Step Siblings Caught", "Family Strokes", "Taboo Heat", "Sis Loves Me", "Dad Crush", "Mommy's Girl",
           "Brother Crush"
@@ -1406,6 +1411,7 @@ const KWF_SITE_LISTS = {
     name: "Step-family: whole sites",
     kind: "sites",
     description: "Sites built around step-family roleplay. *word* blocks every site whose address contains that word.",
+    default: false,
     items: ["familystrokes.com", "tabooheat.com", "sislovesme.com", "dadcrush.com", "*stepporn*", "*stepsiblingsporn*"]
   }
 };

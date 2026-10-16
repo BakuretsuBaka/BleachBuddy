@@ -132,6 +132,7 @@ const KWF_CATALOG = [
         kind: "keywords",
         boorus: ["asian", "asian_female", "asian_male", "asian_futa"],
         description: "'Asian' and related words in many languages, plus JAV.",
+        default: false,
         items: [
           // en
           "Asian", "Asians", "Asia", "Oriental", "Asiatic", "JAV", "Jav uncensored",
@@ -164,6 +165,7 @@ const KWF_CATALOG = [
         name: "Asian: pairing acronyms",
         kind: "keywords",
         description: "WMAF, AMWF, AFWM, WFAM and similar.",
+        default: false,
         items: ["WMAF", "AMWF", "AFWM", "WFAM", "AMBF", "BMAF"]
       },
       {
@@ -222,6 +224,7 @@ const KWF_CATALOG = [
         name: "Asian: studios",
         kind: "studios",
         description: "Japanese AV studios and labels (Latin and native script) plus a few Western sites.",
+        default: false,
         items: [
           "Alice Japan", "Atlas21", "CineMagic", "Crystal-Eizou", "Glory Quest", "Hokuto Corporation",
           "IdeaPocket", "Idea Pocket", "Japan Home Video", "KM Produce", "Kuki Inc", "Million Film", "Moodyz",
@@ -237,6 +240,7 @@ const KWF_CATALOG = [
         name: "Asian performers",
         kind: "performers",
         description: "Stage names of well-known Asian performers, including Japanese names in native script (partial).",
+        default: false,
         items: [
           "Asa Akira", "Asia Carrera", "Kobe Tai", "Linda Wong", "Katsuni", "Jessica Bangkok", "Annie Cruz",
           "Jade Marcela", "Tera Patrick", "Mika Tan", "Kalina Ryu", "Alina Li", "Vina Sky", "Lulu Chu",
@@ -687,6 +691,7 @@ KWF_CATALOG.push(
         kind: "keywords",
         boorus: ["anal", "anal_sex", "anal_penetration", "anal_insertion", "anal_fingering", "anal_beads", "anal_masturbation", "anal_fisting", "anal_creampie", "anal_plug", "rimjob"],
         description: "Anal and related terms in many languages. Terms starting with = are case-sensitive.",
+        default: false,
         items: [
           // en
           "Anal", "Anal sex", "Analsex", "Anal fuck", "Anal creampie", "Anal gape", "Anal fisting", "Anal toy",
@@ -725,6 +730,7 @@ KWF_CATALOG.push(
         name: "Anal: studios & series",
         kind: "studios",
         description: "Brands built around anal content (partial).",
+        default: false,
         items: ["Analvids", "Analized", "Anal Acrobats"]
       },
       {
@@ -732,6 +738,7 @@ KWF_CATALOG.push(
         name: "Anal: whole sites",
         kind: "sites",
         description: "Sites dedicated to anal content. *word* blocks every site whose address contains that word.",
+        default: false,
         items: ["analvids.com", "analized.com", "*analporn*", "*analsex*", "*analxxx*", "*analtube*", "*analvid*"]
       }
     ]
@@ -833,6 +840,7 @@ KWF_CATALOG.push(
         kind: "keywords",
         boorus: ["latina", "latino", "hispanic"],
         description: "Latina, Latino and equivalents in many languages.",
+        default: false,
         items: [
           // en
           "Latina", "Latinas", "Latino", "Latinos", "Latin", "Latin girl", "Latin babe", "Hispanic", "Chicana",
@@ -895,6 +903,7 @@ KWF_CATALOG.push(
         name: "Latina: studios & series",
         kind: "studios",
         description: "Studios and series focused on Latina performers (partial).",
+        default: false,
         items: ["Latina Sex Tapes", "Muy Caliente", "Brasileirinhas", "Latin Adultery"]
       },
       {
@@ -902,6 +911,7 @@ KWF_CATALOG.push(
         name: "Latina performers",
         kind: "performers",
         description: "A few well-known stage names (very partial).",
+        default: false,
         items: ["Gina Valentina", "Eva Lovia", "Lupe Fuentes", "Sophia Leone", "Gianna Dior", "Katya Rodriguez"]
       },
       {
@@ -909,6 +919,7 @@ KWF_CATALOG.push(
         name: "Latina: whole sites",
         kind: "sites",
         description: "Sites dedicated to Latina content. *word* blocks every site whose address contains that word.",
+        default: false,
         items: [
           "brasileirinhas.com", "*latinaporn*", "*latinasex*", "*latinaxxx*", "*latinotube*", "*pornolatino*",
           "*sexolatino*"
@@ -1352,6 +1363,7 @@ const KWF_SITE_LISTS = {
     name: "Asian: whole sites",
     kind: "sites",
     description: "JAV and other Asian-focused sites. *word* blocks every site whose address contains that word.",
+    default: false,
     items: [
       "javhd.com", "javbus.com", "javlibrary.com", "javmost.com", "jav.guru", "javdb.com", "supjav.com",
       "missav.com", "missav.ws", "jable.tv", "njav.tv", "caribbeancom.com", "1pondo.tv", "heyzo.com",

@@ -4,7 +4,7 @@ A browser extension (Chrome and Firefox, Manifest V3) that hides videos on adult
 
 ## Features
 
-- **Pick your own filter lists.** Topics (Interracial/Black, Asian, Trans, Gay, Femboy, Step-family, Anal, Group sex, Latina/Latino, AI-generated, Hentai, BDSM & fetish) each contain keyword, studio, performer and whole-site lists. Switch lists on or off, or exclude single entries.
+- **Pick your own filter lists.** Topics (Interracial/Black, Asian, Trans, Gay, Femboy, Step-family, Anal, Group sex, Latina/Latino, AI-generated, Hentai, BDSM & fetish, NTR & cuckold) each contain keyword, studio, performer and whole-site lists. Switch lists on or off, or exclude single entries.
 - **Multilingual.** Keywords come in many languages and scripts. Matching ignores case and accents, handles whole words, and matches CJK/Thai terms as substrings.
 - **Case-sensitive terms.** Start a term with `=` (for example `=AI`) to match it case-sensitively.
 - **Tag lookup.** Sites whose thumbnails show no tags (such as XVideos) are handled by reading each video's page in the background, cached for 30 days.

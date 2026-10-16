@@ -1345,6 +1345,55 @@ KWF_CATALOG.push({
 });
 
 
+// ─────────────────────────────────────────────────────────── NTR & cuckold
+KWF_CATALOG.push({
+  id: "ntr",
+  name: "NTR & cuckold",
+  description: "NTR, netorare, cuckold, hotwife and cheating-partner vocabulary in many languages and as image-board tags. Off by default.",
+  lists: [
+    {
+      id: "ntr-terms",
+      name: "NTR & cuckold: keywords",
+      kind: "keywords",
+      boorus: ["ntr", "netorare", "netori", "netorase", "cuckold", "cuckolding", "cuckquean", "hotwife", "cheating_(relationship)", "cheating_wife", "cheating_girlfriend", "infidelity", "adultery", "wife_sharing", "stag_and_vixen"],
+      description: "Terms starting with = are case-sensitive, so '=NTR' does not hit lowercase text.",
+      default: false,
+      items: [
+        // en
+        "=NTR", "Netorare", "Netori", "Netorase", "Cuckold", "Cuckolding", "Cuckolded", "Cuck", "Cuckquean",
+        "Hotwife", "Hot wife", "Cheating wife", "Cheating girlfriend", "Cheating husband", "Cheating boyfriend",
+        "Wife sharing", "Stag and vixen", "Cuckold husband",
+        // de
+        "Hahnrei", "Fremdgehen", "Fremdgeherin", "Ehefrau betrügt", "Betrügt ihren Mann", "Fremdgehende Ehefrau",
+        // es
+        "Cornudo", "Cornudos", "Esposa infiel", "Mujer infiel", "Novia infiel", "Marido cornudo", "Compartir esposa",
+        // fr
+        "Cocu", "Cocus", "Cocufiage", "Épouse infidèle", "Femme infidèle", "Tromper son mari",
+        // it
+        "Cornuto", "Cornuti", "Moglie infedele", "Moglie che tradisce",
+        // pt
+        "Corno manso", "Esposa infiel", "Mulher infiel",
+        // nl
+        "Hoorndrager", "Vreemdgaan", "Vreemdgaande vrouw",
+        // ru
+        "Рогоносец", "Рогоносцы", "Куколд", "Куколдинг", "Хотвайф", "Нетораре", "Жена изменяет", "Изменяет мужу",
+        // pl
+        "Rogacz", "Rogacze", "Żona zdradza", "Zdradza męża",
+        // tr
+        "Boynuzlu", "Aldatılan koca", "Eşini aldatan",
+        // ja
+        "寝取られ", "寝取り", "寝取らせ", "寝取", "ネトラレ", "ネトリ", "ネトラセ", "浮気妻",
+        // zh
+        "绿帽", "綠帽", "戴绿帽", "戴綠帽", "绿帽癖", "綠帽癖", "绿奴", "綠奴", "淫妻", "献妻", "獻妻", "妻子出轨",
+        // ko
+        "네토라레", "네토리", "네토라세",
+        // th / ar / id
+        "เมียนอกใจ", "สามีนอกใจ", "ديوث", "زوجة خائنة", "Istri selingkuh"
+      ]
+    }
+  ]
+});
+
 // ───────────────────────────────────────────────────────────── Whole-site lists for the older topics
 // Items are domains (the domain and all its subdomains) or *word* patterns (any site whose
 // address contains the word). They are blocked entirely when their list is switched on.

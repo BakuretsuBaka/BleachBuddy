@@ -1142,7 +1142,7 @@ KWF_CATALOG.push({
       kind: "sites",
       description: "Sites dedicated to furry content. *word* blocks every site whose address contains that word.",
       items: [
-        "e621.net", "e926.net", "furaffinity.net", "inkbunny.net", "furrynetwork.com", "sofurry.com", "weasyl.com",
+        "e621.net", "furaffinity.net", "inkbunny.net", "furrynetwork.com", "sofurry.com", "weasyl.com",
         "*furry*", "*yiff*", "*e621*", "*fursuit*"
       ]
     }

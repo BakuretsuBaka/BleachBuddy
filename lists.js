@@ -1025,6 +1025,309 @@ KWF_CATALOG.push(
     ]
   }
 );
+// ─────────────────────────────────────────────────────────── BDSM & fetish
+// One small list per fetish so each can be switched on or off on its own. All are off by default.
+// Words that also have an everyday meaning are left out on purpose (plain "feet", "inflation", "trance").
+KWF_CATALOG.push({
+  id: "fetish",
+  name: "BDSM & fetish",
+  description: "One list per fetish, all off by default: bondage, femdom, humiliation, feet, pregnancy, lactation, hypno, giantess, inflation and vore. Switch on only the ones you want gone.",
+  lists: [
+    {
+      id: "ft-bondage",
+      name: "Bondage & BDSM: keywords",
+      kind: "keywords",
+      boorus: ["bondage", "bdsm", "shibari", "rope_bondage", "bound", "bound_wrists", "bound_arms", "bound_legs", "bound_ankles", "tied_up", "restrained", "gagged", "ball_gag", "bit_gag", "ring_gag", "cleave_gag", "tape_gag", "hogtie", "spreader_bar", "armbinder", "handcuffs", "bondage_gear"],
+      description: "Bondage, BDSM, shibari and gags in many languages. Broad: 'tied up' and 'handcuffed' also hit non-adult uses.",
+      default: false,
+      items: [
+        // en
+        "Bondage", "BDSM", "Shibari", "Kinbaku", "Rope bondage", "Tied up", "Bound and gagged", "Gagged", "Ball gag",
+        "Hogtied", "Hogtie", "Handcuffed", "Armbinder", "Spreader bar", "Bondage gear", "Sex slave",
+        // de
+        "Fesselspiele", "Fesselsex", "Gefesselt", "Fesselung", "Knebel", "Geknebelt",
+        // es / pt
+        "Amordazada", "Amordazado", "Bondagem", "Amordaçada",
+        // fr / it
+        "Attachée", "Ligotée", "Bâillonnée", "Imbavagliata",
+        // nl
+        "Vastgebonden", "Geknevelde",
+        // ru
+        "Бондаж", "Связанная", "Связывание", "Кляп", "Шибари",
+        // pl
+        "Związana", "Knebel",
+        // ja
+        "緊縛", "ボンデージ", "猿ぐつわ", "猿轡", "亀甲縛り", "拘束プレイ",
+        // zh
+        "捆绑", "捆綁", "绑缚", "口球",
+        // ko
+        "결박", "속박", "본디지", "재갈",
+        // th
+        "ชิบาริ", "มัดเชือก"
+      ]
+    },
+    {
+      id: "ft-femdom",
+      name: "Femdom: keywords",
+      kind: "keywords",
+      boorus: ["femdom", "female_domination", "dominatrix", "facesitting", "face_sitting", "smothering", "ballbusting", "cock_and_ball_torture", "pegging", "chastity_cage", "chastity_device", "trampling", "financial_domination"],
+      description: "Female domination, dominatrix, facesitting, pegging and chastity in many languages.",
+      default: false,
+      items: [
+        // en
+        "Femdom", "Female domination", "Female dominance", "Dominatrix", "Domme", "Facesitting", "Face sitting",
+        "Smothering", "Ballbusting", "Ball busting", "Cock and ball torture", "Pegging", "Chastity cage",
+        "Findom", "Financial domination", "Femdom slave", "Mistress and slave",
+        // de
+        "Weibliche Dominanz", "Domina", "Keuschhaltung", "Keuschheitskäfig", "Herrin und Sklave",
+        // es / pt / fr / it
+        "Dominación femenina", "Dominatriz", "Dominação feminina", "Dominadora", "Domination féminine",
+        "Dominatrice", "Cage de chasteté", "Dominazione femminile",
+        // nl
+        "Vrouwelijke dominantie",
+        // ru
+        "Фемдом", "Женское доминирование", "Доминатрикс", "Фейсситтинг", "Пеггинг",
+        // pl / tr
+        "Dominacja kobieca", "Kadın egemenliği",
+        // ja
+        "フェムドム", "女王様", "顔面騎乗", "M男", "ペニバン", "金玉責め",
+        // zh
+        "女性支配", "坐脸", "坐臉", "女王调教",
+        // ko
+        "펨돔", "여성 지배", "얼굴 깔고 앉기",
+        // th
+        "เฟมดอม"
+      ]
+    },
+    {
+      id: "ft-humiliation",
+      name: "Humiliation: keywords",
+      kind: "keywords",
+      boorus: ["humiliation", "public_humiliation", "small_penis_humiliation", "sph", "degradation", "verbal_abuse", "forced_humiliation"],
+      description: "Humiliation, degradation and SPH in many languages. Broad: 'humiliation' also appears in sports and news headlines.",
+      default: false,
+      items: [
+        // en
+        "Humiliation", "Humiliated", "Humiliating", "Public humiliation", "Degradation", "Degrading",
+        "Small penis humiliation", "=SPH", "Sexual humiliation",
+        // de
+        "Demütigung", "Erniedrigung", "Gedemütigt", "Erniedrigt", "Sexuelle Demütigung",
+        // es / pt / fr / it
+        "Humillación", "Humillada", "Degradación", "Humilhação", "Humilhada", "Degradação", "Humiliée",
+        "Dégradation", "Umiliazione", "Umiliata", "Degradazione",
+        // nl
+        "Vernedering", "Vernederd",
+        // ru
+        "Унижение", "Униженная", "Публичное унижение",
+        // pl / tr
+        "Poniżanie", "Upokorzenie", "Upokorzona", "Aşağılanma",
+        // ja
+        "屈辱", "羞恥", "辱め", "言葉責め", "公開羞恥",
+        // zh
+        "羞辱", "凌辱", "公开羞辱", "公開羞辱",
+        // ko
+        "굴욕", "수치 플레이",
+        // ar
+        "إذلال"
+      ]
+    },
+    {
+      id: "ft-feet",
+      name: "Feet: keywords",
+      kind: "keywords",
+      boorus: ["foot_focus", "footjob", "foot_worship", "foot_lick", "toe_sucking", "foot_fetish", "soles", "sole_focus", "foot_licking", "foot_sniffing", "foot_play"],
+      description: "Foot fetish, foot worship and footjob in many languages. Plain 'feet' is left out, it would hide every shoe shop and hiking blog. On image boards the sole and foot-focus tags do the work.",
+      default: false,
+      items: [
+        // en
+        "Foot fetish", "Feet fetish", "Foot worship", "Feet worship", "Footjob", "Foot job", "Feet pics",
+        "Foot pics", "Sole fetish", "Toe sucking", "Foot licking", "Foot play", "Footfetish", "Feetfetish",
+        // de
+        "Fußfetisch", "Fußjob", "Fußanbetung", "Fußerotik", "Fuß Fetisch",
+        // es / fr / it / pt / nl
+        "Fetichismo de pies", "Fetiche de pies", "Adoración de pies", "Fétichisme des pieds", "Fétiche pieds",
+        "Adoration des pieds", "Feticismo dei piedi", "Fetiche de pés", "Fetiche por pés", "Adoração de pés",
+        "Voetfetisj", "Voeten fetisj",
+        // ru / pl / tr
+        "Фетиш ног", "Футфетиш", "Фут фетиш", "Поклонение ногам", "Fetysz stóp", "Fetysz stopy", "Ayak fetişi",
+        // ja
+        "足フェチ", "足コキ", "足舐め", "足の指舐め",
+        // zh
+        "恋足", "戀足", "足交", "足控", "足恋",
+        // ko
+        "발 페티쉬", "풋페티쉬", "족페티쉬", "풋잡",
+        // th / ar / id
+        "ฟุตเฟติช", "عشق الأقدام", "Fetish kaki"
+      ]
+    },
+    {
+      id: "ft-pregnancy",
+      name: "Pregnancy: keywords",
+      kind: "keywords",
+      boorus: ["pregnant", "pregnant_female", "pregnant_belly", "pregnancy", "impregnation", "impregnation_fetish", "pregnant_sex", "preggo"],
+      description: "Pregnancy and impregnation in many languages. Broad: it also hides ordinary pregnancy news, advice and photos.",
+      default: false,
+      items: [
+        // en
+        "Pregnant", "Pregnancy", "Preggo", "Preggers", "Impregnation", "Impregnated", "Pregnant sex",
+        // de
+        "Schwanger", "Schwangere", "Schwangeren", "Schwangerschaft",
+        // es / fr / it / pt / nl
+        "Embarazada", "Embarazadas", "Embarazo", "Enceinte", "Enceintes", "Grossesse", "Incinta", "Incinte",
+        "Gravidanza", "Grávida", "Gravida", "Grávidas", "Gravidez", "Zwanger", "Zwangere", "Zwangerschap",
+        // ru
+        "Беременная", "Беременные", "Беременность", "Беременна",
+        // pl / tr / id
+        "Ciężarna", "W ciąży", "Ciąża", "Hamile", "Hamilelik", "Hamil",
+        // ja
+        "妊婦", "妊娠", "孕ませ", "ボテ腹", "種付け",
+        // zh
+        "孕妇", "孕婦", "怀孕", "懷孕", "大肚子",
+        // ko
+        "임산부", "임신", "만삭",
+        // th / ar
+        "ตั้งครรภ์", "คนท้อง", "حامل"
+      ]
+    },
+    {
+      id: "ft-lactation",
+      name: "Lactation: keywords",
+      kind: "keywords",
+      boorus: ["lactation", "lactating", "breast_milk", "lactation_through_clothes", "hucow", "milking_machine", "breast_pump", "nursing_handjob", "adult_nursing"],
+      description: "Lactation, breast milk and hucow in many languages. Broad: 'breast milk' and 'breastfeeding' also appear in baby and health content.",
+      default: false,
+      items: [
+        // en
+        "Lactation", "Lactating", "Breast milk", "Breastmilk", "Adult breastfeeding", "Adult nursing",
+        "Hucow", "Human cow", "Milk boobs",
+        // de
+        "Laktation", "Muttermilch", "Milchtitten", "Milchbrüste",
+        // es / fr / it / pt / nl
+        "Lactancia", "Lactante", "Leche materna", "Allaitement", "Lait maternel", "Lattazione", "Latte materno",
+        "Lactação", "Leite materno", "Amamentação", "Borstvoeding", "Moedermelk", "Lactatie",
+        // ru / pl / tr
+        "Лактация", "Лактирующая", "Грудное молоко", "Laktacja", "Mleko z piersi", "Emzirme",
+        "Anne sütü", "Laktasyon",
+        // ja
+        "母乳", "授乳", "搾乳",
+        // zh
+        "哺乳", "泌乳", "乳汁", "喷奶", "噴奶",
+        // ko
+        "모유", "수유", "착유",
+        // th / ar
+        "น้ำนม", "ให้นม", "رضاعة", "حليب الأم"
+      ]
+    },
+    {
+      id: "ft-hypno",
+      name: "Hypno & mind control: keywords",
+      kind: "keywords",
+      boorus: ["hypnosis", "hypnotized", "mind_control", "brainwashing", "hypnotic_eyes", "hypnofetish", "hypno"],
+      description: "Hypnosis, mind control and brainwashing in many languages. Broad: 'hypnosis' also appears in therapy content and 'brainwashing' in political rhetoric.",
+      default: false,
+      items: [
+        // en
+        "Hypnosis", "Hypnotized", "Hypnotised", "Hypno", "Hypno porn", "Hypnofetish", "Mind control",
+        "Brainwashing", "Brainwashed",
+        // de
+        "Hypnose", "Hypnotisiert", "Gedankenkontrolle", "Gehirnwäsche",
+        // es / fr / it / pt / nl
+        "Hipnosis", "Hipnotizada", "Control mental", "Lavado de cerebro", "Hypnotisée", "Contrôle mental",
+        "Lavage de cerveau", "Ipnosi", "Ipnotizzata", "Controllo mentale", "Hipnose", "Hipnotizada",
+        "Controle mental", "Lavagem cerebral", "Gedachtecontrole",
+        // ru
+        "Гипноз", "Гипнотизированная", "Контроль разума", "Контроль сознания", "Промывание мозгов",
+        // pl / tr
+        "Hipnoza", "Kontrola umysłu", "Hipnoz", "Zihin kontrolü",
+        // ja
+        "催眠", "洗脳", "マインドコントロール", "催眠術", "催眠音声",
+        // zh
+        "洗脑", "洗腦", "精神控制", "心灵控制", "心靈控制",
+        // ko
+        "최면", "세뇌", "마인드 컨트롤",
+        // th / ar
+        "สะกดจิต", "تنويم مغناطيسي", "غسيل دماغ"
+      ]
+    },
+    {
+      id: "ft-giantess",
+      name: "Giantess & macro: keywords",
+      kind: "keywords",
+      boorus: ["giantess", "macrophilia", "macro", "micro", "shrinking", "giant_woman", "giant_girl"],
+      description: "Giantess, macro/micro and shrinking in many languages. The short words macro and micro are only used as image-board tags, not as keywords.",
+      default: false,
+      items: [
+        // en
+        "Giantess", "Giantesses", "Giant girl", "Giant woman", "Macrophilia", "Microphilia", "Shrunken man",
+        "Shrinking man", "Giantess fetish",
+        // de
+        "Riesin", "Riesinnen", "Riesenfrau",
+        // es / fr / it / pt / nl
+        "Giganta", "Gigantas", "Mujer gigante", "Géante", "Femme géante", "Gigantessa", "Donna gigante",
+        "Mulher gigante", "Reuzin",
+        // ru / pl / tr
+        "Гигантша", "Великанша", "Гигантесса", "Gigantka", "Olbrzymka", "Dev kadın",
+        // ja
+        "巨大娘", "巨人娘", "巨大少女", "ジャイアンテス",
+        // zh
+        "女巨人", "巨大女",
+        // ko
+        "거대소녀", "거대녀", "자이언테스",
+        // th / ar
+        "ยักษ์สาว", "عملاقة"
+      ]
+    },
+    {
+      id: "ft-inflation",
+      name: "Inflation & expansion: keywords",
+      kind: "keywords",
+      boorus: ["inflation", "belly_inflation", "body_inflation", "cum_inflation", "air_inflation", "breast_expansion", "belly_expansion", "inflation_fetish", "blueberry_inflation", "bloated"],
+      description: "Body and belly inflation, cum inflation and expansion. Only the specific phrases are listed, plain 'inflation' would hide all economy news. On image boards the inflation tags do the work.",
+      default: false,
+      items: [
+        // en
+        "Body inflation", "Belly inflation", "Cum inflation", "Air inflation", "Breast expansion",
+        "Belly expansion", "Inflation fetish", "Blueberry inflation", "Inflated belly",
+        // de
+        "Körperaufblähung", "Bauchaufblähung", "Aufblasfetisch",
+        // es / fr / it / pt / nl
+        "Inflación corporal", "Inflation corporelle", "Gonfiaggio", "Inflação corporal", "Lichaamsopblazing",
+        // ru
+        "Надувание тела", "Раздувание тела",
+        // ja
+        "膨腹", "膨張フェチ", "腹部膨張", "風船化",
+        // zh
+        "身体膨胀", "身體膨脹", "腹部膨胀", "腹部膨脹",
+        // ko
+        "팽창 페티쉬", "복부 팽창"
+      ]
+    },
+    {
+      id: "ft-vore",
+      name: "Vore: keywords",
+      kind: "keywords",
+      boorus: ["vore", "oral_vore", "anal_vore", "cock_vore", "soft_vore", "hard_vore", "unbirthing", "unbirth", "willing_vore", "same_size_vore", "swallowed_whole"],
+      description: "Vore and its variants in many languages. Matched as whole words, so 'carnivore' is not hit.",
+      default: false,
+      items: [
+        // en
+        "Vore", "Voreaphilia", "Oral vore", "Anal vore", "Cock vore", "Soft vore", "Hard vore", "Willing vore",
+        "Unbirth", "Unbirthing", "Swallowed whole", "Vore fetish",
+        // es / fr / it / pt
+        "Tragada entera", "Avalée entière", "Inghiottita intera", "Engolida inteira",
+        // ru
+        "Проглатывание целиком",
+        // ja
+        "丸呑み", "丸飲み", "捕食", "ヴォア",
+        // zh
+        "吞食", "吞噬", "活吞",
+        // ko
+        "보어", "통째로 삼킴"
+      ]
+    }
+  ]
+});
+
 
 // ───────────────────────────────────────────────────────────── Whole-site lists for the older topics
 // Items are domains (the domain and all its subdomains) or *word* patterns (any site whose

@@ -30,7 +30,7 @@
   // thumbnails are detected automatically.
   const HOST = location.hostname;
   const PRIMARY = /(^|\.)(pornhub\.com|xvideos\.com|xnxx\.com|xhamster\.(com|desi)|redtube\.com|youporn\.com|spankbang\.com|eporner\.com)$/.test(HOST);
-  const IS_BOORU = /(^|\.)(rule34\.xxx|gelbooru\.com|danbooru\.donmai\.us|safebooru\.org|realbooru\.com|rule34\.paheal\.net|e621\.net|e926\.net|yande\.re|konachan\.(com|net)|hypnohub\.net|tbib\.org|xbooru\.com)$/.test(HOST);
+  const IS_BOORU = /(^|\.)(rule34\.xxx|gelbooru\.com|danbooru\.donmai\.us|realbooru\.com|rule34\.paheal\.net|e621\.net|e926\.net|yande\.re|konachan\.(com|net)|hypnohub\.net|tbib\.org|xbooru\.com)$/.test(HOST);
   const IS_REDDIT = /(^|\.)reddit\.com$/.test(HOST);
 
   const TITLE_SELECTORS = [
@@ -116,7 +116,7 @@
 
   // Sites on the Gelbooru 0.2 engine keep a guest's blacklist in the "tag_blacklist" cookie
   // (space-separated, URL-encoded; 100 tags max). Rule34.xxx and Gelbooru verified in their own scripts, the others run the same engine.
-  const NATIVE_BLACKLIST = /(^|\.)(rule34\.xxx|gelbooru\.com|safebooru\.org|tbib\.org|xbooru\.com|hypnohub\.net|realbooru\.com)$/.test(HOST);
+  const NATIVE_BLACKLIST = /(^|\.)(rule34\.xxx|gelbooru\.com|tbib\.org|xbooru\.com|hypnohub\.net|realbooru\.com)$/.test(HOST);
   const SKIP = new Set(((typeof KWF_BOORU_SKIP !== "undefined" && KWF_BOORU_SKIP[HOST.replace(/^www\./, "")]) || []).map((t) => t.toLowerCase()));
 
   function syncNativeBlacklist() {

@@ -9,7 +9,7 @@ A browser extension (Chrome and Firefox, Manifest V3) that hides videos on adult
 - **Case-sensitive terms.** Start a term with `=` (for example `=AI`) to match it case-sensitively.
 - **Tag lookup.** Sites whose thumbnails show no tags (such as XVideos) are handled by reading each video's page in the background, cached for 30 days.
 - **Whole-site blocking.** Lists of kind "Whole sites" block entire domains (and subdomains) or any address containing `*word*`, using declarativeNetRequest. An optional permission enables a friendly "Site blocked" page; without it the browser shows its own error page.
-- **Image-board sites.** On Rule34 and similar sites posts are matched by exact tag, and on Rule34.xxx, Gelbooru, Safebooru, TBIB, Xbooru, Hypnohub and Realbooru the tags of your enabled lists (such as `dark_skin`, `dark-skinned_male`, `interracial`) are added to the site's own blacklist cookie.
+- **Image-board sites.** On Rule34 and similar sites posts are matched by exact tag, and on Rule34.xxx, Gelbooru, TBIB, Xbooru, Hypnohub and Realbooru the tags of your enabled lists (such as `dark_skin`, `dark-skinned_male`, `interracial`) are added to the site's own blacklist cookie.
 - **Your own lists**, import/export of settings, and a "Try it" tester.
 - **See what was filtered.** The popup lists the hidden items with the term that matched, can outline them instead of hiding them, and shows a counter on the toolbar icon.
 - **Pause per site.** One switch in the popup turns the filter off for the current site only.

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BleachBuddy",
-  "version": "2.9.1",
+  "version": "2.9.2",
   "description": "Hides videos on adult sites when their title, tags, channel or performer match filter lists you choose. Multilingual lists, fully customizable.",
   "permissions": [
     "storage",
@@ -93,7 +93,6 @@
         "*://*.reddit.com/*",
         "*://*.gelbooru.com/*",
         "*://*.danbooru.donmai.us/*",
-        "*://*.safebooru.org/*",
         "*://*.realbooru.com/*",
         "*://*.rule34.paheal.net/*",
         "*://*.e621.net/*",

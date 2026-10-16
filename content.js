@@ -160,7 +160,21 @@
     card.querySelectorAll("img[title], img[alt], a[title], [data-tags]").forEach((el) => {
       chunks.push(el.getAttribute("title") || "", el.getAttribute("alt") || "", el.getAttribute("data-tags") || "");
     });
-    for (const raw of chunks.join(" ").split(/\s+/)) {
+    // Some boards write the tags as "black coat, blue eyes, 1girl" (comma separated, spaces inside a tag).
+    // Splitting that on spaces would turn "black coat" into the tags "black" and "coat", so such lists
+    // are split on the commas and the spaces inside a tag become underscores.
+    const tokens = [];
+    for (const chunk of chunks) {
+      if (chunk.includes(",")) {
+        for (let part of chunk.split(",")) {
+          part = part.slice(part.lastIndexOf("|") + 1).trim();
+          if (part) tokens.push(part.replace(/\s+/g, "_"));
+        }
+      } else {
+        tokens.push(...chunk.split(/\s+/));
+      }
+    }
+    for (const raw of tokens) {
       if (!raw || raw.includes(":")) continue; // score:12, rating:explicit
       const t = raw.toLowerCase().replace(/-/g, "_");
       if (tagSet.has(t) || (t.endsWith("s") && tagSet.has(t.slice(0, -1)))) return t;

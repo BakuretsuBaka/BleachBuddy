@@ -295,7 +295,9 @@ const KWF_CATALOG = [
           // ar
           "متحول", "متحولة", "ترانس",
           // id
-          "Transeksual"
+          "Transeksual",
+          // futanari (fictional): the word is the same in most languages, plus ja / zh / ko / ru / th / ar
+          "Futanari", "Futanarí", "Futa", "ふたなり", "フタナリ", "扶她", "扶他", "후타나리", "Футанари", "ฟุตานาริ", "فوتاناري"
         ]
       },
       {

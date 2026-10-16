@@ -684,70 +684,6 @@ const KWF_CATALOG = [
 // A term that starts with "=" is case-sensitive ("=AI" matches "AI" but not "Ai" or "ai").
 
 KWF_CATALOG.push(
-  // ─────────────────────────────────────────────────────────── Anal
-  {
-    id: "anal",
-    name: "Anal",
-    description: "Anal vocabulary in many languages, studios and dedicated sites.",
-    lists: [
-      {
-        id: "an-terms",
-        name: "Anal: keywords",
-        kind: "keywords",
-        boorus: ["anal", "anal_sex", "anal_penetration", "anal_insertion", "anal_fingering", "anal_beads", "anal_masturbation", "anal_fisting", "anal_creampie", "anal_plug", "rimjob"],
-        description: "Anal and related terms in many languages. Terms starting with = are case-sensitive.",
-        default: false,
-        items: [
-          // en
-          "Anal", "Anal sex", "Analsex", "Anal fuck", "Anal creampie", "Anal gape", "Anal fisting", "Anal toy",
-          "Anal plug", "Anal beads", "Ass fuck", "Assfuck", "Ass to mouth", "A2M", "=DAP", "Double anal",
-          "Butt plug", "Buttplug", "Butt fuck", "Buttfuck",
-          // de
-          "Arschfick", "Arschficken", "Arschgefickt", "In den Arsch",
-          // es
-          "Sexo anal", "Por el culo", "Enculada",
-          // fr
-          "Sodomie", "Sodomisée", "Sodomisé", "Enculée", "Enculer", "Sexe anal",
-          // it
-          "Anale", "Sesso anale", "Sodomia", "Inculata",
-          // pt
-          "Dando o cu",
-          // nl / sv / cs
-          "Anaal", "Anale seks", "Anaalseks", "Anální",
-          // ru
-          "Анал", "Анальный", "Анальная", "Анальное", "Анальные", "Анальный секс", "В попку", "В жопу",
-          // pl
-          "Analny", "Analna", "Seks analny", "W dupę",
-          // tr / id
-          "Anal seks", "Seks anal",
-          // ja
-          "アナル", "アナルセックス", "アナル拡張", "肛門",
-          // zh
-          "肛交", "后庭", "後庭", "爆菊", "肛门",
-          // ko
-          "항문", "애널", "애널섹스", "항문섹스",
-          // ar
-          "شرجي", "الجنس الشرجي"
-        ]
-      },
-      {
-        id: "an-studios",
-        name: "Anal: studios & series",
-        kind: "studios",
-        description: "Brands built around anal content (partial).",
-        default: false,
-        items: ["Analvids", "Analized", "Anal Acrobats"]
-      },
-      {
-        id: "an-sites",
-        name: "Anal: whole sites",
-        kind: "sites",
-        description: "Sites dedicated to anal content. *word* blocks every site whose address contains that word.",
-        default: false,
-        items: ["analvids.com", "analized.com", "*analporn*", "*analsex*", "*analxxx*", "*analtube*", "*analvid*"]
-      }
-    ]
-  },
 
   // ─────────────────────────────────────────────────────────── Group sex
   {
@@ -1047,8 +983,64 @@ KWF_CATALOG.push(
 KWF_CATALOG.push({
   id: "fetish",
   name: "BDSM & fetish",
-  description: "One list per fetish, all off by default: bondage, femdom, humiliation, feet, pregnancy, lactation, hypno, giantess, inflation and vore. Switch on only the ones you want gone.",
+  description: "One list per fetish, all off by default: anal, bondage, femdom, humiliation, feet, pregnancy, lactation, hypno, giantess, inflation and vore. Switch on only the ones you want gone.",
   lists: [
+    {
+      id: "an-terms",
+      name: "Anal: keywords",
+      kind: "keywords",
+      boorus: ["anal", "anal_sex", "anal_penetration", "anal_insertion", "anal_fingering", "anal_beads", "anal_masturbation", "anal_fisting", "anal_creampie", "anal_plug", "rimjob"],
+      description: "Anal and related terms in many languages. Terms starting with = are case-sensitive.",
+      default: false,
+      items: [
+        // en
+        "Anal", "Anal sex", "Analsex", "Anal fuck", "Anal creampie", "Anal gape", "Anal fisting", "Anal toy",
+        "Anal plug", "Anal beads", "Ass fuck", "Assfuck", "Ass to mouth", "A2M", "=DAP", "Double anal",
+        "Butt plug", "Buttplug", "Butt fuck", "Buttfuck",
+        // de
+        "Arschfick", "Arschficken", "Arschgefickt", "In den Arsch",
+        // es
+        "Sexo anal", "Por el culo", "Enculada",
+        // fr
+        "Sodomie", "Sodomisée", "Sodomisé", "Enculée", "Enculer", "Sexe anal",
+        // it
+        "Anale", "Sesso anale", "Sodomia", "Inculata",
+        // pt
+        "Dando o cu",
+        // nl / sv / cs
+        "Anaal", "Anale seks", "Anaalseks", "Anální",
+        // ru
+        "Анал", "Анальный", "Анальная", "Анальное", "Анальные", "Анальный секс", "В попку", "В жопу",
+        // pl
+        "Analny", "Analna", "Seks analny", "W dupę",
+        // tr / id
+        "Anal seks", "Seks anal",
+        // ja
+        "アナル", "アナルセックス", "アナル拡張", "肛門",
+        // zh
+        "肛交", "后庭", "後庭", "爆菊", "肛门",
+        // ko
+        "항문", "애널", "애널섹스", "항문섹스",
+        // ar
+        "شرجي", "الجنس الشرجي"
+      ]
+    },
+    {
+      id: "an-studios",
+      name: "Anal: studios & series",
+      kind: "studios",
+      description: "Brands built around anal content (partial).",
+      default: false,
+      items: ["Analvids", "Analized", "Anal Acrobats"]
+    },
+    {
+      id: "an-sites",
+      name: "Anal: whole sites",
+      kind: "sites",
+      description: "Sites dedicated to anal content. *word* blocks every site whose address contains that word.",
+      default: false,
+      items: ["analvids.com", "analized.com", "*analporn*", "*analsex*", "*analxxx*", "*analtube*", "*analvid*"]
+    },
     {
       id: "ft-bondage",
       name: "Bondage & BDSM: keywords",

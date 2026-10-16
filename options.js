@@ -21,6 +21,17 @@ let settings = kwfResolve(null);
 let query = "";
 const expanded = new Set();
 const topicCountEls = new Map();
+
+// Which topics are folded up. Only a convenience for this page, so it lives in localStorage and may be empty.
+const collapsed = new Set();
+try {
+  for (const id of JSON.parse(localStorage.getItem("kwfCollapsedTopics") || "[]")) collapsed.add(id);
+} catch {}
+function saveCollapsed() {
+  try {
+    localStorage.setItem("kwfCollapsedTopics", JSON.stringify([...collapsed]));
+  } catch {}
+}
 let matcherCache = null;
 
 const fold = (s) => kwfFold(s).toLowerCase();
@@ -187,18 +198,44 @@ function renderTopic(topic, rows) {
     "Turn every list in this topic on or off"
   );
 
-  return h(
-    "section",
-    { class: "card" },
-    h(
-      "div",
-      { class: "card-head" },
-      h("div", { class: "grow" }, h("h2", {}, topic.name), h("p", {}, topic.description)),
-      countEl,
-      master
-    ),
-    rows
+  // While searching, every topic with a hit stays open so the matches are visible
+  const folded = collapsed.has(topic.id) && !query.trim();
+  const card = h("section", { class: "card" + (folded ? " collapsed" : "") });
+
+  const fold = h("button", { class: "fold", type: "button", "aria-expanded": String(!folded), title: "Fold this topic up or down" }, h("span", { class: "chev" }, "▸"));
+  const toggle = () => {
+    const nowFolded = !card.classList.contains("collapsed");
+    card.classList.toggle("collapsed", nowFolded);
+    fold.setAttribute("aria-expanded", String(!nowFolded));
+    if (nowFolded) collapsed.add(topic.id);
+    else collapsed.delete(topic.id);
+    saveCollapsed();
+  };
+  fold.addEventListener("click", toggle);
+
+  const head = h(
+    "div",
+    { class: "card-head" },
+    fold,
+    h("div", { class: "grow" }, h("h2", {}, topic.name), h("p", {}, topic.description)),
+    countEl,
+    master
   );
+  // A click anywhere on the header folds it, except on the switch itself
+  head.addEventListener("click", (e) => {
+    if (e.target.closest(".switch") || e.target.closest(".fold")) return;
+    toggle();
+  });
+
+  card.append(head, h("div", { class: "topic-body" }, rows));
+  return card;
+}
+
+function setAllFolded(on) {
+  collapsed.clear();
+  if (on) for (const topic of KWF_CATALOG) collapsed.add(topic.id);
+  saveCollapsed();
+  renderCatalog();
 }
 
 function renderCatalog() {
@@ -440,6 +477,8 @@ const setAllLists = (on) => {
   save();
   renderCatalog();
 };
+$("#foldAll").addEventListener("click", () => setAllFolded(true));
+$("#unfoldAll").addEventListener("click", () => setAllFolded(false));
 $("#enableAll").addEventListener("click", () => setAllLists(true));
 $("#disableAll").addEventListener("click", () => setAllLists(false));
 

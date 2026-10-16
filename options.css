@@ -60,6 +60,13 @@ textarea { min-height: 120px; resize: vertical; font-family: ui-monospace, SFMon
 .card-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
 .card-head .grow { flex: 1; min-width: 0; }
 .card-head h2 { margin: 0; }
+.card-head { cursor: pointer; }
+.card-head .switch { cursor: pointer; }
+.fold { border: 0; background: none; padding: 2px 4px; margin: 0 -4px 0 -6px; line-height: 1; }
+.fold:hover { border: 0; }
+.card-head .chev { display: inline-block; transform: rotate(90deg); }
+.card.collapsed .card-head .chev { transform: none; }
+.card.collapsed .topic-body { display: none; }
 .card-head p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
 
 .list-row { border-top: 1px solid var(--line); }

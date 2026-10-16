@@ -260,7 +260,7 @@ const KWF_CATALOG = [
         id: "tr-terms",
         name: "Trans: neutral terms",
         kind: "keywords",
-        boorus: ["transgender", "transgender_woman", "transgender_male", "trans_woman", "trans_man", "trans_girl", "transfem"],
+        boorus: ["transgender", "transgender_woman", "transgender_male", "trans_woman", "trans_man", "trans_girl", "transfem", "futanari", "futa", "futa_only", "futa_on_female", "futa_on_male", "futa_on_futa", "futa_with_female", "futa_sans_pussy", "futa_focus", "futadom"],
         description: "Trans, transgender, transsexual and equivalents in many languages.",
         items: [
           // en

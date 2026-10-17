@@ -10,7 +10,6 @@ const KWF_DEFAULTS = {
   deepTags: true,          // read tags from each video's own page (thumbnails rarely show them)
   holdUntilChecked: true,  // keep thumbnails invisible until their tags were checked
   mode: "hide", // "hide" | "blur"
-  redditNsfwOnly: true,    // on Reddit, only filter posts marked NSFW
   extraSites: [],          // extra domains the user added (content script registered by background.js)
   siteBlocking: true,      // block entire sites that belong to an enabled "sites" list
   nativeBlacklist: true,   // on Rule34 & co: also add the active image-board tags to the site's own blacklist

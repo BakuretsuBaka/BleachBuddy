@@ -496,7 +496,7 @@
 
   function applyCard(card) {
     if (IS_REDDIT) fullText.add(card);
-    if (IS_REDDIT && settings.redditNsfwOnly && !isNsfw(card)) {
+    if (IS_REDDIT && !isNsfw(card)) {
       setState(card, false, false);
       return;
     }

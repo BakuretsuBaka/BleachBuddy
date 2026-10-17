@@ -392,7 +392,6 @@ function syncControls() {
   $("#matchTags").checked = settings.matchTags;
   $("#wholeWord").checked = settings.wholeWord;
   $("#deepTags").checked = settings.deepTags;
-  $("#redditNsfwOnly").checked = settings.redditNsfwOnly;
   $("#nativeBlacklist").checked = settings.nativeBlacklist;
   { const n = kwfBooruTags(settings).length; $("#nativeCount").textContent = `${n} tags from your enabled lists. Rule34 and similar sites accept at most 100 in a blacklist; the rest is only filtered by BleachBuddy itself.` + (n > 100 ? " Some tags will not fit." : ""); }
   $("#extraSites").value = settings.extraSites.join("\n");
@@ -449,7 +448,7 @@ $("#clearCache").addEventListener("click", () => {
     setTimeout(() => ($("#clearCache").textContent = "Clear cached tags"), 1500);
   });
 });
-["matchTitle", "matchTags", "wholeWord", "deepTags", "holdUntilChecked", "siteBlocking", "redditNsfwOnly", "nativeBlacklist", "badge"].forEach((id) =>
+["matchTitle", "matchTags", "wholeWord", "deepTags", "holdUntilChecked", "siteBlocking", "nativeBlacklist", "badge"].forEach((id) =>
   $("#" + id).addEventListener("change", (e) => {
     settings[id] = e.target.checked;
     save();

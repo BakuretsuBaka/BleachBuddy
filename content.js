@@ -103,7 +103,9 @@
   const tagNorm = (t) => kwfFold(t).toLowerCase().trim().replace(/[\s\-_.]+/g, "_");
 
   function rebuild() {
-    const terms = kwfActiveTerms(settings);
+    let terms = kwfActiveTerms(settings);
+    // Bare colour words are everywhere in 4chan discussion ("black thong"); the longer terms ("black guy") still match
+    if (IS_4CHAN) terms = terms.filter((t) => !FOURCHAN_AMBIGUOUS.has(t.toLowerCase()));
     matcher = kwfBuildMatcher(terms, settings.wholeWord);
     tagSet = new Set();
     const multi = [];
@@ -204,6 +206,12 @@
   }
 
   // 4chan posts and catalog tiles: the file name, the subject and the post text
+  const FOURCHAN_AMBIGUOUS = new Set(["black"]);
+  // Only posts with an image or video are judged; plain text posts are left alone
+  function fourchanHasMedia(card) {
+    const op = card.classList.contains("thread") ? card.querySelector(":scope > .opContainer") : null;
+    return !!(op || card).querySelector(".fileThumb, .fileText, .file, img.thumb, video");
+  }
   function fourchanText(card) {
     const chunks = [];
     // On a board page a thread card holds the whole thread; the thread is judged by its first post
@@ -497,6 +505,10 @@
   function applyCard(card) {
     if (IS_REDDIT) fullText.add(card);
     if (IS_REDDIT && !isNsfw(card)) {
+      setState(card, false, false);
+      return;
+    }
+    if (IS_4CHAN && !fourchanHasMedia(card)) {
       setState(card, false, false);
       return;
     }

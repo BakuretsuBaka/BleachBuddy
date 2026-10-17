@@ -16,7 +16,7 @@ A browser extension (Chrome and Firefox, Manifest V3) that hides videos on adult
 - **See what was filtered.** The popup lists the hidden items with the term that matched, can outline them instead of hiding them, and shows a counter on the toolbar icon.
 - **Pause per site.** One switch in the popup turns the filter off for the current site only.
 
-Built-in support for about 90 adult sites (the full list is on the settings page), image boards, Reddit and the adult boards of 4chan (/s/, /hc/, /hm/, /h/, /e/, /u/, /d/, /y/, /t/, /hr/, /gif/, /aco/), where file names and post text are checked. Pages of other sites can be added there too.
+Built-in support for about 90 adult sites (the full list is on the settings page), image boards, Reddit and the adult boards of 4chan (/s/, /hc/, /hm/, /h/, /e/, /u/, /d/, /y/, /t/, /hr/, /gif/, /aco/), where posts with an image or video are checked by file name and post text. Pages of other sites can be added there too.
 
 ## Install
 

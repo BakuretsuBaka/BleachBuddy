@@ -217,7 +217,9 @@
         "*://*.doujins.com/*",
         "*://*.nozomi.la/*",
         "*://*.chan.sankakucomplex.com/*",
-        "*://*.pmvhaven.com/*"
+        "*://*.pmvhaven.com/*",
+        "*://*.pmvtube.com/*",
+        "*://*.pmvclips.com/*"
       ],
       "js": [
         "lists.js",

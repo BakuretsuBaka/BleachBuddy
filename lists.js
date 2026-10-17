@@ -873,7 +873,7 @@ KWF_CATALOG.push(
   {
     id: "ai",
     name: "AI-generated",
-    description: "AI-generated and deepfake content in many languages, plus generator sites. Off by default.",
+    description: "AI-generated and deepfake content in many languages, plus generator sites.",
     lists: [
       {
         id: "ai-terms",

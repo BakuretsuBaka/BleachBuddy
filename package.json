@@ -1,6 +1,6 @@
 {
   "name": "bleachbuddy",
-  "version": "2.13.0",
+  "version": "2.14.0",
   "description": "Hides videos on adult sites when their title, tags, channel or performer match filter lists you choose",
   "license": "GPL-3.0-only",
   "private": true,

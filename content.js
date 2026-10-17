@@ -33,6 +33,10 @@
   const IS_BOORU = /(^|\.)(rule34\.xxx|gelbooru\.com|danbooru\.donmai\.us|realbooru\.com|rule34\.paheal\.net|e621\.net|yande\.re|konachan\.(com|net)|hypnohub\.net|tbib\.org|xbooru\.com)$/.test(HOST);
   const IS_REDDIT = /(^|\.)reddit\.com$/.test(HOST);
 
+  // 4chan: only the adult boards. The script is loaded on all of boards.4chan.org, so the board is checked here.
+  const FOURCHAN_BOARDS = /^\/(s|hc|hm|h|e|u|d|y|t|hr|gif|aco)(\/|$)/;
+  const IS_4CHAN = HOST === "boards.4chan.org" && FOURCHAN_BOARDS.test(location.pathname);
+
   const TITLE_SELECTORS = [
     ".title", "[class*='title']", "[class*='name']", "a[title]", "img[alt]", "h2", "h3", "h4", "p > a"
   ].join(",");
@@ -187,8 +191,41 @@
 
   const fullText = new WeakSet(); // auto-detected cards and Reddit posts: read all of their text
 
+  // Text of an element with line breaks turned into spaces ("black<br>cock" must not become "blackcock")
+  function textWithBreaks(el, out = []) {
+    for (const n of el.childNodes) {
+      if (n.nodeType === 3) out.push(n.nodeValue);
+      else if (n.nodeType === 1) {
+        if (n.tagName === "BR" || n.tagName === "WBR") out.push(" ");
+        else textWithBreaks(n, out);
+      }
+    }
+    return out;
+  }
+
+  // 4chan posts and catalog tiles: the file name, the subject and the post text
+  function fourchanText(card) {
+    const chunks = [];
+    // On a board page a thread card holds the whole thread; the thread is judged by its first post
+    const op = card.classList.contains("thread") ? card.querySelector(":scope > .opContainer") : null;
+    const root = op || card;
+    root.querySelectorAll(".fileText, .file-info, .fileThumb").forEach((el) => {
+      chunks.push(el.textContent || "", el.getAttribute("title") || "", el.getAttribute("data-filename") || "");
+    });
+    // Long file names are shortened in the link text; the whole name is in the title
+    root.querySelectorAll("a[title], a[download], a[data-filename]").forEach((el) => {
+      chunks.push(el.getAttribute("title") || "", el.getAttribute("download") || "", el.getAttribute("data-filename") || "");
+    });
+    root.querySelectorAll(".subject, .postMessage, .teaser").forEach((el) => chunks.push(textWithBreaks(el).join("")));
+    // Catalog tiles and layouts changed by userscripts: fall back to the text of the whole element
+    if (!chunks.some((c) => c.trim())) chunks.push((root.textContent || "").slice(0, 1200));
+    return kwfFold(chunks.join(" \n "));
+  }
+
   function collectText(card) {
     const chunks = [];
+
+    if (IS_4CHAN) return fourchanText(card);
 
     if (fullText.has(card)) {
       chunks.push((card.textContent || "").slice(0, 800));
@@ -472,7 +509,7 @@
     let why = IS_BOORU ? boorusHit(card) : matcher.match(collectText(card));
     let pending = false;
 
-    if (!why && settings.deepTags && settings.matchTags && !IS_REDDIT && !IS_BOORU) {
+    if (!why && settings.deepTags && settings.matchTags && !IS_REDDIT && !IS_BOORU && !IS_4CHAN) {
       const url = videoUrl(card);
       if (url) {
         const text = cachedTags(url);
@@ -541,7 +578,14 @@
 
   let lastCards = [];
 
+  // Thread pages: every post. Board index: whole threads and the replies shown under them. Catalog: the tiles.
+  function fourchanCards() {
+    if (/\/thread\//.test(location.pathname)) return [...document.querySelectorAll(".postContainer")];
+    return [...document.querySelectorAll("#threads > .thread, .board > .thread, .thread > .replyContainer")];
+  }
+
   function currentCards() {
+    if (IS_4CHAN) return fourchanCards();
     const specific = [...document.querySelectorAll(CARD_SELECTORS)].filter(
       (c) => !(c.parentElement && c.parentElement.closest(CARD_SELECTORS))
     );
@@ -619,7 +663,7 @@
     const cards = lastCards;
     return {
       url: location.href,
-      mode: IS_REDDIT ? "reddit" : document.querySelector(CARD_SELECTORS) ? "selectors" : "auto-detect",
+      mode: IS_REDDIT ? "reddit" : IS_4CHAN ? "4chan" : document.querySelector(CARD_SELECTORS) ? "selectors" : "auto-detect",
       settings: { enabled: settings.enabled, paused, deepTags: settings.deepTags, matchTags: settings.matchTags, mode: settings.mode },
       terms: matcher ? matcher.size : 0,
       cardsFound: cards.length,
@@ -655,6 +699,7 @@
   }
 
   async function init() {
+    if (HOST === "boards.4chan.org" && !IS_4CHAN) return; // only the listed adult boards
     await Promise.all([loadSettings(), loadCache()]);
     rebuild();
     syncNativeBlacklist();

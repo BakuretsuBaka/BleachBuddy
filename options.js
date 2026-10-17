@@ -562,7 +562,7 @@ $("#copyTagsSpace").addEventListener("click", copyTags(" "));
 
 // Supported sites
 const manifestSites = (api.runtime.getManifest().content_scripts || []).flatMap((c) => c.matches || []);
-const siteNames = [...new Set(manifestSites.map((m) => m.replace(/^\*:\/\/\*\./, "").replace(/\/\*$/, "")))].sort();
+const siteNames = [...new Set(manifestSites.map((m) => m.replace(/^\*:\/\/(\*\.)?/, "").replace(/\/\*$/, "")))].sort();
 $("#siteCount").textContent = `${siteNames.length} sites`;
 siteNames.forEach((n) => $("#builtinSites").append(h("span", { class: "chip", style: "cursor:default" }, n)));
 

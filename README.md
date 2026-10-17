@@ -1,4 +1,6 @@
-# BleachBuddy
+<p align="center"><img src="icons/icon-128.png" width="96" alt="BleachBuddy icon"></p>
+
+<h1 align="center">BleachBuddy</h1>
 
 A browser extension (Chrome and Firefox, Manifest V3) that hides videos on adult sites when their title, tags, channel or performer match filter lists you choose, and can block whole sites that are built around a topic you filter.
 

@@ -24,7 +24,7 @@ const KWF_CATALOG = [
         description: "The word 'interracial' in many languages plus common pairing acronyms.",
         items: [
           // English and shared acronyms
-          "Interracial", "Inter-racial", "Inter racial", "Mixed race", "BBC", "BWC", "BMWF", "WFBM", "WMBF",
+          "Interracial", "Inter-racial", "Inter racial", "Mixed race", "BBC", "BMWF", "WFBM", "WMBF",
           "BWWM", "Big Black Cock", "Black on White",
           // de
           "Interrassisch", "Gemischtrassig",
@@ -929,7 +929,7 @@ KWF_CATALOG.push(
   {
     id: "hentai",
     name: "Hentai & anime",
-    description: "Hentai and animated adult content in many languages, studios and sites. Off by default.",
+    description: "Hentai and animated adult content in many languages, studios and sites.",
     lists: [
       {
         id: "hn-terms",

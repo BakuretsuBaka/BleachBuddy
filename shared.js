@@ -8,7 +8,7 @@ const KWF_DEFAULTS = {
   matchTags: true,
   wholeWord: true,
   deepTags: true,          // read tags from each video's own page (thumbnails rarely show them)
-  holdUntilChecked: false, // keep thumbnails invisible until their tags were checked
+  holdUntilChecked: true,  // keep thumbnails invisible until their tags were checked
   mode: "hide", // "hide" | "blur"
   redditNsfwOnly: true,    // on Reddit, only filter posts marked NSFW
   extraSites: [],          // extra domains the user added (content script registered by background.js)

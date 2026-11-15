@@ -53,7 +53,7 @@ const KWF_CATALOG = [
         name: "Black / Ebony: keywords",
         kind: "keywords",
         boorus: ["dark_skin", "dark-skinned_male", "dark-skinned_female", "dark-skinned_futa", "dark_penis", "black_body", "ebony", "black_skin", "black_cock"],
-        description: "Black, Ebony, African and equivalents in many languages. Broad: 'Black' alone also hits non-adult uses, except 'black' right before a hair or clothing word (black hair, black dress, black stockings).",
+        description: "Black, Ebony, African and equivalents in many languages. Broad: 'Black' alone also hits non-adult uses, except 'black' right before a hair or clothing word (black hair, black dress, black stockings, black latex).",
         // A match of `term` is ignored when it is followed by one of the `next` words, whatever the capitalization.
         // See kwfActiveExceptions() in shared.js.
         exceptions: [
@@ -69,7 +69,9 @@ const KWF_CATALOG = [
               "stockings", "stocking", "pantyhose", "nylons", "fishnets", "fishnet", "hose", "socks", "sock", "thong", "panties",
               "panty", "briefs", "underwear", "lingerie", "bra", "bikini", "swimsuit", "swimwear", "corset", "bustier", "garter",
               "garters", "gloves", "glove", "boots", "boot", "heels", "shoes", "sneakers", "stilettos", "pumps", "sandals",
-              "hat", "cap", "beanie", "scarf", "choker", "belt", "tie"
+              "hat", "cap", "beanie", "scarf", "choker", "belt", "tie",
+              // materials
+              "latex", "leather", "lace"
             ]
           }
         ],

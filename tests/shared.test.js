@@ -186,9 +186,9 @@ test("manifest loads the search script on every engine", () => {
 
 test("'black' before a hair or clothing word is not a match, in any capitalization", () => {
   const m = kwfBuildMatcher(["Black", "Black girl", "Big Black Cock"], true, kwfActiveExceptions(kwfResolve(null)));
-  for (const t of ["black hair", "a black dress", "black stockings", "black-haired girl", "black t-shirt", "black thong", "black_hair", "black   boots", "Black hair", "BLACK HAIR", "Black Dress"])
+  for (const t of ["black hair", "a black dress", "black stockings", "black-haired girl", "black t-shirt", "black thong", "black_hair", "black   boots", "Black hair", "BLACK HAIR", "Black Dress", "black latex", "black leather", "Black Lace"])
     assert.equal(hit(m, t), null, t);
-  for (const t of ["black", "black guy", "black girl", "black cock", "Black Guy", "black latex", "black hairy", "Big Black Cock"])
+  for (const t of ["black", "black guy", "black girl", "black cock", "Black Guy", "black hairy", "Big Black Cock"])
     assert.ok(hit(m, t), t);
 });
 

@@ -77,12 +77,13 @@ function kwfActiveTerms(s) {
 }
 
 // Exception rules of the enabled catalog lists: a match of `term` is ignored when it is directly followed by one of
-// the `next` words (e.g. "black" before "hair" or a clothing word). `caseSensitive: true` limits a rule to the exact spelling of `term`.
+// the `next` words, or directly preceded by one of the `prev` words (e.g. "black" before "hair" or a clothing word).
+// A rule names one `term` or several `terms`; `caseSensitive: true` limits it to the exact spelling.
 function kwfActiveExceptions(s) {
   const out = [];
   for (const list of kwfCatalogLists()) {
     if (!list.exceptions || !kwfListEnabled(s, list)) continue;
-    for (const ex of list.exceptions) if (ex && ex.term && Array.isArray(ex.next) && ex.next.length) out.push(ex);
+    for (const ex of list.exceptions) if (ex && (ex.term || (ex.terms && ex.terms.length)) && ((ex.next && ex.next.length) || (ex.prev && ex.prev.length))) out.push(ex);
   }
   return out;
 }
@@ -199,25 +200,35 @@ function kwfBuildMatcher(terms, wholeWord, exceptions) {
     exactRe = new RegExp(`(?<![\\p{L}\\p{N}\\p{M}])(?:${exact.sort(longestFirst).map(esc).join("|")})s?(?![\\p{L}\\p{N}\\p{M}])`, "u");
   if (substr.length) substrRe = new RegExp(substr.sort(longestFirst).map(esc).join("|"), "u");
 
-  // Exceptions: a match is dropped when the text from its start is "<term> <next word>" (separators as in terms).
+  // Exceptions: a match is dropped when the word after it is one of `next` or the word before it is one of `prev`
+  // (languages that put the adjective after the noun, e.g. "pelo negro"). A rule names its `terms` (or one `term`).
   // Rules marked caseSensitive compare the text as written; the others ignore case.
+  const WORD = "(?![\\p{L}\\p{N}\\p{M}])";
   const excRules = [];
   for (const ex of exceptions || []) {
-    const t = kwfFold(ex.term).trim();
-    const next = (ex.next || []).map((w) => kwfFold(w).trim()).filter(Boolean).sort(longestFirst);
-    if (!t || !next.length) continue;
-    const word = "(?![\\p{L}\\p{N}\\p{M}])";
+    const cs = !!ex.caseSensitive;
+    const names = (ex.terms || [ex.term]).filter(Boolean).map((t) => kwfFold(t).trim()).filter(Boolean);
+    const clean = (list) => (list || []).map((w) => kwfFold(w).trim()).filter(Boolean).sort(longestFirst);
+    const next = clean(ex.next);
+    const prev = clean(ex.prev);
+    if (!names.length || !(next.length || prev.length)) continue;
+    // Scripts without word gaps (Japanese...) allow the words to touch and need no word boundary
+    const gapless = names.some((t) => KWF_SUBSTRING_SCRIPTS.test(t));
+    const sep = gapless ? "[\\s\\-_.]*" : "[\\s\\-_.]+";
+    const tail = gapless ? "" : `s?${WORD}`;
+    const flags = cs ? "u" : "iu";
     excRules.push({
-      key: t.toLowerCase(),
-      re: new RegExp(`${esc(t)}[\\s\\-_.]+(?:${next.map(esc).join("|")})s?${word}`, ex.caseSensitive ? "uy" : "iuy")
+      names: new Set(names.map((t) => (cs ? t : t.toLowerCase()))),
+      cs,
+      after: next.length ? new RegExp(`^${sep}(?:${next.map(esc).join("|")})${tail}`, flags) : null,
+      before: prev.length ? new RegExp(`(?<![\\p{L}\\p{N}\\p{M}])(?:${prev.map(esc).join("|")})${gapless ? "" : "s?"}${sep}$`, flags) : null
     });
   }
   const excepted = (text, index, matched) => {
-    const key = matched.toLowerCase();
     for (const r of excRules) {
-      if (r.key !== key) continue;
-      r.re.lastIndex = index;
-      if (r.re.test(text)) return true;
+      if (!r.names.has(r.cs ? matched : matched.toLowerCase())) continue;
+      if (r.after && r.after.test(text.slice(index + matched.length, index + matched.length + 60))) return true;
+      if (r.before && r.before.test(text.slice(Math.max(0, index - 60), index))) return true;
     }
     return false;
   };

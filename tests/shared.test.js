@@ -204,3 +204,37 @@ test("without the Black list the exception is gone", () => {
   const m = kwfBuildMatcher(["Black"], true, []);
   assert.ok(hit(m, "black hair"));
 });
+
+test("exceptions work in other languages (full default catalog)", () => {
+  const s = kwfResolve(null);
+  const m = kwfBuildMatcher(kwfActiveTerms(s), true, kwfActiveExceptions(s));
+  const none = [
+    "schwarze Haare", "Schwarze Strümpfe", "schwarzes Kleid".replace("schwarzes", "schwarze"),
+    "pelo negro", "vestido negro", "botas negras", "lencería negra", "medias negras",
+    "robe noire", "bottes noires", "lingerie noire",
+    "capelli neri", "vestito nero", "calze nere",
+    "cabelo preto", "vestido preto", "meias pretas",
+    "zwart haar", "zwarte jurk", "zwarte laarzen",
+    "чёрные волосы", "Чёрная юбка", "чёрные чулки",
+    "czarne włosy", "czarna sukienka",
+    "siyah saç", "siyah elbise",
+    "ブラックドレス", "ブラックストッキング", "ブラックヘア",
+    "شعر أسود", "فستان أسود", "ملابس داخلية سوداء",
+    "rambut hitam", "gaun hitam", "celana dalam hitam"
+  ];
+  const some = [
+    "schwarze Frau", "mujer negra", "femme noire", "ragazza nera", "mulher preta", "zwarte man", "чёрная девушка",
+    "czarna dziewczyna", "siyah kadın", "ブラック", "رجل أسود", "pria hitam", "hombre negro"
+  ];
+  for (const t of none) assert.equal(hit(m, t), null, t);
+  for (const t of some) assert.ok(hit(m, t), t);
+});
+
+test("a rule can look at the word before a term", () => {
+  const rules = [{ terms: ["Negra"], prev: ["pelo", "ropa interior"] }];
+  const m = kwfBuildMatcher(["Negra"], true, rules);
+  assert.equal(hit(m, "pelo negra"), null);
+  assert.equal(hit(m, "ropa-interior negra"), null);
+  assert.ok(hit(m, "mujer negra"));
+  assert.ok(hit(m, "pelopelo negra".replace("pelopelo", "superpelo")));
+});

@@ -54,7 +54,8 @@ const KWF_CATALOG = [
         kind: "keywords",
         boorus: ["dark_skin", "dark-skinned_male", "dark-skinned_female", "dark-skinned_futa", "dark_penis", "black_body", "ebony", "black_skin", "black_cock"],
         description: "Black, Ebony, African and equivalents in many languages. Broad: 'Black' alone also hits non-adult uses, except 'black' right before a hair or clothing word (black hair, black dress, black stockings, black latex).",
-        // A match of `term` is ignored when it is followed by one of the `next` words, whatever the capitalization.
+        // A match of `term`/`terms` is ignored when the word after it is one of `next` or the word before it is one of
+        // `prev` (languages that put the adjective after the noun), whatever the capitalization. Words are best-effort.
         // See kwfActiveExceptions() in shared.js.
         exceptions: [
           {
@@ -72,6 +73,139 @@ const KWF_CATALOG = [
               "hat", "cap", "beanie", "scarf", "choker", "belt", "tie",
               // materials
               "latex", "leather", "lace", "silk", "satin", "denim"
+            ]
+          },
+          // German (de): word after the term
+          {
+            terms: ["Schwarze", "Schwarzer", "Schwarzen"],
+            next: [
+              "Haar", "Haare", "Haaren", "Frisur", "Kleid", "Kleider", "Rock", "Minirock", "Hemd", "Bluse",
+              "Pullover", "Top", "Shirt", "T Shirt", "Body", "Hose", "Jeans", "Leggings", "Strümpfe", "Strumpfhose",
+              "Netzstrümpfe", "Socken", "Stiefel", "Stiefeletten", "Schuhe", "Pumps", "Heels", "High Heels",
+              "Handschuhe", "Jacke", "Mantel", "Anzug", "Overall", "Jumpsuit", "Uniform", "Kostüm", "Unterwäsche",
+              "Wäsche", "Dessous", "Slip", "Tanga", "String", "BH", "Bikini", "Badeanzug", "Korsett", "Hut", "Mütze",
+              "Schal", "Gürtel", "Krawatte", "Latex", "Leder", "Spitze", "Seide", "Satin", "Denim"
+            ]
+          },
+          // Spanish (es): word before the term (adjective follows the noun)
+          {
+            terms: ["Negra", "Negras", "Negro", "Negros"],
+            prev: [
+              "pelo", "pelos", "cabello", "cabellos", "melena", "peinado", "vestido", "vestidos", "falda",
+              "minifalda", "camisa", "camiseta", "blusa", "jersey", "suéter", "top", "body", "pantalón", "pantalones",
+              "vaqueros", "jeans", "leggings", "mallas", "medias", "pantimedias", "leotardos", "calcetines", "botas",
+              "zapatos", "zapatillas", "tacones", "guantes", "chaqueta", "abrigo", "traje", "mono", "uniforme",
+              "disfraz", "ropa", "lencería", "bragas", "tanga", "sujetador", "sostén", "bikini", "bañador",
+              "traje de baño", "corsé", "sombrero", "gorro", "bufanda", "cinturón", "corbata", "látex", "cuero",
+              "piel", "encaje", "seda", "raso", "satén", "denim"
+            ]
+          },
+          // French (fr): word before the term (adjective follows the noun)
+          {
+            terms: ["Noire", "Noires"],
+            prev: [
+              "cheveux", "coiffure", "robe", "jupe", "minijupe", "chemise", "chemisier", "pull", "top", "body",
+              "pantalon", "jean", "jeans", "legging", "collants", "bas", "chaussettes", "bottes", "chaussures",
+              "escarpins", "talons", "gants", "veste", "manteau", "costume", "combinaison", "uniforme", "tenue",
+              "lingerie", "culotte", "string", "soutien gorge", "bikini", "maillot", "corset", "chapeau", "bonnet",
+              "écharpe", "ceinture", "cravate", "latex", "cuir", "dentelle", "soie", "satin", "denim"
+            ]
+          },
+          // Italian (it): word before the term (adjective follows the noun)
+          {
+            terms: ["Nera", "Nere", "Nero", "Neri"],
+            prev: [
+              "capelli", "capello", "chioma", "acconciatura", "vestito", "vestiti", "abito", "abiti", "gonna",
+              "minigonna", "camicia", "camicetta", "maglia", "maglietta", "top", "body", "pantaloni", "jeans",
+              "leggings", "calze", "calza", "calzini", "collant", "stivali", "scarpe", "tacchi", "guanti", "giacca",
+              "cappotto", "completo", "tuta", "divisa", "lingerie", "intimo", "mutandine", "reggiseno", "perizoma",
+              "bikini", "costume", "corsetto", "cappello", "berretto", "sciarpa", "cintura", "cravatta", "lattice",
+              "pelle", "pizzo", "seta", "raso", "denim"
+            ]
+          },
+          // Portuguese (pt): word before the term (adjective follows the noun)
+          {
+            terms: ["Preta", "Pretas", "Preto", "Pretos"],
+            prev: [
+              "cabelo", "cabelos", "penteado", "vestido", "vestidos", "saia", "minissaia", "camisa", "camiseta",
+              "blusa", "top", "body", "calça", "calças", "jeans", "legging", "meias", "collant", "botas", "sapatos",
+              "salto", "saltos", "luvas", "casaco", "jaqueta", "terno", "macacão", "uniforme", "fantasia", "lingerie",
+              "roupa", "calcinha", "sutiã", "biquíni", "maiô", "espartilho", "chapéu", "boné", "gorro", "cachecol",
+              "cinto", "gravata", "látex", "couro", "renda", "seda", "cetim", "denim"
+            ]
+          },
+          // Dutch (nl): word after the term
+          {
+            terms: ["Zwart", "Zwarte"],
+            next: [
+              "haar", "haren", "kapsel", "jurk", "jurkje", "rok", "minirok", "shirt", "t shirt", "blouse", "trui",
+              "top", "body", "broek", "jeans", "legging", "kousen", "panty", "sokken", "laarzen", "schoenen",
+              "hakken", "handschoenen", "jas", "jasje", "mantel", "pak", "overall", "uniform", "lingerie",
+              "ondergoed", "slipje", "string", "bh", "bikini", "badpak", "korset", "hoed", "muts", "sjaal", "riem",
+              "das", "latex", "leer", "kant", "zijde", "satijn", "denim"
+            ]
+          },
+          // Russian (ru): word after the term
+          {
+            terms: ["Чёрная", "Черная", "Чёрные", "Черные"],
+            next: [
+              "волосы", "волос", "прическа", "платье", "платья", "юбка", "юбки", "мини юбка", "рубашка", "блузка",
+              "футболка", "свитер", "топ", "боди", "брюки", "штаны", "джинсы", "лосины", "чулки", "колготки", "носки",
+              "сапоги", "ботинки", "туфли", "каблуки", "перчатки", "куртка", "пальто", "костюм", "комбинезон",
+              "форма", "белье", "трусики", "стринги", "лифчик", "бикини", "купальник", "корсет", "шляпа", "шапка",
+              "шарф", "ремень", "галстук", "латекс", "кожа", "кружево", "шелк", "атлас", "деним"
+            ]
+          },
+          // Polish (pl): word after the term
+          {
+            terms: ["Czarna", "Czarne"],
+            next: [
+              "włosy", "włosów", "fryzura", "sukienka", "sukienki", "spódnica", "spódniczka", "koszula", "bluzka",
+              "sweter", "top", "body", "spodnie", "jeansy", "legginsy", "pończochy", "rajstopy", "skarpetki", "buty",
+              "botki", "kozaki", "szpilki", "obcasy", "rękawiczki", "kurtka", "płaszcz", "garnitur", "kombinezon",
+              "mundur", "bielizna", "majtki", "stringi", "stanik", "bikini", "kostium", "gorset", "kapelusz",
+              "czapka", "szalik", "pasek", "krawat", "lateks", "skóra", "koronka", "jedwab", "satyna", "denim"
+            ]
+          },
+          // Turkish (tr): word after the term
+          {
+            terms: ["Siyah"],
+            next: [
+              "saç", "saçlar", "elbise", "etek", "mini etek", "gömlek", "bluz", "tişört", "kazak", "body", "pantolon",
+              "kot", "tayt", "çorap", "külotlu çorap", "bot", "çizme", "ayakkabı", "topuklu", "eldiven", "ceket",
+              "mont", "palto", "takım elbise", "tulum", "üniforma", "iç çamaşırı", "külot", "sütyen", "string",
+              "bikini", "mayo", "korse", "şapka", "bere", "atkı", "kemer", "kravat", "lateks", "deri", "dantel",
+              "ipek", "saten", "denim"
+            ]
+          },
+          // Japanese (ja): word after the term
+          {
+            terms: ["ブラック"],
+            next: [
+              "ヘア", "ドレス", "ワンピース", "スカート", "ミニスカート", "シャツ", "ブラウス", "セーター", "トップス", "パンツ", "ジーンズ", "レギンス",
+              "タイツ", "ストッキング", "パンスト", "ソックス", "ニーハイ", "ブーツ", "ハイヒール", "ヒール", "グローブ", "手袋", "ジャケット", "コート", "スーツ",
+              "ユニフォーム", "ランジェリー", "下着", "ショーツ", "ビキニ", "水着", "コルセット", "帽子", "ベルト", "ネクタイ", "ラテックス", "レザー",
+              "レース", "シルク", "サテン", "デニム"
+            ]
+          },
+          // Arabic (ar): word before the term (adjective follows the noun)
+          {
+            terms: ["سوداء", "أسود"],
+            prev: [
+              "شعر", "الشعر", "فستان", "الفستان", "تنورة", "التنورة", "قميص", "بلوزة", "بنطال", "بنطلون", "جينز",
+              "ليجنز", "جوارب", "الجوارب", "حذاء", "الحذاء", "أحذية", "كعب", "قفازات", "معطف", "سترة", "جاكيت",
+              "بدلة", "زي", "ملابس داخلية", "لانجري", "سروال داخلي", "حمالة صدر", "بيكيني", "ملابس سباحة", "مشد",
+              "قبعة", "وشاح", "حزام", "ربطة عنق", "لاتكس", "جلد", "دانتيل", "حرير", "ساتان", "دنيم"
+            ]
+          },
+          // Indonesian (id): word before the term (adjective follows the noun)
+          {
+            terms: ["Hitam"],
+            prev: [
+              "rambut", "gaun", "baju", "rok", "rok mini", "kemeja", "blus", "kaos", "atasan", "celana", "jeans",
+              "legging", "stoking", "kaus kaki", "sepatu", "bot", "sepatu hak", "sarung tangan", "jaket", "mantel",
+              "jas", "seragam", "pakaian dalam", "lingerie", "celana dalam", "bra", "bikini", "baju renang", "korset",
+              "topi", "syal", "ikat pinggang", "dasi", "lateks", "kulit", "renda", "sutra", "satin", "denim"
             ]
           }
         ],

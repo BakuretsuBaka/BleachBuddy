@@ -1168,7 +1168,7 @@ KWF_CATALOG.push(
 KWF_CATALOG.push({
   id: "fetish",
   name: "BDSM & fetish",
-  description: "One list per fetish, all off by default: anal, NTR and cuckold, bondage, femdom, humiliation, feet, pregnancy, lactation, hypno, giantess, inflation and vore. Switch on only the ones you want gone.",
+  description: "One list per fetish, all off by default: anal, NTR and cuckold, bondage, femdom, humiliation, feet, pregnancy, lactation, hypno, giantess, inflation, vore, watersports and creampie. Switch on only the ones you want gone.",
   lists: [
     {
       id: "an-terms",
@@ -1688,6 +1688,783 @@ KWF_CATALOG.push({
     }
   ]
 });
+
+// ───────────────────────────────────────────────────────────── More topics (all lists off by default)
+KWF_CATALOG.push({
+  id: "lesbian",
+  name: "Lesbian & yuri",
+  description: "Lesbian, girl-on-girl and yuri vocabulary in many languages. Off by default.",
+  lists: [
+    {
+      id: "le-terms",
+      name: "Lesbian & yuri: keywords",
+      kind: "keywords",
+      boorus: ["lesbian", "yuri", "girl_on_girl", "sapphic", "scissoring", "tribadism"],
+      description: "Lesbian, girl-on-girl and yuri vocabulary in many languages.",
+      default: false,
+      items: [
+        // en
+        "Lesbian", "Lesbians", "Lesbo", "Lesbos", "Lez", "Lezzie", "Lezzies", "Girl on girl", "Girl-on-girl",
+        "Girls on girls", "Sapphic", "Scissoring", "Tribbing", "Tribadism", "Yuri", "Dyke", "Dykes",
+        // de
+        "Lesbisch", "Lesbische", "Lesbischer", "Lesbe", "Lesben", "Lesbierin", "Lesbierinnen",
+        // es / pt
+        "Lesbiana", "Lesbianas", "Lésbica", "Lésbicas",
+        // fr
+        "Lesbienne", "Lesbiennes", "Gouine", "Gouines",
+        // it
+        "Lesbica", "Lesbiche",
+        // ru
+        "Лесбиянка", "Лесбиянки", "Лесби", "Лесбийский", "Лесбийская", "Лесбийские", "Юри",
+        // pl
+        "Lesbijka", "Lesbijki", "Lesbijski", "Lesbijskie",
+        // tr
+        "Lezbiyen", "Lezbiyenler", "Lezbo",
+        // ja
+        "レズ", "レズビアン", "百合", "ガールズラブ",
+        // zh
+        "女同", "女同性恋", "女同性戀", "蕾丝边", "蕾絲邊",
+        // ko
+        "레즈", "레즈비언",
+        // th
+        "เลสเบี้ยน",
+        // ar
+        "سحاقيات", "سحاق", "سحاقية", "ليزبيان",
+        // id / vi
+        "Lesbi", "Đồng tính nữ"
+      ]
+    }
+  ]
+});
+
+KWF_CATALOG.push({
+  id: "age-family",
+  name: "Age & family themes",
+  description: "Incest and family taboo, MILF and mature, and teen / schoolgirl framing. All off by default; step-family is its own topic.",
+  lists: [
+    {
+      id: "af-incest",
+      name: "Incest & family taboo: keywords",
+      kind: "keywords",
+      boorus: ["incest", "mother_and_son", "mother_and_daughter", "father_and_daughter", "father_and_son", "brother_and_sister", "twincest"],
+      description: "Blood-relation family themes (step-family is a separate topic): incest, taboo, 'mom and son', 'real sister' and so on.",
+      default: false,
+      items: [
+        // en
+        "Incest", "Incestuous", "Incest porn", "Taboo", "Taboo sex", "Family taboo", "Taboo family", "Family sex",
+        "Family fuck", "Family affair", "Mom and son", "Mother and son", "Mommy and son", "Mom son",
+        "Dad and daughter", "Father and daughter", "Daddy and daughter", "Daddy daughter", "Dad daughter",
+        "Mom and daughter", "Mother and daughter", "Dad and son", "Father and son", "Brother and sister",
+        "Sister and brother", "Brother sister", "Real sister", "Real brother", "Real mom", "Real mother", "Real dad",
+        "Real father", "Real daughter", "Real son", "Real family", "Aunt and nephew", "Uncle and niece", "Twincest",
+        "Sibling sex", "Fucking my sister", "Fucking my mom", "Fucking my brother", "Fucking my daughter",
+        // de
+        "Inzest", "Inzestuös", "Familiensex", "Mutter und Sohn", "Vater und Tochter", "Bruder und Schwester",
+        "Echte Schwester", "Echter Bruder", "Echte Mutter",
+        // es
+        "Incesto", "Incestuoso", "Madre e hijo", "Padre e hija", "Hermano y hermana", "Hermana y hermano",
+        "Mamá e hijo", "Papá e hija", "Hermana real", "Hermano real",
+        // fr
+        "Inceste", "Incestueux", "Mère et fils", "Père et fille", "Frère et sœur", "Frère et soeur", "Vraie sœur",
+        "Vrai frère", "Vraie mère",
+        // it
+        "Madre e figlio", "Padre e figlia", "Fratello e sorella", "Sorella vera",
+        // pt
+        "Mãe e filho", "Pai e filha", "Irmão e irmã", "Irmã de verdade", "Irmão de verdade",
+        // nl
+        "Moeder en zoon", "Vader en dochter", "Broer en zus", "Echte zus",
+        // ru
+        "Инцест", "Мать и сын", "Мама и сын", "Отец и дочь", "Папа и дочь", "Мама и дочь", "Брат и сестра",
+        "Настоящая сестра", "Реальная сестра", "Родная сестра", "Родной брат", "Родная мать",
+        // pl
+        "Kazirodztwo", "Kazirodczy", "Matka i syn", "Ojciec i córka", "Brat i siostra", "Prawdziwa siostra",
+        // tr
+        "Ensest", "Anne ve oğul", "Baba ve kız", "Anne oğul", "Baba kız",
+        // ja
+        "近親相姦", "近親", "母子相姦", "親子相姦", "兄妹", "姉弟", "実姉", "実妹", "実母",
+        // zh
+        "乱伦", "亂倫", "近亲相奸", "母子", "父女", "姐弟",
+        // ko
+        "근친상간", "근친", "모자", "부녀", "남매",
+        // ar
+        "زنا المحارم", "سكس محارم", "محارم",
+        // id
+        "Inses", "Ibu dan anak", "Kakak adik"
+      ]
+    },
+    {
+      id: "af-milf",
+      name: "MILF, mature & granny: keywords",
+      kind: "keywords",
+      boorus: ["milf", "mature_female", "mature_woman", "gilf", "old_woman", "cougar"],
+      description: "MILF, cougar, mature, granny and age-gap terms in many languages.",
+      default: false,
+      items: [
+        // en
+        "MILF", "MILFs", "Cougar", "Cougars", "GILF", "GILFs", "DILF", "DILFs", "Granny", "Grannies", "Grandma",
+        "Grandmother", "Old woman", "Old women", "Older woman", "Older women", "Mature", "Mature woman",
+        "Mature women", "Mature lady", "Mature ladies", "Hot mom", "Hot mother", "Age gap", "Age difference",
+        "Old and young", "Old young", "Old man", "Old men", "Grandpa", "Grandpas", "Grandfather", "Silver daddy",
+        // de
+        "Reife Frau", "Reife Frauen", "Reife", "Oma", "Omas", "Omi", "Opa", "Geile Oma", "Ältere Frau",
+        "Ältere Frauen",
+        // es
+        "Madura", "Maduras", "Abuela", "Abuelas", "Abuelo", "Señora madura", "Mujer madura", "Mujeres maduras",
+        // fr
+        "Matures", "Mamie", "Mamies", "Vieille", "Vieilles", "Femme mûre", "Femmes mûres", "Grand-mère", "Papy",
+        // it
+        "Matura", "Nonna", "Nonne", "Nonno", "Donna matura", "Donne mature", "Anziana", "Anziane",
+        // pt
+        "Coroa", "Coroas", "Vovó", "Vovozinha", "Avó", "Vovô", "Mulher madura", "Mulheres maduras",
+        // nl
+        "Oma's", "Rijpe vrouw", "Rijpe vrouwen", "Oudere vrouw", "Oudere vrouwen",
+        // ru
+        "Мамка", "Мамки", "Милф", "Зрелая", "Зрелые", "Зрелая женщина", "Зрелые женщины", "Бабушка", "Бабушки",
+        "Старуха", "Дедушка", "Пожилая", "Пожилые", "Возрастная", "Возрастные",
+        // pl
+        "Dojrzała", "Dojrzałe", "Dojrzałe kobiety", "Babcia", "Babcie", "Dziadek", "Starsza kobieta",
+        "Starsze kobiety", "Milfy",
+        // tr
+        "Olgun", "Olgun kadın", "Olgun kadınlar", "Anneanne", "Büyükanne", "Yaşlı kadın",
+        // ja
+        "熟女", "美熟女", "超熟女", "熟母", "おばさん", "お婆さん",
+        // zh
+        "熟妇", "熟婦", "老太", "阿姨", "老奶奶", "中年", "老女人",
+        // ko
+        "밀프", "아줌마", "중년", "할머니",
+        // th
+        "สาวใหญ่", "คุณป้า", "ยาย", "มิลฟ์",
+        // ar
+        "ميلف", "ناضجة", "عجوز", "جدة", "نساء ناضجات",
+        // id
+        "Tante", "Tante girang", "Nenek"
+      ]
+    },
+    {
+      id: "af-teen",
+      name: "Teen & schoolgirl: keywords",
+      kind: "keywords",
+      description: "Teen, schoolgirl, student and 'barely legal' framing in many languages. Broad on purpose.",
+      default: false,
+      items: [
+        // en
+        "Teen", "Teens", "Teenager", "Teenagers", "Teenage", "Teeny", "Teenie", "Barely legal", "Just turned 18",
+        "Just 18", "18 year old", "18 years old", "18 y o", "18yo", "18 yo", "18yr", "Freshly 18", "Schoolgirl",
+        "Schoolgirls", "School girl", "School girls", "Schoolboy", "Schoolboys", "School boy", "Coed", "Co-ed",
+        "College girl", "College girls", "College teen", "Cheerleader", "Cheerleaders", "Student", "Students",
+        "Young girl", "Young girls", "Young boy", "Young boys", "Jailbait", "Underage", "Under age", "Lolita", "Loli",
+        "Lolis", "Shota", "Daddy's girl", "Daddys girl", "Daddy's little girl",
+        // de
+        "Schülerin", "Schülerinnen", "Schulmädchen", "Schüler", "Studentin", "Studentinnen", "Minderjährig",
+        "Minderjährige", "Frisch 18", "18-jährige", "18 Jahre", "18 Jahre alt",
+        // es
+        "Adolescente", "Adolescentes", "Colegiala", "Colegialas", "Estudiante", "Estudiantes", "Jovencita",
+        "Jovencitas", "Menor de edad", "18 años",
+        // fr
+        "Ado", "Ados", "Collégienne", "Collégiennes", "Lycéenne", "Lycéennes", "Étudiante", "Étudiantes", "18 ans",
+        "Mineure",
+        // it
+        "Adolescenti", "Liceale", "Liceali", "Studentessa", "Studentesse", "Scolara", "Minorenne", "18 anni",
+        "Diciottenne",
+        // pt
+        "Novinha", "Novinhas", "Colegial", "Colegiais", "Estudante", "Estudantes", "Menor de idade", "18 anos",
+        "Ninfeta", "Ninfetas",
+        // nl
+        "Tiener", "Tieners", "Schoolmeisje", "Schoolmeisjes", "Studente", "Studentes", "Minderjarig", "18 jaar",
+        "18 jarige",
+        // ru
+        "Школьница", "Школьницы", "Школьник", "Школьники", "Студентка", "Студентки", "Тинка", "Тинки", "Тинейджер",
+        "Тинейджерка", "Подросток", "Подростки", "Несовершеннолетняя", "Малолетка", "Малолетки", "18 лет", "Юная",
+        "Юные", "Молоденькая", "Молоденькие",
+        // pl
+        "Nastolatka", "Nastolatki", "Uczennica", "Uczennice", "Licealistka", "Licealistki", "Studentka", "Studentki",
+        "Niepełnoletnia", "18 lat",
+        // tr
+        "Genç kız", "Genç kızlar", "Liseli", "Liseliler", "Öğrenci", "Öğrenciler", "Öğrenci kız", "Reşit olmayan",
+        "18 yaş", "Ergen", "Ergenler",
+        // ja
+        "女子校生", "女子高生", "=JK", "学生", "18歳", "18才", "未成年", "ロリ", "ロリータ", "ショタ",
+        // zh
+        "学生妹", "學生妹", "女学生", "女學生", "學生", "少女", "萝莉", "蘿莉", "正太", "18岁", "18歲", "十八岁", "高中生", "大学生",
+        // ko
+        "여고생", "여학생", "학생", "10대", "미성년자", "미성년", "로리", "19세", "18세", "소녀", "교복",
+        // th
+        "นักเรียน", "สาวน้อย", "เด็กนักเรียน", "น้องนักเรียน", "เด็กสาว", "ไม่บรรลุนิติภาวะ",
+        // ar
+        "مراهقة", "مراهقات", "طالبة", "طالبات", "تلميذة", "قاصر", "قاصرة", "فتاة صغيرة", "18 سنة",
+        // id
+        "ABG", "Anak sekolah", "Siswi", "Anak SMA", "Anak SMP", "Pelajar", "18 tahun", "Dibawah umur", "Remaja"
+      ]
+    }
+  ]
+});
+
+KWF_CATALOG.push({
+  id: "nonconsent",
+  name: "Non-consent & forced",
+  description: "Rape, forced sex, non-con, dubcon, sleep sex and blackmail themes in many languages. Off by default.",
+  lists: [
+    {
+      id: "nc-terms",
+      name: "Non-consent & forced: keywords",
+      kind: "keywords",
+      boorus: ["rape", "forced", "molestation", "sleep_molestation", "drugged", "blackmail", "non-consensual", "dubious_consent"],
+      description: "Rape, forced sex, non-con, dubcon, sleep sex, blackmail and similar in many languages.",
+      default: false,
+      items: [
+        // en
+        "Rape", "Raped", "Raping", "Rapist", "Rapists", "Rape porn", "Rape fantasy", "Gang rape", "Gangrape",
+        "Forced", "Forced sex", "Forced fuck", "Forced anal", "Forced blowjob", "Forced oral", "Forcefully",
+        "Non-con", "Noncon", "Non consent", "Non consensual", "Nonconsensual", "Non-consensual", "Dubcon", "Dub-con",
+        "Dubious consent", "Dub con", "Coerced", "Coercion", "Blackmail", "Blackmailed", "Drugged", "Roofied",
+        "Date rape", "Sleep sex", "Sleeping sex", "Sleep rape", "Sleeping girl", "Sleeping woman", "Passed out",
+        "Drunk sex", "Molested", "Molest", "Molestation", "Abused", "Kidnapped", "Kidnap", "Kidnapping", "Abducted",
+        "Abduction", "Reluctant", "Unwilling", "Against her will", "Against his will",
+        // de
+        "Vergewaltigung", "Vergewaltigt", "Vergewaltigen", "Vergewaltiger", "Gruppenvergewaltigung", "Zwang",
+        "Erzwungen", "Gezwungen", "Zwangssex", "Betäubt", "Entführt", "Entführung", "Belästigt", "Missbraucht",
+        "Missbrauch", "Gegen ihren Willen",
+        // es
+        "Violación", "Violada", "Violar", "Violador", "Violación grupal", "Forzada", "Forzado", "Forzar",
+        "A la fuerza", "Sin consentimiento", "Drogada", "Dormida", "Secuestrada", "Secuestro", "Abusada",
+        "Abuso sexual", "Chantaje", "Chantajeada", "Contra su voluntad",
+        // fr
+        "Viol", "Violée", "Violer", "Violeur", "Viol collectif", "Forcée", "Forcé", "De force", "Sans consentement",
+        "Droguée", "Endormie", "Kidnappée", "Enlevée", "Abusée", "Agression sexuelle", "Chantage", "Contre son gré",
+        // it
+        "Stupro", "Stuprata", "Stuprare", "Stupratore", "Stupro di gruppo", "Forzata", "Forzato", "Con la forza",
+        "Senza consenso", "Drogata", "Addormentata", "Rapita", "Rapimento", "Abusata", "Violenza sessuale", "Ricatto",
+        "Contro la sua volontà",
+        // pt
+        "Estupro", "Estuprada", "Estuprar", "Estuprador", "Estupro coletivo", "Forçada", "Forçado", "À força",
+        "Sem consentimento", "Dormindo", "Sequestrada", "Sequestro", "Chantagem", "Chantageada", "Contra a vontade",
+        // nl
+        "Verkrachting", "Verkracht", "Verkrachten", "Verkrachter", "Groepsverkrachting", "Gedwongen", "Dwang",
+        "Zonder toestemming", "Gedrogeerd", "Ontvoerd", "Ontvoering", "Misbruikt", "Misbruik", "Tegen haar wil",
+        // ru
+        "Изнасилование", "Изнасилованная", "Изнасиловал", "Изнасиловали", "Насильник", "Групповое изнасилование",
+        "Принуждение", "Принудительно", "Насильно", "Против воли", "Без согласия", "Спящая", "Похищенная", "Шантаж",
+        "Шантажом", "Под наркотиками",
+        // pl
+        "Gwałt", "Zgwałcona", "Gwałcić", "Gwałciciel", "Gwałt zbiorowy", "Zmuszana", "Przymus", "Siłą", "Bez zgody",
+        "Odurzona", "Śpiąca", "Porwana", "Szantaż", "Wbrew woli",
+        // tr
+        "Tecavüz", "Tecavüzcü", "Toplu tecavüz", "Zorla", "Zorlama", "Rızası olmadan", "Uyuyan", "Uyuyan kız",
+        "Kaçırılmış", "Şantaj", "İstemeyerek",
+        // ja
+        "強姦", "レイプ", "輪姦", "無理やり", "無理矢理", "強制", "強制的", "睡眠姦", "眠姦", "寝込み", "薬漬け", "拉致", "監禁", "脅迫", "脅され", "嫌がる",
+        "痴漢",
+        // zh
+        "强奸", "强暴", "強暴", "轮奸", "迷奸", "被迫", "強迫", "强迫", "下药", "下藥", "睡奸", "绑架", "綁架", "胁迫",
+        // ko
+        "강간", "레이프", "윤간", "강제", "억지로", "수면간", "협박", "납치", "성폭행", "성추행",
+        // th
+        "ข่มขืน", "รุมโทรม", "บังคับ", "มอมยา", "ลักพาตัว", "ล่วงละเมิด", "ฝืนใจ",
+        // ar
+        "اغتصاب", "مغتصبة", "اغتصبها", "اغتصاب جماعي", "بالقوة", "بالإكراه", "دون موافقة", "مخدرة", "نائمة", "خطف",
+        "ابتزاز", "ضد إرادتها",
+        // id
+        "Pemerkosaan", "Perkosa", "Diperkosa", "Pemerkosa", "Perkosaan massal", "Paksa", "Dipaksa", "Pemaksaan",
+        "Tanpa persetujuan", "Dibius", "Diculik", "Penculikan", "Pelecehan", "Pemerasan", "Diperas"
+      ]
+    }
+  ]
+});
+
+KWF_CATALOG.push({
+  id: "body",
+  name: "Body type & hair",
+  description: "One list each for BBW, big cock, big breasts, petite, redhead and blonde. All off by default; switch on only what you want gone.",
+  lists: [
+    {
+      id: "bd-bbw",
+      name: "BBW & chubby: keywords",
+      kind: "keywords",
+      boorus: ["fat", "chubby", "plump", "obese", "bbw", "overweight", "ssbbw"],
+      description: "BBW, chubby and plus-size terms in many languages.",
+      default: false,
+      items: [
+        // en
+        "BBW", "BBWs", "SSBBW", "Chubby", "Fat", "Fatty", "Plump", "Plus size", "Obese", "Thick", "Thicc",
+        "Big beautiful woman", "Fat woman", "Fat women",
+        // de
+        "Moppelig", "Mollig", "Mollige", "Dicke Frau", "Dicke Frauen", "Dickerchen",
+        // es
+        "Gordita", "Gorditas", "Gordibuena", "Rellenita", "Gorda", "Gordas",
+        // fr
+        "Grosse", "Grosses", "Ronde", "Rondes", "Pulpeuse", "Potelée",
+        // it
+        "Grassa", "Grasse", "Formosa", "Cicciona", "Ciccione", "Rotonda",
+        // pt
+        "Gordinha", "Gordinhas", "Gordona", "Gordonas",
+        // nl
+        "Dikke vrouw", "Dikke vrouwen", "Mollige vrouw", "Dikkerdje",
+        // ru
+        "Толстушка", "Толстушки", "Пышка", "Пышки", "Полная", "Полные", "Пышная", "Пышные", "Жирная", "Жирные",
+        // pl
+        "Gruba", "Grube", "Puszysta", "Puszyste", "Pulchna", "Pulchne", "Otyła", "Otyłe",
+        // tr
+        "Şişman", "Şişmanlar", "Kilolu", "Tombul", "Tombiş",
+        // ja
+        "デブ", "ぽっちゃり", "太め", "おデブ", "肥満",
+        // zh
+        "胖妞", "肥婆", "肥妞", "胖女人", "胖妹", "肥胖",
+        // ko
+        "뚱뚱", "통통", "뚱녀",
+        // th
+        "อ้วน", "สาวอวบ", "อวบ",
+        // ar
+        "سمينة", "سمينات", "بدينة",
+        // id
+        "Gemuk", "Montok", "Gendut", "Bohay"
+      ]
+    },
+    {
+      id: "bd-bigcock",
+      name: "Big cock: keywords",
+      kind: "keywords",
+      boorus: ["huge_penis", "large_penis", "big_penis", "huge_cock", "big_cock", "horse_cock", "hyper_penis", "monster_cock"],
+      description: "Big, huge and monster cock terms in many languages. BBC is part of the Interracial list.",
+      default: false,
+      items: [
+        // en
+        "Big cock", "Huge cock", "Monster cock", "BWC", "Big dick", "Huge dick", "Giant cock", "Giant dick",
+        "Monster dick", "Hung", "Well hung", "Big penis", "Large cock", "Large dick", "Horse cock", "Horsecock",
+        "Horse dick", "Huge penis", "Massive cock", "Massive dick", "Thick cock", "Thick dick", "Big black cock",
+        "Big white cock", "XXL cock",
+        // de
+        "Großer Schwanz", "Riesenschwanz", "Riesenschwänze", "Dicker Schwanz", "Großer Penis", "Riesen Schwanz",
+        "Fetter Schwanz",
+        // es
+        "Pollón", "Polla grande", "Pija grande", "Verga grande", "Pene grande", "Pollas grandes", "Pollón enorme",
+        // fr
+        "Grosse bite", "Grosse queue", "Énorme bite", "Gros pénis", "Grosse verge",
+        // it
+        "Cazzo grosso", "Cazzone", "Cazzo enorme", "Cazzo gigante", "Grosso cazzo", "Grosso pene",
+        // pt
+        "Pau grande", "Rola grande", "Pauzão", "Rolão", "Pica grande", "Pau enorme", "Pau gigante",
+        // nl
+        "Grote lul", "Grote pik", "Enorme lul", "Dikke lul", "Groot lid",
+        // ru
+        "Большой член", "Огромный член", "Здоровый член", "Огромный хуй", "Большой хуй", "Гигантский член",
+        // pl
+        "Duży kutas", "Wielki kutas", "Duży penis", "Wielki penis", "Ogromny kutas",
+        // tr
+        "Büyük sik", "Büyük yarak", "Kocaman sik", "Büyük penis", "Kocaman yarak",
+        // ja
+        "巨根", "デカチン", "巨大ペニス", "巨大チンポ", "でかちん", "ビッグコック",
+        // zh
+        "大屌", "大鸡巴", "大雞巴", "大阴茎", "超大屌",
+        // ko
+        "대물", "거근", "큰 자지", "큰 성기",
+        // th
+        "ควยใหญ่", "ควยยักษ์", "จู๋ใหญ่",
+        // ar
+        "قضيب كبير", "زب كبير", "زبر كبير", "قضيب ضخم",
+        // id
+        "Kontol besar", "Kontol gede", "Penis besar", "Kontol jumbo"
+      ]
+    },
+    {
+      id: "bd-bigbreasts",
+      name: "Big breasts: keywords",
+      kind: "keywords",
+      boorus: ["large_breasts", "huge_breasts", "gigantic_breasts", "big_breasts", "big_boobs", "busty", "oppai"],
+      description: "Big tits, busty and huge breasts in many languages.",
+      default: false,
+      items: [
+        // en
+        "Big tits", "Big boobs", "Big breasts", "Huge tits", "Huge boobs", "Huge breasts", "Busty", "Big naturals",
+        "Big natural tits", "Giant tits", "Giant boobs", "Massive tits", "Massive boobs", "Juggs", "Melons", "Oppai",
+        "Big titties", "Huge titties", "Titty drop", "Big knockers", "Large breasts",
+        // de
+        "Große Titten", "Dicke Titten", "Riesen Titten", "Riesentitten", "Große Brüste", "Vollbusig", "Dicke Möpse",
+        "Große Möpse",
+        // es
+        "Tetas grandes", "Tetona", "Tetonas", "Pechugona", "Pechugonas", "Tetazas", "Tetas enormes",
+        // fr
+        "Gros seins", "Gros nichons", "Grosse poitrine", "Gros lolos", "Énormes seins",
+        // it
+        "Tette grosse", "Tettona", "Tettone", "Grandi tette", "Tettone grosse", "Seno grosso",
+        // pt
+        "Peitos grandes", "Peituda", "Peitudas", "Peitões", "Peitos enormes", "Seios grandes",
+        // nl
+        "Grote tieten", "Grote borsten", "Dikke tieten", "Enorme tieten",
+        // ru
+        "Большая грудь", "Большие сиськи", "Грудастая", "Грудастые", "Огромные сиськи", "Большие сисе",
+        // pl
+        "Duże cycki", "Duże piersi", "Cycata", "Cycate", "Wielkie cycki", "Ogromne cycki",
+        // tr
+        "Büyük göğüs", "Büyük memeli", "Iri göğüs", "Büyük memeler", "Kocaman göğüs",
+        // ja
+        "巨乳", "爆乳", "超乳", "デカパイ", "ボイン",
+        // zh
+        "大奶", "大乳", "巨奶",
+        // ko
+        "거유", "큰 가슴", "가슴 큰", "대형 가슴",
+        // th
+        "นมโต", "นมใหญ่", "หน้าอกใหญ่",
+        // ar
+        "صدر كبير", "ثدي كبير", "بزاز كبيرة", "بزاز ضخمة",
+        // id
+        "Dada besar", "Toket besar", "Toket gede", "Payudara besar"
+      ]
+    },
+    {
+      id: "bd-petite",
+      name: "Petite & small breasts: keywords",
+      kind: "keywords",
+      boorus: ["small_breasts", "flat_chest", "petite", "skinny", "tiny"],
+      description: "Petite, tiny, skinny, flat-chested and small-breast terms in many languages.",
+      default: false,
+      items: [
+        // en
+        "Petite", "Tiny", "Tiny tits", "Tiny teen", "Small tits", "Small boobs", "Small breasts", "Flat chest",
+        "Flat-chested", "Skinny", "Itty bitty", "Little tits", "Tiny titties", "Small titties", "Tiny girl",
+        "Tiny girls", "Pocket size",
+        // de
+        "Zierlich", "Zierliche", "Kleine Titten", "Kleine Brüste", "Flachbrüstig", "Dünn", "Dünne",
+        // es
+        "Pequeñita", "Delgadita", "Flaquita", "Tetas pequeñas", "Pechos pequeños", "Chiquita",
+        // fr
+        "Menue", "Mince", "Petits seins", "Petite poitrine", "Minuscule",
+        // it
+        "Piccolina", "Minuta", "Magrolina", "Tette piccole", "Seno piccolo", "Esile",
+        // pt
+        "Pequenina", "Magrinha", "Mignon", "Peitos pequenos", "Seios pequenos", "Baixinha",
+        // nl
+        "Tengere", "Kleine tieten", "Kleine borsten", "Mager", "Magere",
+        // ru
+        "Миниатюрная", "Миниатюрные", "Худенькая", "Худые", "Маленькая грудь", "Плоская грудь", "Маленькие сиськи",
+        "Крошка",
+        // pl
+        "Drobna", "Drobne", "Szczupła", "Szczupłe", "Małe cycki", "Małe piersi", "Płaska klatka",
+        // tr
+        "Minyon", "Zayıf", "Küçük göğüs", "Düz göğüs", "Ufak tefek", "Küçük memeler",
+        // ja
+        "ちっぱい", "貧乳", "小柄", "ミニマム", "スレンダー", "洗濯板",
+        // zh
+        "贫乳", "娇小", "嬌小", "平胸", "小奶", "瘦小",
+        // ko
+        "빈유", "작은 가슴", "아담", "마른",
+        // th
+        "ตัวเล็ก", "นมเล็ก", "หน้าอกเล็ก", "ตัวจิ๋ว",
+        // ar
+        "نحيلة", "صغيرة الحجم", "صدر صغير", "ثدي صغير",
+        // id
+        "Mungil", "Kecil", "Dada kecil", "Toket kecil", "Kurus"
+      ]
+    },
+    {
+      id: "bd-redhead",
+      name: "Redhead: keywords",
+      kind: "keywords",
+      boorus: ["red_hair", "redhead", "ginger"],
+      description: "Redhead and ginger terms in many languages.",
+      default: false,
+      items: [
+        // en
+        "Redhead", "Redheads", "Red head", "Red heads", "Ginger", "Gingers", "Red-haired", "Red hair", "Redheaded",
+        "Red headed", "Fire crotch", "Ginger pussy",
+        // de
+        "Rothaarige", "Rothaarig", "Rote Haare", "Rotschopf", "Rothaarigen",
+        // es
+        "Pelirroja", "Pelirrojas", "Pelirrojo", "Pelo rojo",
+        // fr
+        "Rousse", "Rousses", "Cheveux roux",
+        // it
+        "Rossa", "Rosse", "Capelli rossi",
+        // pt
+        "Ruiva", "Ruivas", "Cabelo ruivo",
+        // nl
+        "Roodharige", "Roodharig", "Rood haar",
+        // ru
+        "Рыжая", "Рыжие", "Рыжеволосая", "Рыжий", "Рыжики",
+        // pl
+        "Rudowłosa", "Rudowłose", "Ruda", "Rude", "Rudowłosej",
+        // tr
+        "Kızıl saçlı", "Kızıl", "Kızıl saç", "Kızıllar",
+        // ja
+        "赤毛", "赤髪", "レッドヘア", "ジンジャー",
+        // zh
+        "红发", "紅髮", "红头发", "紅頭髮", "红发美女",
+        // ko
+        "빨간머리", "붉은 머리", "빨강 머리", "레드헤어",
+        // th
+        "ผมแดง", "ผมสีแดง", "สาวผมแดง",
+        // ar
+        "حمراء الشعر", "شعر أحمر", "حمراء",
+        // id
+        "Berambut merah", "Rambut merah", "Si rambut merah"
+      ]
+    },
+    {
+      id: "bd-blonde",
+      name: "Blonde: keywords",
+      kind: "keywords",
+      boorus: ["blonde_hair", "blonde", "blond"],
+      description: "Blonde terms in many languages.",
+      default: false,
+      items: [
+        // en
+        "Blonde", "Blondes", "Blond", "Blonde hair", "Blondie", "Platinum blonde", "Bleach blonde", "Blonde babe",
+        "Blonde teen", "Blonde milf", "Dumb blonde", "Busty blonde",
+        // de
+        "Blondine", "Blondinen", "Blondes Haar", "Blonder",
+        // es
+        "Rubia", "Rubias", "Rubio", "Pelo rubio", "Rubita",
+        // fr
+        "Cheveux blonds",
+        // it
+        "Bionda", "Bionde", "Capelli biondi", "Biondina",
+        // pt
+        "Loira", "Loiras", "Loirinha", "Loirinhas", "Cabelo loiro",
+        // nl
+        "Blonde vrouw", "Blond haar",
+        // ru
+        "Блондинка", "Блондинки", "Блонд", "Блондиночка", "Светловолосая",
+        // pl
+        "Blondynka", "Blondynki", "Blondyneczka",
+        // tr
+        "Sarışın", "Sarışınlar", "Sarı saçlı", "Sarı",
+        // ja
+        "金髪", "ブロンド", "金髪娘",
+        // zh
+        "金发", "金髮", "金发美女", "金髮美女", "金发妹",
+        // ko
+        "금발", "블론드", "금발 미녀",
+        // th
+        "ผมบลอนด์", "สาวผมทอง", "ผมทอง",
+        // ar
+        "شقراء", "شقراوات", "شعر أشقر",
+        // id
+        "Pirang", "Berambut pirang", "Rambut pirang", "Bule pirang"
+      ]
+    }
+  ]
+});
+
+KWF_CATALOG.push({
+  id: "middle-east",
+  name: "Arab & Middle Eastern",
+  description: "Arab, Muslim, hijab and Middle Eastern terms and nationalities in many languages. Off by default.",
+  lists: [
+    {
+      id: "me-terms",
+      name: "Arab & Middle Eastern: keywords",
+      kind: "keywords",
+      boorus: ["hijab", "arab", "niqab"],
+      description: "Arab, Muslim, hijab and Middle Eastern terms and nationalities in many languages.",
+      default: false,
+      items: [
+        // en
+        "Arab", "Arabs", "Arabic", "Arabian", "Arab girl", "Arab girls", "Arab babe", "Arab teen", "Arab milf",
+        "Middle Eastern", "Middle East", "Muslim", "Muslims", "Muslim girl", "Muslim woman", "Hijab", "Hijabi",
+        "Hijabis", "Niqab", "Burqa", "Burka", "Abaya", "Veiled", "Egyptian", "Saudi", "Emirati", "Dubai", "Lebanese",
+        "Iraqi", "Iranian", "Persian", "Moroccan", "Algerian", "Tunisian", "Syrian", "Jordanian", "Palestinian",
+        "Kuwaiti", "Qatari", "Yemeni", "Sharmota", "Sharmouta", "Sharmuta", "Khaleeji",
+        // de
+        "Araberin", "Arabisch", "Arabische", "Muslima", "Orientalin", "Kopftuch",
+        // es
+        "Árabe", "Árabes", "Musulmana", "Musulmanas", "Velo",
+        // fr
+        "Arabe", "Arabes", "Beurette", "Beurettes", "Maghrébine", "Musulmane", "Voilée",
+        // it
+        "Araba", "Velata",
+        // pt
+        "Muçulmana", "Muçulmanas",
+        // nl
+        "Moslima", "Moslimmeisje", "Hoofddoek",
+        // ru
+        "Арабка", "Арабки", "Арабская", "Мусульманка", "Мусульманки", "Хиджаб", "Хиджабе",
+        // pl
+        "Arabka", "Arabki", "Muzułmanka", "Muzułmanki", "Chusta",
+        // tr
+        "Arap", "Arap kızı", "Arap kadın", "Başörtülü", "Türbanlı", "Tesettürlü",
+        // ja
+        "アラブ", "アラブ人", "ムスリム", "ヒジャブ", "イスラム",
+        // zh
+        "阿拉伯", "穆斯林", "头巾", "頭巾", "伊斯兰", "伊斯蘭",
+        // ko
+        "아랍", "무슬림", "히잡", "이슬람",
+        // th
+        "อาหรับ", "มุสลิม", "ฮิญาบ",
+        // ar
+        "عربية", "عربيات", "عربي", "حجاب", "محجبة", "محجبات", "نقاب", "منقبة", "سكس عربي", "خليجية", "مصرية", "سعودية",
+        // id
+        "Jilbab", "Berjilbab", "Muslimah", "Cewek arab"
+      ]
+    }
+  ]
+});
+
+KWF_CATALOG.push({
+  id: "eastern-europe",
+  name: "Russian & Eastern European",
+  description: "Russian, Ukrainian, Slavic and other Eastern European terms plus Czech studios. Off by default.",
+  lists: [
+    {
+      id: "ee-terms",
+      name: "Russian & Eastern European: keywords",
+      kind: "keywords",
+      boorus: ["russian", "ukrainian"],
+      description: "Russian, Ukrainian, Slavic and other Eastern European terms and nationalities in many languages. 'Polish' only matches capitalized, so 'nail polish' does not.",
+      default: false,
+      items: [
+        // en
+        "Russian", "Russians", "Russian girl", "Russian girls", "Russian babe", "Russian teen", "Russian milf",
+        "Russian mom", "Ukrainian", "Ukrainians", "Ukrainian girl", "Belarusian", "=Polish", "Czech", "Czechs",
+        "Slovak", "Hungarian", "Romanian", "Bulgarian", "Serbian", "Croatian", "Slovenian", "Latvian", "Lithuanian",
+        "Estonian", "Moldovan", "Albanian", "Eastern European", "Eastern Europe", "East European", "Slavic", "Slav",
+        "Slavic girl", "Slavic babe", "Siberian", "Moscow", "Kiev", "Kyiv",
+        // de
+        "Russin", "Russische", "Ukrainerin", "Ukrainische", "Polin", "Polnische", "Tschechin", "Tschechische",
+        "Osteuropäerin", "Slawin",
+        // es
+        "Rusa", "Rusas", "Ucraniana", "Ucranianas", "Polaca", "Polacas", "Checa", "Checas", "Europa del este",
+        // fr
+        "Russe", "Russes", "Ukrainienne", "Ukrainiennes", "Polonaise", "Tchèque", "Tchèques", "Slave",
+        // it
+        "Russa", "Ucraina", "Ucraine", "Polacca", "Ceca", "Slava",
+        // pt
+        "Russas", "Polonesa", "Tcheca", "Eslava",
+        // nl
+        "Oekraïense", "Poolse", "Tsjechische", "Slavische",
+        // ru
+        "Русская", "Русские", "Русская девушка", "Украинка", "Украинки", "Полька", "Польки", "Чешка", "Чешки",
+        "Славянка", "Славянки", "Белоруска",
+        // pl
+        "Rosjanka", "Rosjanki", "Ukrainka", "Ukrainki", "Polka", "Polki", "Czeszka", "Czeszki", "Słowianka",
+        // tr
+        "Rus", "Rus kızı", "Rus kadın", "Ukraynalı", "Polonyalı", "Çek kızı",
+        // ja
+        "ロシア", "ロシア人", "ウクライナ", "ポーランド", "チェコ", "東欧",
+        // zh
+        "俄罗斯", "俄羅斯", "乌克兰", "烏克蘭", "东欧", "東歐", "斯拉夫",
+        // ko
+        "러시아", "러시안", "우크라이나", "동유럽", "슬라브",
+        // th
+        "รัสเซีย", "ยูเครน", "ยุโรปตะวันออก",
+        // ar
+        "روسية", "روسيات", "أوكرانية", "أوكرانيات", "سلافية",
+        // id
+        "Rusia", "Ukraina", "Cewek rusia", "Eropa timur"
+      ]
+    },
+    {
+      id: "ee-studios",
+      name: "Russian & Eastern European: studios & series",
+      kind: "studios",
+      description: "Czech and other Eastern European studios and series (partial).",
+      default: false,
+      items: [
+        // Czech
+        "Czech Casting", "Czech Streets", "Czech Taxi", "Czech Couples", "Czech Massage", "Czech Cash",
+        "Czech Wife Swap", "Czech Bitch", "Czech Fantasy", "Czech Harem", "Czech Mega Swingers", "Czech Parties",
+        "Czech Sauna", "Czech Gangbang", "Czech Hunter", "Hunt4K", "Vip4K", "Public Agent", "Fake Taxi",
+        "Fake Hostel", "Fake Driving School", "Fake Agent", "Fake Cop", "Fake Hospital", "Fake Boss", "Porn World",
+        "Porn Czech", "Czech Experiment", "Czech Soundings", "Czech Superstars",
+        // Russian
+        "Russian Institute"
+      ]
+    }
+  ]
+});
+
+// More fetish lists (off by default), appended to the BDSM & fetish topic
+KWF_CATALOG.find((topic) => topic.id === "fetish").lists.push(
+  {
+    id: "ft-watersports",
+    name: "Watersports & scat: keywords",
+    kind: "keywords",
+    boorus: ["urination", "peeing", "pee", "piss", "watersports", "golden_shower", "scat", "feces", "defecation", "excrement"],
+    description: "Pee, piss, golden shower and scat vocabulary. Plain 'shit' and 'poop' are left out on purpose.",
+    default: false,
+    items: [
+      // en
+      "Watersports", "Water sports", "Pee", "Peeing", "Piss", "Pissing", "Piss drinking", "Pee drinking",
+      "Golden shower", "Golden showers", "Urination", "Urolagnia", "Pissing on", "Peeing on", "Scat", "Scatting",
+      "Scat porn", "Coprophilia", "Coprophagia", "Eating shit", "Shit eating", "Brown shower", "Toilet slave",
+      "Human toilet", "Omorashi",
+      // de
+      "Natursekt", "Pinkeln", "Pissen", "Kaviar", "Pisse",
+      // es
+      "Lluvia dorada", "Mear", "Meada", "Orina", "Coprofagia", "Mear en",
+      // fr
+      "Pipi", "Urine", "Uro", "Scato", "Pluie dorée",
+      // it
+      "Pioggia dorata", "Pipì", "Pisciare", "Pisciata", "Piscio", "Urofilia",
+      // pt
+      "Chuva dourada", "Mijar", "Mijada", "Mijão", "Mijo",
+      // nl
+      "Plassen", "Plas", "Natte sport", "Plasseks",
+      // ru
+      "Золотой дождь", "Писсинг", "Писать", "Мочеиспускание", "Копрофилия", "Копрофагия", "Моча",
+      // pl
+      "Złoty deszcz", "Sikanie", "Szczanie", "Siku", "Mocz",
+      // tr
+      "Altın duş", "İşemek", "İdrar", "Çiş",
+      // ja
+      "おしっこ", "飲尿", "聖水", "スカトロ", "放尿", "お漏らし", "おもらし",
+      // zh
+      "圣水", "尿尿", "排尿", "喝尿", "吃屎", "黄金淋浴",
+      // ko
+      "오줌", "성수", "소변", "스카톨로지", "배변",
+      // th
+      "ฉี่", "ดื่มฉี่", "ปัสสาวะ",
+      // ar
+      "تبول", "بول", "شرب البول", "تبرز",
+      // id
+      "Kencing", "Minum kencing", "Pipis", "Ngompol", "Buang air kecil"
+    ]
+  },
+  {
+    id: "ft-creampie",
+    name: "Creampie & cumshots: keywords",
+    kind: "keywords",
+    boorus: ["creampie", "cum_inside", "cum_in_pussy", "cum_in_mouth", "cum_on_face", "facial", "cumshot", "cum_on_body", "cum_overflow", "internal_cumshot"],
+    description: "Creampie, cumshot, facial and cum-play vocabulary. Bukkake is part of the Group sex topic.",
+    default: false,
+    items: [
+      // en
+      "Creampie", "Creampies", "Cream pie", "Creampied", "Cumshot", "Cumshots", "Cum shot", "Facial", "Facials",
+      "Cum in mouth", "Cum in pussy", "Cum on face", "Cum on tits", "Cum swallow", "Cum swallowing", "Swallowing",
+      "Cum", "Cumming", "Cum inside", "Internal cumshot", "Cumpilation", "Cum compilation", "Cum play", "Snowball",
+      "Cum dripping", "Cum drip", "Cum filled", "Cum eating", "Cum shower", "Cum covered", "Cum on ass",
+      "Cum on pussy", "Pussy cum",
+      // de
+      "Besamung", "Besamt", "Gesichtsbesamung", "Abspritzen", "Sperma", "Cremepie", "Spermaschlucken", "Absamen",
+      // es
+      "Eyaculación", "Lechada", "Corrida", "Se corre", "Leche en la cara", "Tragando leche", "Semen", "Acabada",
+      // fr
+      "Éjaculation", "Éjac", "Sperme", "Gicler", "Éjac faciale", "Sperme dans la bouche",
+      // it
+      "Sborra", "Sborrata", "Eiaculazione", "Sborrata in faccia", "Sborrate",
+      // pt
+      "Gozada", "Gozo", "Esperma", "Gozando", "Gozar na boca", "Gozada na cara", "Porra",
+      // nl
+      "Spuiten", "Klaarkomen", "Spermashot",
+      // ru
+      "Кончил", "Кончает", "Сперма", "Камшот", "Крем-пай", "Кремпай", "Окончание в рот", "Кончил в рот", "Кончила",
+      // pl
+      "Wytrysk", "Spuszczanie", "Kremówka", "Spuścił się",
+      // tr
+      "Boşalma", "Sperm", "Yüze boşalma", "İçine boşalma", "Ağza boşalma",
+      // ja
+      "中出し", "顔射", "口内発射", "ぶっかけ", "精子", "ごっくん", "射精", "ザーメン",
+      // zh
+      "中出", "内射", "內射", "颜射", "顏射", "口爆", "射在里面",
+      // ko
+      "질싸", "중출", "얼싸", "사정", "정액",
+      // th
+      "น้ำแตก", "แตกใน", "แตกปาก", "น้ำเงี่ยน",
+      // ar
+      "قذف", "سائل منوي", "قذف داخل", "لبن",
+      // id
+      "Crot", "Ejakulasi", "Muncrat"
+    ]
+  }
+);
 
 // Tags that do not exist on a given site (checked against its own tag search); skipped when writing that site's blacklist.
 const KWF_BOORU_SKIP = {

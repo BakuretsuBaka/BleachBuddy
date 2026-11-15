@@ -258,3 +258,42 @@ test("trans slang compounds and phrasings are caught (full default catalog)", ()
   for (const x of ["babe cocktail", "girl cockatoo", "mtf", "ts", "Ts", "trapeze", "trapped", "transformer", "the girl dickens"])
     assert.equal(hit(m, x), null, x);
 });
+
+// ── More topics (all off by default) ──
+
+const NEW_LISTS = ["le-terms", "af-incest", "af-milf", "af-teen", "nc-terms", "bd-bbw", "bd-bigcock", "bd-bigbreasts", "bd-petite",
+  "bd-redhead", "bd-blonde", "me-terms", "ee-terms", "ee-studios", "ft-watersports", "ft-creampie"];
+
+test("the new lists exist and are switched off by default", () => {
+  const s = kwfResolve(null);
+  const all = g.kwfCatalogLists();
+  for (const id of NEW_LISTS) {
+    const list = all.find((l) => l.id === id);
+    assert.ok(list, id + " exists");
+    assert.equal(g.kwfListEnabled(s, list), false, id + " is off by default");
+  }
+  // nothing from the new lists leaks into the default terms
+  const m = kwfBuildMatcher(kwfActiveTerms(s), true, []);
+  for (const x of ["lesbian", "incest", "rape", "BBW", "big tits", "redhead", "hijab", "golden shower", "creampie"]) assert.equal(hit(m, x), null, x);
+});
+
+test("the new lists match their vocabulary once switched on", () => {
+  const lists = {};
+  for (const id of NEW_LISTS) lists[id] = true;
+  const s = kwfResolve({ lists });
+  const m = kwfBuildMatcher(kwfActiveTerms(s), true, kwfActiveExceptions(s));
+  const yes = ["lesbian scissoring", "girl on girl", "레즈", "mom and son", "real sister", "Taboo", "MILF", "mature woman", "Oma", "schoolgirl",
+    "barely legal", "18yo", "JK", "gang rape", "non-con", "sleep sex", "強姦", "BBW", "Chubby", "ぽっちゃり", "huge cock", "big dick", "巨根",
+    "big tits", "busty", "巨乳", "petite", "flat chest", "貧乳", "redhead", "ginger", "pelirroja", "blonde", "Blondie", "金髪", "hijab", "Arab",
+    "Muslim", "Russian", "Czech Casting", "Polish girl", "golden shower", "pissing", "scat", "creampie", "cumshot", "中出し"];
+  for (const x of yes) assert.ok(hit(m, x), x);
+  const no = ["scatter plot", "cumbersome", "immature", "nail polish remover", "jk", "Czechoslovakia", "father", "hijacked"];
+  for (const x of no) assert.equal(hit(m, x), null, x);
+});
+
+test("new lists use a single id each and have items", () => {
+  const all = g.kwfCatalogLists();
+  const ids = all.map((l) => l.id);
+  assert.equal(new Set(ids).size, ids.length);
+  for (const id of NEW_LISTS) assert.ok(all.find((l) => l.id === id).items.length > 20, id);
+});

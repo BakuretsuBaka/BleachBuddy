@@ -361,7 +361,7 @@ function renderCustom() {
 // ───────────────────────────── Matching
 
 function getMatcher() {
-  if (!matcherCache) matcherCache = kwfBuildMatcher(kwfActiveTerms(settings), settings.wholeWord);
+  if (!matcherCache) matcherCache = kwfBuildMatcher(kwfActiveTerms(settings), settings.wholeWord, kwfActiveExceptions(settings));
   return matcherCache;
 }
 

@@ -11,10 +11,10 @@ for (const file of ["lists.js", "adult-sites.js", "shared.js"]) {
 }
 // `const` declarations are not properties of the context: read them out explicitly
 const g = vm.runInContext(
-  `({ KWF_CATALOG, KWF_DEFAULTS, kwfFold, kwfResolve, kwfActiveTerms, kwfActiveSites, kwfBuildMatcher, kwfParseSite, kwfSiteConditions, kwfBooruTags, kwfCatalogLists, kwfListEnabled, kwfResultUrl, kwfUrlText, kwfAdultHostTester, KWF_ADULT_HOSTS })`,
+  `({ KWF_CATALOG, KWF_DEFAULTS, kwfFold, kwfResolve, kwfActiveTerms, kwfActiveSites, kwfBuildMatcher, kwfParseSite, kwfSiteConditions, kwfBooruTags, kwfCatalogLists, kwfListEnabled, kwfResultUrl, kwfUrlText, kwfAdultHostTester, KWF_ADULT_HOSTS, kwfActiveExceptions })`,
   ctx
 );
-const { kwfResultUrl, kwfUrlText, kwfAdultHostTester, KWF_ADULT_HOSTS, kwfFold, kwfResolve, kwfActiveTerms, kwfActiveSites, kwfBuildMatcher, kwfParseSite, kwfSiteConditions } = g;
+const { kwfActiveExceptions, kwfResultUrl, kwfUrlText, kwfAdultHostTester, KWF_ADULT_HOSTS, kwfFold, kwfResolve, kwfActiveTerms, kwfActiveSites, kwfBuildMatcher, kwfParseSite, kwfSiteConditions } = g;
 
 // Objects from the vm context have another prototype: compare plain copies
 const plain = (x) => JSON.parse(JSON.stringify(x));
@@ -180,4 +180,27 @@ test("manifest loads the search script on every engine", () => {
   assert.ok(entry);
   assert.deepEqual(entry.js.slice(0, 3), ["lists.js", "adult-sites.js", "shared.js"]);
   for (const host of ["google.com", "bing.com", "duckduckgo.com", "search.brave.com", "search.yahoo.com"]) assert.ok(entry.matches.some((m) => m.includes(host)), host);
+});
+
+// ── Exceptions ──
+
+test("'black' before a hair or clothing word is not a match, in any capitalization", () => {
+  const m = kwfBuildMatcher(["Black", "Black girl", "Big Black Cock"], true, kwfActiveExceptions(kwfResolve(null)));
+  for (const t of ["black hair", "a black dress", "black stockings", "black-haired girl", "black t-shirt", "black thong", "black_hair", "black   boots", "Black hair", "BLACK HAIR", "Black Dress"])
+    assert.equal(hit(m, t), null, t);
+  for (const t of ["black", "black guy", "black girl", "black cock", "Black Guy", "black latex", "black hairy", "Big Black Cock"])
+    assert.ok(hit(m, t), t);
+});
+
+test("a later 'black' still matches after an excepted one", () => {
+  const m = kwfBuildMatcher(["Black"], true, kwfActiveExceptions(kwfResolve(null)));
+  assert.equal(hit(m, "black hair and black guy"), "black");
+  assert.equal(hit(m, "black dress, black socks"), null);
+});
+
+test("without the Black list the exception is gone", () => {
+  assert.ok(kwfActiveExceptions(kwfResolve(null)).length >= 1);
+  assert.equal(kwfActiveExceptions(kwfResolve({ lists: { "ib-black": false } })).length, 0);
+  const m = kwfBuildMatcher(["Black"], true, []);
+  assert.ok(hit(m, "black hair"));
 });

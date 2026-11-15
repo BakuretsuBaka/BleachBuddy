@@ -106,7 +106,7 @@
     let terms = kwfActiveTerms(settings);
     // Bare colour words are everywhere in 4chan discussion ("black thong"); the longer terms ("black guy") still match
     if (IS_4CHAN) terms = terms.filter((t) => !FOURCHAN_AMBIGUOUS.has(t.toLowerCase()));
-    matcher = kwfBuildMatcher(terms, settings.wholeWord);
+    matcher = kwfBuildMatcher(terms, settings.wholeWord, kwfActiveExceptions(settings));
     tagSet = new Set();
     const multi = [];
     for (const raw of terms) {

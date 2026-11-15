@@ -156,7 +156,7 @@
   const why = new WeakMap();
 
   function rebuild() {
-    matcher = kwfBuildMatcher(kwfActiveTerms(settings), settings.wholeWord);
+    matcher = kwfBuildMatcher(kwfActiveTerms(settings), settings.wholeWord, kwfActiveExceptions(settings));
     isAdult = kwfAdultHostTester(settings);
   }
 

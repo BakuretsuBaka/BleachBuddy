@@ -76,6 +76,17 @@ function kwfActiveTerms(s) {
     .filter((t) => t && !seen.has(kwfLower(t)) && seen.add(kwfLower(t)));
 }
 
+// Exception rules of the enabled catalog lists: a match of `term` is ignored when it is directly followed by one of
+// the `next` words (e.g. "black" before "hair" or a clothing word). `caseSensitive: true` limits a rule to the exact spelling of `term`.
+function kwfActiveExceptions(s) {
+  const out = [];
+  for (const list of kwfCatalogLists()) {
+    if (!list.exceptions || !kwfListEnabled(s, list)) continue;
+    for (const ex of list.exceptions) if (ex && ex.term && Array.isArray(ex.next) && ex.next.length) out.push(ex);
+  }
+  return out;
+}
+
 // Exact image-board tags (e.g. "dark-skinned_male") of enabled lists, minus lists switched off
 function kwfBooruTags(s) {
   const seen = new Set();
@@ -154,7 +165,7 @@ function kwfSiteConditions(sites, maxRegex = 900) {
 }
 
 // Returns { size, match(text) }. match() expects text already passed through kwfFold().
-function kwfBuildMatcher(terms, wholeWord) {
+function kwfBuildMatcher(terms, wholeWord, exceptions) {
   const latin = [];
   const substr = [];
   const exact = []; // case-sensitive terms ("=AI"): always whole-word
@@ -188,15 +199,48 @@ function kwfBuildMatcher(terms, wholeWord) {
     exactRe = new RegExp(`(?<![\\p{L}\\p{N}\\p{M}])(?:${exact.sort(longestFirst).map(esc).join("|")})s?(?![\\p{L}\\p{N}\\p{M}])`, "u");
   if (substr.length) substrRe = new RegExp(substr.sort(longestFirst).map(esc).join("|"), "u");
 
+  // Exceptions: a match is dropped when the text from its start is "<term> <next word>" (separators as in terms).
+  // Rules marked caseSensitive compare the text as written; the others ignore case.
+  const excRules = [];
+  for (const ex of exceptions || []) {
+    const t = kwfFold(ex.term).trim();
+    const next = (ex.next || []).map((w) => kwfFold(w).trim()).filter(Boolean).sort(longestFirst);
+    if (!t || !next.length) continue;
+    const word = "(?![\\p{L}\\p{N}\\p{M}])";
+    excRules.push({
+      key: t.toLowerCase(),
+      re: new RegExp(`${esc(t)}[\\s\\-_.]+(?:${next.map(esc).join("|")})s?${word}`, ex.caseSensitive ? "uy" : "iuy")
+    });
+  }
+  const excepted = (text, index, matched) => {
+    const key = matched.toLowerCase();
+    for (const r of excRules) {
+      if (r.key !== key) continue;
+      r.re.lastIndex = index;
+      if (r.re.test(text)) return true;
+    }
+    return false;
+  };
+  // First match that is not excepted (without exceptions this is a plain exec)
+  const first = (re, text) => {
+    if (!re) return null;
+    if (!excRules.length) {
+      const m = re.exec(text);
+      return m ? m[0] : null;
+    }
+    const g = new RegExp(re.source, re.flags.includes("g") ? re.flags : re.flags + "g");
+    let m;
+    while ((m = g.exec(text))) {
+      if (!excepted(text, m.index, m[0])) return m[0];
+      if (!m[0].length) g.lastIndex++;
+    }
+    return null;
+  };
+
   return {
     size: latin.length + substr.length + exact.length,
     match(text) {
-      const a = latinRe && latinRe.exec(text);
-      if (a) return a[0];
-      const c = exactRe && exactRe.exec(text);
-      if (c) return c[0];
-      const b = substrRe && substrRe.exec(text);
-      return b ? b[0] : null;
+      return first(latinRe, text) || first(exactRe, text) || first(substrRe, text);
     }
   };
 }

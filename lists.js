@@ -71,7 +71,7 @@ const KWF_CATALOG = [
               "garters", "gloves", "glove", "boots", "boot", "heels", "shoes", "sneakers", "stilettos", "pumps", "sandals",
               "hat", "cap", "beanie", "scarf", "choker", "belt", "tie",
               // materials
-              "latex", "leather", "lace"
+              "latex", "leather", "lace", "silk", "satin", "denim"
             ]
           }
         ],

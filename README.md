@@ -14,6 +14,7 @@ A browser extension (Chrome and Firefox, Manifest V3) that hides videos on adult
 - **Image-board sites.** On Rule34 and similar sites posts are matched by exact tag, and on Rule34.xxx, Gelbooru, TBIB, Xbooru, Hypnohub and Realbooru the tags of your enabled lists (such as `dark_skin`, `dark-skinned_male`, `interracial`) are added to the site's own blacklist cookie.
 - **Your own lists**, import/export of settings, and a "Try it" tester.
 - **See what was filtered.** The popup lists the hidden items with the term that matched, can outline them instead of hiding them, and shows a counter on the toolbar icon.
+- **Search-engine results.** On Google, Bing, DuckDuckGo, Brave, Yahoo, Startpage, Ecosia, Qwant, Yandex, Kagi and Mojeek, web and image results are hidden when they come from an adult site and their title, snippet or address matches your lists. A result from any other site is left alone, whatever it says. Adult sites are the built-in list, sites you added, sites of your enabled whole-site lists and domains whose name says so (`porn`, `hentai`, `.xxx`, …). Switch it off with "Filter search results" on the settings page.
 - **Pause per site.** One switch in the popup turns the filter off for the current site only.
 
 Built-in support for about 200 adult sites (the full list is on the settings page), image boards, Reddit and the adult boards of 4chan (/s/, /hc/, /hm/, /h/, /e/, /u/, /d/, /y/, /t/, /hr/, /gif/, /aco/), where posts with an image or video are checked by file name and post text. Pages of other sites can be added there too.
@@ -50,7 +51,7 @@ Clone this repository and load the folder directly ("Load unpacked" in Chromium 
 
 ## Development
 
-No build step. `npm test` runs the unit tests for the matcher and the site rules. `lists.js` holds the catalog, `shared.js` the matcher and site-rule logic, `content.js` the page filter, `background.js` the site-blocking rules, `options.*` the settings page.
+No build step. `npm test` runs the unit tests for the matcher and the site rules. `lists.js` holds the catalog, `shared.js` the matcher and site-rule logic, `content.js` the page filter, `search.js` the search-engine filter (`adult-sites.js` lists the adult domains, derived from `manifest.json`), `background.js` the site-blocking rules, `options.*` the settings page.
 
 ## License
 

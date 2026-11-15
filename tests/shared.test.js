@@ -6,15 +6,15 @@ const path = require("node:path");
 const vm = require("node:vm");
 
 const ctx = vm.createContext({ console, URL });
-for (const file of ["lists.js", "shared.js"]) {
+for (const file of ["lists.js", "adult-sites.js", "shared.js"]) {
   vm.runInContext(fs.readFileSync(path.join(__dirname, "..", file), "utf8"), ctx, { filename: file });
 }
 // `const` declarations are not properties of the context: read them out explicitly
 const g = vm.runInContext(
-  `({ KWF_CATALOG, KWF_DEFAULTS, kwfFold, kwfResolve, kwfActiveTerms, kwfActiveSites, kwfBuildMatcher, kwfParseSite, kwfSiteConditions, kwfBooruTags, kwfCatalogLists, kwfListEnabled })`,
+  `({ KWF_CATALOG, KWF_DEFAULTS, kwfFold, kwfResolve, kwfActiveTerms, kwfActiveSites, kwfBuildMatcher, kwfParseSite, kwfSiteConditions, kwfBooruTags, kwfCatalogLists, kwfListEnabled, kwfResultUrl, kwfUrlText, kwfAdultHostTester, KWF_ADULT_HOSTS })`,
   ctx
 );
-const { kwfFold, kwfResolve, kwfActiveTerms, kwfActiveSites, kwfBuildMatcher, kwfParseSite, kwfSiteConditions } = g;
+const { kwfResultUrl, kwfUrlText, kwfAdultHostTester, KWF_ADULT_HOSTS, kwfFold, kwfResolve, kwfActiveTerms, kwfActiveSites, kwfBuildMatcher, kwfParseSite, kwfSiteConditions } = g;
 
 // Objects from the vm context have another prototype: compare plain copies
 const plain = (x) => JSON.parse(JSON.stringify(x));
@@ -129,4 +129,55 @@ test("sites beyond the regex limit fall back to requestDomains rules", () => {
   assert.equal(conds.length, 2);
   assert.ok(conds[0].regexFilter);
   assert.deepEqual(plain(conds[1].requestDomains), ["b.com", "c.com"]);
+});
+
+// ── Search-engine results ──
+
+test("redirect links of search engines are unwrapped", () => {
+  const g = "https://www.google.com/search?q=x";
+  assert.equal(kwfResultUrl("/url?sa=t&q=https%3A%2F%2Fwww.pornhub.com%2Fview%3Fa%3D1&ved=2", g), "https://www.pornhub.com/view?a=1");
+  assert.equal(kwfResultUrl("/imgres?imgurl=https%3A%2F%2Fi.x.com%2Fa.jpg&imgrefurl=https%3A%2F%2Fxvideos.com%2Fv1", g), "https://xvideos.com/v1");
+  assert.equal(kwfResultUrl("//duckduckgo.com/l/?uddg=https%3A%2F%2Fexample.org%2Fp&rut=abc", "https://duckduckgo.com/?q=x"), "https://example.org/p");
+  const b64 = Buffer.from("https://spankbang.com/a/video").toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  ctx.atob = (v) => Buffer.from(v, "base64").toString("binary");
+  assert.equal(kwfResultUrl("https://www.bing.com/ck/a?!&&p=1&u=a1" + b64 + "&ntb=1", "https://www.bing.com/search?q=x"), "https://spankbang.com/a/video");
+  assert.equal(kwfResultUrl("https://r.search.yahoo.com/_ylt=A/RV=2/RE=1/RO=10/RU=https%3a%2f%2fxnxx.com%2fv/RK=2/RS=z", "https://search.yahoo.com/"), "https://xnxx.com/v");
+  assert.equal(kwfResultUrl("https://example.org/a", "https://search.brave.com/"), "https://example.org/a");
+  assert.equal(kwfResultUrl("javascript:void(0)", "https://www.google.com/"), "");
+});
+
+test("address text exposes the slug to the matcher", () => {
+  const m = matcher(["step mom", "interracial"]);
+  assert.ok(hit(m, kwfUrlText("https://x.com/video/step-mom_123?q=a+b")));
+  assert.ok(hit(m, kwfUrlText("https://x.com/watch?v=Interracial%20Fun")));
+});
+
+test("adult sites are told apart from other sites", () => {
+  const is = kwfAdultHostTester(kwfResolve(null));
+  for (const h of ["pornhub.com", "www.pornhub.com", "de.pornhub.com", "xvideos.es", "rule34.xxx", "some-new-porn-tube.net", "foo.xxx", "sex.com"]) assert.ok(is(h), h);
+  for (const h of ["wikipedia.org", "essex.ac.uk", "reddit.com", "youtube.com", "notpornhub.example.org.evil", "", "sextant.org", "blackpool.gov.uk"]) assert.equal(is(h), h.startsWith("notporn"), h);
+});
+
+test("user-added sites and whole-site lists count as adult", () => {
+  const s = kwfResolve({ extraSites: ["mytube.example"], customLists: [{ id: "c", enabled: true, kind: "sites", items: ["*spicy*", "secret.net"] }] });
+  const is = kwfAdultHostTester(s);
+  assert.ok(is("www.mytube.example"));
+  assert.ok(is("best-spicy-tube.org"));
+  assert.ok(is("a.secret.net"));
+  assert.equal(is("other.net"), false);
+});
+
+test("the adult-site list matches the supported sites in manifest.json", () => {
+  const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "manifest.json"), "utf8"));
+  const skip = new Set(["reddit.com", "boards.4chan.org"]);
+  const expected = manifest.content_scripts[0].matches.map((p) => p.replace(/^\*:\/\/(\*\.)?/, "").replace(/\/\*$/, "")).filter((h) => !skip.has(h));
+  assert.deepEqual([...KWF_ADULT_HOSTS].sort(), [...new Set(expected)].sort());
+});
+
+test("manifest loads the search script on every engine", () => {
+  const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "manifest.json"), "utf8"));
+  const entry = manifest.content_scripts.find((c) => c.js.includes("search.js"));
+  assert.ok(entry);
+  assert.deepEqual(entry.js.slice(0, 3), ["lists.js", "adult-sites.js", "shared.js"]);
+  for (const host of ["google.com", "bing.com", "duckduckgo.com", "search.brave.com", "search.yahoo.com"]) assert.ok(entry.matches.some((m) => m.includes(host)), host);
 });

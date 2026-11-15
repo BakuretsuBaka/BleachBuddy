@@ -14,6 +14,7 @@ const KWF_DEFAULTS = {
   siteBlocking: true,      // block entire sites that belong to an enabled "sites" list
   nativeBlacklist: true,   // on Rule34 & co: also add the active image-board tags to the site's own blacklist
   badge: true,             // show how many items were hidden on the toolbar icon
+  searchFilter: true,      // on search engines: hide web and image results from adult sites that match the lists
   pausedSites: [],         // hostnames the filter is switched off for (popup toggle)
   lists: {},          // listId -> true/false (missing = list default)
   disabledItems: {},  // listId -> [items the user switched off]
@@ -197,5 +198,73 @@ function kwfBuildMatcher(terms, wholeWord) {
       const b = substrRe && substrRe.exec(text);
       return b ? b[0] : null;
     }
+  };
+}
+
+// ── Search-engine results ───────────────────────────────────────────────────
+// search.js hides a result only when it comes from an adult site AND its title, snippet or address matches a term.
+
+// Address a search result really points to (engines wrap links in redirects); "" when it cannot be told.
+function kwfResultUrl(href, base) {
+  let u;
+  try { u = new URL(href, base || "https://search.invalid/"); } catch (e) { return ""; }
+  if (!/^https?:$/.test(u.protocol)) return "";
+  const host = u.hostname.toLowerCase();
+  const q = u.searchParams;
+  let target = "";
+  if (/(^|\.)google\.[a-z.]+$/.test(host)) {
+    if (u.pathname === "/url") target = q.get("q") || q.get("url") || "";
+    else if (u.pathname === "/imgres") target = q.get("imgrefurl") || "";
+  } else if (/(^|\.)duckduckgo\.com$/.test(host)) {
+    target = q.get("uddg") || "";
+  } else if (/(^|\.)bing\.com$/.test(host) && u.pathname.startsWith("/ck/")) {
+    // u=a1<base64url of the address>
+    const v = q.get("u") || "";
+    if (/^a1/.test(v) && typeof atob === "function") {
+      try { target = atob(v.slice(2).replace(/-/g, "+").replace(/_/g, "/")); } catch (e) { target = ""; }
+    }
+  } else if (/(^|\.)search\.yahoo\.com$/.test(host)) {
+    const m = /\/RU=([^/]+)/.exec(u.pathname);
+    if (m) { try { target = decodeURIComponent(m[1]); } catch (e) { target = ""; } }
+  }
+  if (!target) return u.href;
+  try { const t = new URL(target); return /^https?:$/.test(t.protocol) ? t.href : ""; } catch (e) { return ""; }
+}
+
+// The address as words ("/video/step-mom_123?q=a+b" -> "video step mom 123 q a b"), so the matcher can read slugs
+function kwfUrlText(url) {
+  let u;
+  try { u = new URL(url); } catch (e) { return ""; }
+  let t = u.pathname + " " + u.search.replace(/^\?/, "").replace(/&/g, " ");
+  try { t = decodeURIComponent(t); } catch (e) { /* keep the encoded form */ }
+  return t.replace(/[-_+/.=]+/g, " ");
+}
+
+// Sites that look adult from their name alone (catches domains missing from KWF_ADULT_HOSTS)
+const KWF_ADULT_HOST_HINT = /porn|hentai|xvideo|xnxx|xhamster|rule34|(^|[.-])(xxx|sex|nsfw|r34|nudes?|milf|fuck|bdsm)([.-]|$)|\.(xxx|porn|sex|adult)$/;
+
+// Returns a function host -> boolean: is this an adult site? Covers the built-in list, sites the user added, the
+// name hint and the sites of every enabled "Whole sites" list.
+function kwfAdultHostTester(s) {
+  const domains = new Set(typeof KWF_ADULT_HOSTS !== "undefined" ? KWF_ADULT_HOSTS : []);
+  for (const d of (s && s.extraSites) || []) {
+    const site = kwfParseSite(d);
+    if (site && site.domain) domains.add(site.domain);
+  }
+  const words = [];
+  if (s) {
+    const sites = kwfActiveSites(s);
+    for (const d of sites.domains) domains.add(d);
+    words.push(...sites.words);
+  }
+  const cache = new Map();
+  return (rawHost) => {
+    const host = String(rawHost || "").toLowerCase().replace(/\.$/, "");
+    if (!host) return false;
+    if (cache.has(host)) return cache.get(host);
+    let res = KWF_ADULT_HOST_HINT.test(host) || words.some((w) => host.includes(w));
+    for (let h = host; !res && h.includes("."); h = h.slice(h.indexOf(".") + 1)) if (domains.has(h)) res = true;
+    cache.set(host, res);
+    return res;
   };
 }

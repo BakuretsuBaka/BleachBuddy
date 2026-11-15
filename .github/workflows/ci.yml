@@ -15,6 +15,6 @@ jobs:
           node-version: 22
       - run: npm test
       - name: Check the scripts parse
-        run: for f in background.js content.js options.js popup.js blocked.js; do node --check $f; done
+        run: for f in background.js content.js options.js popup.js blocked.js search.js; do node --check $f; done
       - name: Lint for Firefox
         run: npx --yes web-ext lint --source-dir . --ignore-files "tests/**" "package.json" ".github/**" "README.md"

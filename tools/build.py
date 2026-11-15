@@ -6,7 +6,8 @@ import zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILES = ["LICENSE", "background.js", "blocked.css", "blocked.html", "blocked.js", "content.css", "content.js",
-         "lists.js", "manifest.json", "options.css", "options.html", "options.js", "popup.html", "popup.js", "shared.js"]
+         "lists.js", "manifest.json", "options.css", "options.html", "options.js", "popup.html", "popup.js", "shared.js",
+         "search.js", "adult-sites.js"]
 ICONS = sorted(os.listdir(os.path.join(ROOT, "icons")))
 
 with open(os.path.join(ROOT, "manifest.json"), encoding="utf-8") as f:

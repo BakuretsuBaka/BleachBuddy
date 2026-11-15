@@ -398,6 +398,7 @@ function syncControls() {
   $("#siteBlocking").checked = settings.siteBlocking;
   $("#holdUntilChecked").checked = settings.holdUntilChecked;
   $("#badge").checked = settings.badge;
+  $("#searchFilter").checked = settings.searchFilter;
   $$("input[name=mode]").forEach((r) => (r.checked = r.value === settings.mode));
   updateSummary();
 }
@@ -448,7 +449,7 @@ $("#clearCache").addEventListener("click", () => {
     setTimeout(() => ($("#clearCache").textContent = "Clear cached tags"), 1500);
   });
 });
-["matchTitle", "matchTags", "wholeWord", "deepTags", "holdUntilChecked", "siteBlocking", "nativeBlacklist", "badge"].forEach((id) =>
+["matchTitle", "matchTags", "wholeWord", "deepTags", "holdUntilChecked", "siteBlocking", "nativeBlacklist", "badge", "searchFilter"].forEach((id) =>
   $("#" + id).addEventListener("change", (e) => {
     settings[id] = e.target.checked;
     save();

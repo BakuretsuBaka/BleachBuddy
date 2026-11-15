@@ -78,7 +78,8 @@ function kwfActiveTerms(s) {
 
 // Exception rules of the enabled catalog lists: a match of `term` is ignored when it is directly followed by one of
 // the `next` words, or directly preceded by one of the `prev` words (e.g. "black" before "hair" or a clothing word).
-// A rule names one `term` or several `terms`; `caseSensitive: true` limits it to the exact spelling.
+// A rule names one `term` or several `terms`; `caseSensitive: true` limits it to the exact spelling; `gap` and
+// `gapBlock` allow a few other words before a `next` word.
 function kwfActiveExceptions(s) {
   const out = [];
   for (const list of kwfCatalogLists()) {
@@ -217,10 +218,17 @@ function kwfBuildMatcher(terms, wholeWord, exceptions) {
     const sep = gapless ? "[\\s\\-_.]*" : "[\\s\\-_.]+";
     const tail = gapless ? "" : `s?${WORD}`;
     const flags = cs ? "u" : "iu";
+    // `gap` lets up to that many other words sit between the term and a `next` word ("black seamed stockings"),
+    // unless one of them is in `gapBlock` (people and function words: "black guy in stockings" still matches)
+    const gap = gapless ? 0 : Math.max(0, Math.min(3, Number(ex.gap) || 0));
+    const block = clean(ex.gapBlock);
+    const filler = gap
+      ? `(?:${block.length ? `(?!(?:${block.map(esc).join("|")})s?${WORD})` : ""}[\\p{L}\\p{N}\\p{M}]+${sep}){0,${gap}}`
+      : "";
     excRules.push({
       names: new Set(names.map((t) => (cs ? t : t.toLowerCase()))),
       cs,
-      after: next.length ? new RegExp(`^${sep}(?:${next.map(esc).join("|")})${tail}`, flags) : null,
+      after: next.length ? new RegExp(`^${sep}${filler}(?:${next.map(esc).join("|")})${tail}`, flags) : null,
       before: prev.length ? new RegExp(`(?<![\\p{L}\\p{N}\\p{M}])(?:${prev.map(esc).join("|")})${gapless ? "" : "s?"}${sep}$`, flags) : null
     });
   }

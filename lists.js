@@ -60,6 +60,18 @@ const KWF_CATALOG = [
         exceptions: [
           {
             term: "black",
+            // Up to two other words may sit in between ("black seamed stockings", "black long hair"), unless one of them
+            // is a person or function word, so "black guy in stockings" or "black girl with long hair" still match.
+            gap: 2,
+            gapBlock: [
+              "guy", "guys", "man", "men", "girl", "girls", "woman", "women", "lady", "ladies", "dude", "dudes", "boy", "boys",
+              "female", "females", "male", "males", "babe", "babes", "teen", "teens", "couple", "couples", "chick", "chicks",
+              "bitch", "whore", "slut", "milf", "mom", "mother", "dad", "cock", "cocks", "dick", "dicks", "pussy", "ass", "booty",
+              "thug", "stud", "studs", "bull", "king", "queen", "beauty", "beauties", "amateur", "ebony", "african", "afro",
+              "nubian", "interracial", "with", "in", "on", "at", "for", "to", "of", "by", "from", "her", "his", "hers", "him",
+              "their", "the", "a", "an", "is", "are", "was", "while", "wearing", "wears", "who", "that", "fucks", "fucking",
+              "fucked", "gets", "takes", "taking"
+            ],
             next: [
               // hair
               "hair", "haired", "hairstyle", "hairstyles",

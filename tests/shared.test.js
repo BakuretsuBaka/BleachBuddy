@@ -238,3 +238,12 @@ test("a rule can look at the word before a term", () => {
   assert.ok(hit(m, "mujer negra"));
   assert.ok(hit(m, "pelopelo negra".replace("pelopelo", "superpelo")));
 });
+
+test("a few descriptive words may sit between 'black' and the clothing word", () => {
+  const s = kwfResolve(null);
+  const m = kwfBuildMatcher(["Black", "Black girl", "Black guy"], true, kwfActiveExceptions(s));
+  for (const t of ["black seamed stockings", "Black Seamed Stockings", "black long hair", "black sheer lace trimmed panties", "black and white stockings", "black thigh high boots"])
+    assert.equal(hit(m, t), null, t);
+  for (const t of ["black guy in stockings", "black man wearing stockings", "black cock in stockings", "black woman with long hair", "black girl in black stockings", "black very very very long stockings", "black guy"])
+    assert.ok(hit(m, t), t);
+});

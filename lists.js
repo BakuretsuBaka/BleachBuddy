@@ -436,7 +436,10 @@ const KWF_CATALOG = [
         items: [
           // en
           "Trans", "Transgender", "Transsexual", "Transexual", "Trans woman", "Trans women", "Trans girl",
-          "Transwoman", "Tgirl", "T-Girl",
+          "Transwoman", "Tgirl", "T-Girl", "T girl", "Tgurl", "T-Gurl", "T boy", "Tboy",
+          "Trans man", "Trans men", "Trans guy", "Trans boy", "Trans male", "Trans female", "Trans babe", "Trans chick",
+          "Transfem", "Transfeminine", "Transmasc", "Transmasculine", "Transmale", "Transfemale", "=MTF", "=FTM",
+          "Kathoey", "Katoey", "Hijra",
           // de
           "Transsexuelle", "Transsexuell", "Transfrau", "Transgender",
           // es / pt
@@ -480,11 +483,26 @@ const KWF_CATALOG = [
         items: [
           // en
           "Tranny", "Trannies", "Trannys", "Shemale", "Shemales", "She-male", "Ladyboy", "Lady boy", "Lady-boy",
-          "He-she", "Heshe", "Newhalf", "New half", "Dickgirl", "Dick girl",
+          "He-she", "Heshe", "Newhalf", "New half", "Dickgirl", "Dick girl", "Dickgirls",
+          "Trannie", "Tranni", "Trany", "She male", "Shemail", "Sheboy", "Ladyboi", "Lady boi", "Ladyman", "Lady man",
+          "Trap", "=TS",
+          // "...cock" / "...dick" compounds (a space also matches the glued form: "babe cock" = "babecock")
+          "Girlcock", "Girl cock", "Babecock", "Babe cock", "Femcock", "Fem cock", "Ladycock", "Lady cock", "Shecock",
+          "She cock", "Chickcock", "Chick cock", "Womancock", "Woman cock", "Cockgirl", "Cock girl", "Cockbabe", "Cock babe",
+          "Girldick", "Girl dick", "Babedick", "Babe dick", "Femdick", "Fem dick", "Ladydick", "Lady dick", "Shedick",
+          "She dick", "Dickbabe", "Dick babe", "Dickchick", "Dick chick", "Dickwoman", "Dick woman", "Dickfem", "Dick fem",
+          "Cuntboy", "Cunt boy", "Cuntboi", "Cunt boi", "Boypussy", "Boy pussy", "Mangina",
+          "Hermaphrodite", "Hermaphrodites", "Hermie",
+          // "girl/chick with a dick" phrasing
+          "Girl with a dick", "Girl with dick", "Girl with a cock", "Girl with cock", "Girls with dicks", "Girls with cocks",
+          "Chick with a dick", "Chick with dick", "Chicks with dicks", "Chicks with cocks", "Chix with dix",
+          "Babe with a dick", "Babe with a cock", "Babes with dicks", "Woman with a dick", "Woman with a penis",
+          "Women with dicks", "Woman with a cock", "Lady with a dick", "Ladies with dicks",
           // de
           "Transe", "Transen",
           // es / pt
-          "Travesti", "Travestis", "Trava", "Travas", "Traveco", "Travecos",
+          "Travesti", "Travestis", "Trava", "Travas", "Traveco", "Travecos", "Chica con pene", "Chicas con pene",
+          "Mujer con pene", "Chica con polla", "Chicas con polla",
           // fr / it / nl / tr
           "Travestito", "Travestiti", "Travestiet",
           // ru

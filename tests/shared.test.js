@@ -247,3 +247,14 @@ test("a few descriptive words may sit between 'black' and the clothing word", ()
   for (const t of ["black guy in stockings", "black man wearing stockings", "black cock in stockings", "black woman with long hair", "black girl in black stockings", "black very very very long stockings", "black guy"])
     assert.ok(hit(m, t), t);
 });
+
+test("trans slang compounds and phrasings are caught (full default catalog)", () => {
+  const s = kwfResolve(null);
+  const m = kwfBuildMatcher(kwfActiveTerms(s), true, kwfActiveExceptions(s));
+  for (const x of ["babecock", "Babe cock", "girlcock", "Girl-cock compilation", "femcock", "ladycock", "shecock", "girldick", "dickgirl",
+    "cuntboy", "chicks with dicks", "chix with dix", "girl with a dick", "woman with a cock", "tgirl", "T-Girl", "T girl", "transfem",
+    "Transmasc", "trans man", "transbabe", "MTF", "FTM", "kathoey", "hermaphrodite", "chica con pene", "TS Madison", "trap", "Traps", "hot trap"])
+    assert.ok(hit(m, x), x);
+  for (const x of ["babe cocktail", "girl cockatoo", "mtf", "ts", "Ts", "trapeze", "trapped", "transformer", "the girl dickens"])
+    assert.equal(hit(m, x), null, x);
+});
